@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HERICRAFT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: #2d2d2d;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image:
+                repeating-linear-gradient(45deg, #3a3a3a 0px, #3a3a3a 2px, #4a4a4a 2px, #4a4a4a 4px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* ===== Логотип ===== */
+        .logo {
+            text-align: center;
+            font-size: 3.5rem;
+            color: #f0d040;
+            text-shadow: 4px 4px 0 #3a2a0a, 6px 6px 0 #000;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            transform: translateY(80px);
+            opacity: 0;
+            animation: flyUp 1s ease-out forwards;
+            animation-delay: 0.2s;
+            letter-spacing: 6px;
+        }
+        .logo span {
+            display: inline-block;
+            background: #6b4c2a;
+            padding: 10px 30px;
+            border: 6px solid #8b6b4a;
+            box-shadow: inset 0 -6px 0 #4a3520, 0 10px 20px rgba(0,0,0,0.6);
+            transform: rotate(-2deg);
+        }
+
+        @keyframes flyUp {
+            0% { transform: translateY(120px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* ===== Меню ===== */
+        .menu-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .side-menu {
+            flex: 0 0 220px;
+            background: #8b6b4a;
+            padding: 20px 10px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -8px 0 #4a3520, 8px 8px 0 rgba(0,0,0,0.5);
+            transform: translateX(-60px);
+            opacity: 0;
+            animation: slideLeft 0.9s ease-out forwards;
+            animation-delay: 0.5s;
+            height: fit-content;
+        }
+
+        @keyframes slideLeft {
+            0% { transform: translateX(-100px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .side-menu ul {
+            list-style: none;
+        }
+
+        .side-menu li {
+            margin-bottom: 18px;
+        }
+
+        .minecraft-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 8px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background: #7a5a3a;
+            border: 4px solid #5a3a2a;
+            box-shadow: inset 0 -6px 0 #3a2a1a, 4px 4px 0 rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: all 0.05s linear;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .minecraft-btn:hover {
+            background: #9a7a5a;
+            transform: translate(2px, 2px);
+            box-shadow: inset 0 -4px 0 #3a2a1a, 2px 2px 0 rgba(0,0,0,0.4);
+        }
+
+        .minecraft-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: inset 0 -2px 0 #3a2a1a, 0px 0px 0 rgba(0,0,0,0.4);
+        }
+
+        .btn-icon {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.4rem;
+            filter: drop-shadow(2px 2px 0 #2a1a0a);
+        }
+
+        /* ===== Контент ===== */
+        .content {
+            flex: 1;
+            background: rgba(60, 60, 60, 0.7);
+            padding: 30px 25px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -6px 0 #3a2a1a, 8px 8px 0 rgba(0,0,0,0.5);
+            backdrop-filter: blur(2px);
+            transform: scale(0.95);
+            opacity: 0;
+            animation: scaleIn 0.8s ease-out forwards;
+            animation-delay: 0.7s;
+            min-height: 400px;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .content h2 {
+            font-size: 1.8rem;
+            color: #f0d040;
+            text-shadow: 3px 3px 0 #3a2a0a;
+            margin-bottom: 20px;
+            border-bottom: 4px solid #6b4c2a;
+            padding-bottom: 12px;
+        }
+
+        .content p {
+            line-height: 2;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        .content .info-block {
+            background: #4a4a4a;
+            padding: 20px;
+            border: 4px solid #5a5a5a;
+            margin-top: 20px;
+            box-shadow: inset 0 -4px 0 #2a2a2a;
+        }
+
+        /* ===== Ресурс-пак (карточка) ===== */
+        .resource-pack-card {
+            background: #4a4a4a;
+            padding: 25px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
+            margin: 20px 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .resource-pack-card .pack-info {
+            flex: 2;
+            min-width: 200px;
+        }
+
+        .resource-pack-card .pack-info h3 {
+            color: #f0d040;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .resource-pack-card .pack-info p {
+            font-size: 0.75rem;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .resource-pack-card .pack-download {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 16px 30px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            color: #fff;
+            background: #3a8a3a;
+            border: 6px solid #2a6a2a;
+            box-shadow: inset 0 -8px 0 #1a4a1a, 6px 6px 0 rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: all 0.05s linear;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .download-btn:hover {
+            background: #4a9a4a;
+            transform: translate(2px, 2px);
+            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.5);
+        }
+
+        .download-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: inset 0 -4px 0 #1a4a1a, 2px 2px 0 rgba(0,0,0,0.5);
+        }
+
+        /* ===== Соцсети ===== */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-item {
+            background: #4a4a4a;
+            padding: 20px 15px;
+            text-align: center;
+            border: 4px solid #5a5a5a;
+            box-shadow: inset 0 -4px 0 #2a2a2a;
+            transition: 0.1s linear;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .social-item:hover {
+            transform: scale(1.05);
+            background: #5a5a5a;
+        }
+
+        .social-item .social-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .social-item a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* ===== Футер ===== */
+        .footer-info {
+            margin-top: 50px;
+            padding: 30px 20px;
+            background: #3a3a3a;
+            border: 6px solid #5a3a2a;
+            box-shadow: inset 0 -6px 0 #1a1a1a;
+            transform: translateY(40px);
+            opacity: 0;
+            animation: flyUp 1s ease-out forwards;
+            animation-delay: 1.2s;
+        }
+
+        .footer-info h3 {
+            color: #f0d040;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-info p {
+            font-size: 0.75rem;
+            line-height: 1.8;
+            color: #bbb;
+        }
+
+        /* ===== Скрытые секции ===== */
+        .page-section {
+            display: none;
+        }
+        .page-section.active {
+            display: block;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        /* ===== Адаптив ===== */
+        @media (max-width: 700px) {
+            .menu-wrapper {
+                flex-direction: column;
+            }
+            .side-menu {
+                flex: 1;
+                transform: translateY(-30px);
+                animation: slideLeft 0.9s ease-out forwards;
+            }
+            .logo {
+                font-size: 2rem;
+            }
+            .content h2 {
+                font-size: 1.2rem;
+            }
+            .minecraft-btn {
+                font-size: 0.65rem;
+                padding: 12px 6px;
+            }
+            .resource-pack-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Логотип -->
+    <div class="logo">
+        <span>⛏️ HERICRAFT</span>
+    </div>
+
+    <!-- Меню + контент -->
+    <div class="menu-wrapper">
+
+        <!-- Боковое меню -->
+        <nav class="side-menu">
+            <ul>
+                <li>
+                    <button class="minecraft-btn" data-page="home">
+                        <span class="btn-icon">🏠</span> Главная
+                    </button>
+                </li>
+                <li>
+                    <button class="minecraft-btn" data-page="social">
+                        <span class="btn-icon">📱</span> Соцсети
+                    </button>
+                </li>
+                <li>
+                    <button class="minecraft-btn" data-page="packs">
+                        <span class="btn-icon">📦</span> Ресурс-паки
+                    </button>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Контент -->
+        <main class="content">
+
+            <!-- ГЛАВНАЯ -->
+            <div id="home" class="page-section active">
+                <h2>🏹 Добро пожаловать на HeriCraft!</h2>
+                <p>
+                    Лучший Minecraft сервер для настоящих героев!
+                </p>
+                <div class="info-block">
+                    <p>⛏️ <strong>IP сервера:</strong> mc.hericraft.ru</p>
+                    <p>⚡ <strong>Версия:</strong> 1.21.4</p>
+                </div>
+                <p style="margin-top:20px;">
+                    Присоединяйся к нам и становись частью легенды!
+                </p>
+            </div>
+
+            <!-- СОЦСЕТИ -->
+            <div id="social" class="page-section">
+                <h2>📱 Наши соцсети</h2>
+                <p>Подписывайся и будь в курсе всех событий:</p>
+                <div class="social-grid">
+                    <!-- TikTok -->
+                    <div class="social-item" onclick="window.open('https://www.tiktok.com/@hericraft', '_blank')">
+                        <span class="social-icon">📹</span>
+                        <strong>TikTok</strong>
+                        <p style="font-size:0.6rem; margin-top:8px;">@hericraft</p>
+                    </div>
+                    
+                    <!-- Telegram -->
+                    <div class="social-item" onclick="window.open('https://t.me/hericraft_chat', '_blank')">
+                        <span class="social-icon">💬</span>
+                        <strong>Telegram</strong>
+                        <p style="font-size:0.6rem; margin-top:8px;">@hericraft_chat</p>
+                    </div>
+                    
+                    <!-- Discord -->
+                    <div class="social-item" onclick="window.open('https://discord.gg/hericraft', '_blank')">
+                        <span class="social-icon">🎮</span>
+                        <strong>Discord</strong>
+                        <p style="font-size:0.6rem; margin-top:8px;">discord.gg/hericraft</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- РЕСУРС-ПАКИ -->
+            <div id="packs" class="page-section">
+                <h2>📦 Ресурс-паки</h2>
+                <p>Скачивай наш официальный ресурс-пак для полного погружения!</p>
+
+                <!-- Карточка ресурс-пака -->
+                <div class="resource-pack-card">
+                    <div class="pack-info">
+                        <h3>🎨 HeriCraft Resource Pack</h3>
+                        <p>
+                            <strong>Совместимость:</strong> 1.21.4
+                        </p>
+                    </div>
+                    <div class="pack-download">
+                        <!-- Кнопка скачивания -->
+                        <a href="#" class="download-btn" id="downloadPack">
+                            ⬇ Скачать
+                        </a>
+                        <p style="font-size:0.5rem; margin-top:10px; color:#aaa;">
+                            ZIP-архив
+                        </p>
+                    </div>
+                </div>
+
+                <p style="font-size:0.7rem; color:#aaa; margin-top:10px;">
+                    * Установи ресурс-пак в папку resourcepacks и активируй в игре.
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Футер -->
+    <div class="footer-info">
+        <h3>📜 О сервере HeriCraft</h3>
+        <p>
+            HeriCraft — это уникальный Minecraft сервер с захватывающими приключениями,
+            кастомными квестами и дружным сообществом. Мы создаём мир, где каждый может стать героем!
+        </p>
+        <p style="margin-top: 15px; font-size: 0.6rem; color: #888;">
+            © 2026 HeriCraft. Все права защищены. Made with ⛏️ and ❤️.
+        </p>
+    </div>
+
+</div>
+
+<!-- ===== СКРИПТ ===== -->
+<script>
+    (function() {
+        // Переключение страниц
+        const buttons = document.querySelectorAll('.minecraft-btn');
+        const sections = document.querySelectorAll('.page-section');
+
+        function switchPage(pageId) {
+            sections.forEach(sec => sec.classList.remove('active'));
+            const target = document.getElementById(pageId);
+            if (target) {
+                target.classList.add('active');
+            }
+        }
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const page = this.dataset.page;
+                if (page) {
+                    switchPage(page);
+                }
+            });
+        });
+
+        // Скачивание ресурс-пака
+        const downloadBtn = document.getElementById('downloadPack');
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Файл лежит в той же папке, что и index.html
+                // ЗДЕСЬ МЕНЯЙТЕ НАЗВАНИЕ ВАШЕГО ZIP-ФАЙЛА
+                const fileUrl = 'hericraft-resourcepack.zip';
+                
+                const link = document.createElement('a');
+                link.href = fileUrl;
+                link.download = 'hericraft-resourcepack.zip';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+
+        // По умолчанию показываем "Главную"
+        switchPage('home');
+    })();
+</script>
+
+</body>
+</html>
