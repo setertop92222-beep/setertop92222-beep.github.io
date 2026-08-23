@@ -29,7 +29,6 @@
             position: relative;
         }
 
-        /* ===== Логотип ===== */
         .logo {
             text-align: center;
             font-size: 3.5rem;
@@ -57,7 +56,6 @@
             100% { transform: translateY(0); opacity: 1; }
         }
 
-        /* ===== Меню ===== */
         .menu-wrapper {
             display: flex;
             flex-direction: row;
@@ -128,7 +126,6 @@
             filter: drop-shadow(2px 2px 0 #2a1a0a);
         }
 
-        /* ===== Контент ===== */
         .content {
             flex: 1;
             background: rgba(60, 60, 60, 0.7);
@@ -172,7 +169,6 @@
             box-shadow: inset 0 -4px 0 #2a2a2a;
         }
 
-        /* ===== Ресурс-пак (карточка) ===== */
         .resource-pack-card {
             background: #4a4a4a;
             padding: 25px;
@@ -215,27 +211,16 @@
             font-family: 'Press Start 2P', cursive;
             font-size: 0.9rem;
             color: #fff;
-            background: #3a8a3a;
-            border: 6px solid #2a6a2a;
-            box-shadow: inset 0 -8px 0 #1a4a1a, 6px 6px 0 rgba(0,0,0,0.5);
-            cursor: pointer;
+            background: #8a8a3a;
+            border: 6px solid #6a6a2a;
+            box-shadow: inset 0 -8px 0 #4a4a1a, 6px 6px 0 rgba(0,0,0,0.5);
+            cursor: not-allowed;
             transition: all 0.05s linear;
             text-decoration: none;
             text-transform: uppercase;
+            opacity: 0.6;
         }
 
-        .download-btn:hover {
-            background: #4a9a4a;
-            transform: translate(2px, 2px);
-            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.5);
-        }
-
-        .download-btn:active {
-            transform: translate(4px, 4px);
-            box-shadow: inset 0 -4px 0 #1a4a1a, 2px 2px 0 rgba(0,0,0,0.5);
-        }
-
-        /* ===== Соцсети ===== */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -265,13 +250,6 @@
             margin-bottom: 10px;
         }
 
-        .social-item a {
-            color: #fff;
-            text-decoration: none;
-            display: block;
-        }
-
-        /* ===== Футер ===== */
         .footer-info {
             margin-top: 50px;
             padding: 30px 20px;
@@ -296,7 +274,6 @@
             color: #bbb;
         }
 
-        /* ===== Скрытые секции ===== */
         .page-section {
             display: none;
         }
@@ -305,7 +282,6 @@
             animation: scaleIn 0.5s ease-out;
         }
 
-        /* ===== Адаптив ===== */
         @media (max-width: 700px) {
             .menu-wrapper {
                 flex-direction: column;
@@ -336,15 +312,12 @@
 
 <div class="container">
 
-    <!-- Логотип -->
     <div class="logo">
         <span>⛏️ HERICRAFT</span>
     </div>
 
-    <!-- Меню + контент -->
     <div class="menu-wrapper">
 
-        <!-- Боковое меню -->
         <nav class="side-menu">
             <ul>
                 <li>
@@ -365,10 +338,8 @@
             </ul>
         </nav>
 
-        <!-- Контент -->
         <main class="content">
 
-            <!-- ГЛАВНАЯ -->
             <div id="home" class="page-section active">
                 <h2>🏹 Добро пожаловать на HeriCraft!</h2>
                 <p>
@@ -383,30 +354,26 @@
                 </p>
             </div>
 
-            <!-- СОЦСЕТИ -->
             <div id="social" class="page-section">
                 <h2>📱 Наши соцсети</h2>
                 <p>Подписывайся и будь в курсе всех событий:</p>
                 <div class="social-grid">
-                    <!-- TikTok -->
-                    <div class="social-item" onclick="window.open('https://www.tiktok.com/@hericraft', '_blank')">
+                    <div class="social-item" onclick="window.open('https://www.tiktok.com/@hericraft_minecraft?_r=1&_t=ZS-9988WUjU1jA', '_blank')">
                         <span class="social-icon">📹</span>
                         <strong>TikTok</strong>
-                        <p style="font-size:0.6rem; margin-top:8px;">@hericraft</p>
+                        <p style="font-size:0.6rem; margin-top:8px;">@hericraft_minecraft</p>
                     </div>
                     
-                    <!-- Telegram -->
-                    <div class="social-item" onclick="window.open('https://t.me/hericraft_chat', '_blank')">
+                    <div class="social-item" onclick="window.open('https://t.me/HeriCraft_groups', '_blank')">
                         <span class="social-icon">💬</span>
                         <strong>Telegram</strong>
-                        <p style="font-size:0.6rem; margin-top:8px;">@hericraft_chat</p>
+                        <p style="font-size:0.6rem; margin-top:8px;">@hericraft_groups</p>
                     </div>
                     
-                    <!-- Discord -->
-                    <div class="social-item" onclick="window.open('https://discord.gg/hericraft', '_blank')">
+                    <div class="social-item" onclick="window.open('https://discord.gg/H2daUkrrQ', '_blank')">
                         <span class="social-icon">🎮</span>
                         <strong>Discord</strong>
-                        <p style="font-size:0.6rem; margin-top:8px;">discord.gg/hericraft</p>
+                        <p style="font-size:0.6rem; margin-top:8px;">@hericraftеры</p>
                     </div>
                 </div>
             </div>
@@ -416,7 +383,6 @@
                 <h2>📦 Ресурс-паки</h2>
                 <p>Скачивай наш официальный ресурс-пак для полного погружения!</p>
 
-                <!-- Карточка ресурс-пака -->
                 <div class="resource-pack-card">
                     <div class="pack-info">
                         <h3>🎨 HeriCraft Resource Pack</h3>
@@ -425,12 +391,11 @@
                         </p>
                     </div>
                     <div class="pack-download">
-                        <!-- Кнопка скачивания -->
-                        <a href="#" class="download-btn" id="downloadPack">
-                            ⬇ Скачать
-                        </a>
+                        <button class="download-btn" disabled>
+                            ⬇ Скоро
+                        </button>
                         <p style="font-size:0.5rem; margin-top:10px; color:#aaa;">
-                            ZIP-архив
+                            ZIP-архив готовится
                         </p>
                     </div>
                 </div>
@@ -442,21 +407,19 @@
         </main>
     </div>
 
-    <!-- Футер -->
     <div class="footer-info">
         <h3>📜 О сервере HeriCraft</h3>
         <p>
             HeriCraft — это уникальный Minecraft сервер с захватывающими приключениями,
-            кастомными квестами и дружным сообществом. Мы создаём мир, где каждый может стать героем!
+            и дружным сообществом. Мы создаём мир, где каждый может стать героем!
         </p>
         <p style="margin-top: 15px; font-size: 0.6rem; color: #888;">
-            © 2026 HeriCraft. Все права защищены. Made with ⛏️ and ❤️.
+            © 2026 HeriCraft. Все права защищены.
         </p>
     </div>
 
 </div>
 
-<!-- ===== СКРИПТ ===== -->
 <script>
     (function() {
         // Переключение страниц
@@ -479,25 +442,6 @@
                 }
             });
         });
-
-        // Скачивание ресурс-пака
-        const downloadBtn = document.getElementById('downloadPack');
-        if (downloadBtn) {
-            downloadBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Файл лежит в той же папке, что и index.html
-                // ЗДЕСЬ МЕНЯЙТЕ НАЗВАНИЕ ВАШЕГО ZIP-ФАЙЛА
-                const fileUrl = 'hericraft.zip';
-                
-                const link = document.createElement('a');
-                link.href = fileUrl;
-                link.download = 'hericraft-resourcepack.zip';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            });
-        }
 
         // По умолчанию показываем "Главную"
         switchPage('home');
