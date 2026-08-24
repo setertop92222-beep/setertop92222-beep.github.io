@@ -211,14 +211,24 @@
             font-family: 'Press Start 2P', cursive;
             font-size: 0.9rem;
             color: #fff;
-            background: #8a8a3a;
-            border: 6px solid #6a6a2a;
-            box-shadow: inset 0 -8px 0 #4a4a1a, 6px 6px 0 rgba(0,0,0,0.5);
-            cursor: not-allowed;
+            background: #3a8a3a;
+            border: 6px solid #2a6a2a;
+            box-shadow: inset 0 -8px 0 #1a4a1a, 6px 6px 0 rgba(0,0,0,0.5);
+            cursor: pointer;
             transition: all 0.05s linear;
             text-decoration: none;
             text-transform: uppercase;
-            opacity: 0.6;
+        }
+
+        .download-btn:hover {
+            background: #4a9a4a;
+            transform: translate(2px, 2px);
+            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.5);
+        }
+
+        .download-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: inset 0 -4px 0 #1a4a1a, 2px 2px 0 rgba(0,0,0,0.5);
         }
 
         .social-grid {
@@ -391,11 +401,14 @@
                         </p>
                     </div>
                     <div class="pack-download">
-                        <button class="download-btn" disabled>
-                            ⬇ Скоро
-                        </button>
+                        <!-- АКТИВНАЯ КНОПКА С ПРАВИЛЬНОЙ ССЫЛКОЙ -->
+                        <a href="https://github.com/setertop92222-beep/setertop92222-beep.github.io/raw/refs/heads/main/HeriCraft.zip" 
+                           class="download-btn" 
+                           target="_blank">
+                            ⬇ Скачать
+                        </a>
                         <p style="font-size:0.5rem; margin-top:10px; color:#aaa;">
-                            ZIP-архив готовится
+                            ZIP-архив
                         </p>
                     </div>
                 </div>
