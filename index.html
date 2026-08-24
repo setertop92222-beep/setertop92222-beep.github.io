@@ -6,6 +6,7 @@
     <title>HERICRAFT</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <style>
+        /* ===== ОСНОВНЫЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -56,88 +57,39 @@
             100% { transform: translateY(0); opacity: 1; }
         }
 
-        .menu-wrapper {
-            display: flex;
-            flex-direction: row;
-            gap: 30px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .side-menu {
-            flex: 0 0 220px;
-            background: #8b6b4a;
-            padding: 20px 10px;
-            border: 6px solid #6b4c2a;
-            box-shadow: inset 0 -8px 0 #4a3520, 8px 8px 0 rgba(0,0,0,0.5);
-            transform: translateX(-60px);
-            opacity: 0;
-            animation: slideLeft 0.9s ease-out forwards;
-            animation-delay: 0.5s;
-            height: fit-content;
-        }
-
-        @keyframes slideLeft {
-            0% { transform: translateX(-100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-
-        .side-menu ul {
-            list-style: none;
-        }
-
-        .side-menu li {
-            margin-bottom: 18px;
-        }
-
-        .minecraft-btn {
-            display: block;
+        /* ===== ЭКРАН ВВОДА НИКА ===== */
+        .nickname-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 14px 8px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-            background: #7a5a3a;
-            border: 4px solid #5a3a2a;
-            box-shadow: inset 0 -6px 0 #3a2a1a, 4px 4px 0 rgba(0,0,0,0.4);
-            cursor: pointer;
-            transition: all 0.05s linear;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease-out;
         }
 
-        .minecraft-btn:hover {
-            background: #9a7a5a;
-            transform: translate(2px, 2px);
-            box-shadow: inset 0 -4px 0 #3a2a1a, 2px 2px 0 rgba(0,0,0,0.4);
+        .nickname-screen.hidden {
+            display: none;
         }
 
-        .minecraft-btn:active {
-            transform: translate(4px, 4px);
-            box-shadow: inset 0 -2px 0 #3a2a1a, 0px 0px 0 rgba(0,0,0,0.4);
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
-        .btn-icon {
-            display: inline-block;
-            margin-right: 10px;
-            font-size: 1.4rem;
-            filter: drop-shadow(2px 2px 0 #2a1a0a);
-        }
-
-        .content {
-            flex: 1;
-            background: rgba(60, 60, 60, 0.7);
-            padding: 30px 25px;
+        .nickname-box {
+            background: #3a3a3a;
+            padding: 40px;
             border: 6px solid #6b4c2a;
-            box-shadow: inset 0 -6px 0 #3a2a1a, 8px 8px 0 rgba(0,0,0,0.5);
-            backdrop-filter: blur(2px);
-            transform: scale(0.95);
-            opacity: 0;
-            animation: scaleIn 0.8s ease-out forwards;
-            animation-delay: 0.7s;
-            min-height: 400px;
+            box-shadow: inset 0 -6px 0 #2a2a2a, 12px 12px 0 rgba(0,0,0,0.5);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            animation: scaleIn 0.5s ease-out;
         }
 
         @keyframes scaleIn {
@@ -145,208 +97,486 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .content h2 {
-            font-size: 1.8rem;
-            color: #f0d040;
-            text-shadow: 3px 3px 0 #3a2a0a;
-            margin-bottom: 20px;
-            border-bottom: 4px solid #6b4c2a;
-            padding-bottom: 12px;
-        }
-
-        .content p {
-            line-height: 2;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-            color: #ddd;
-        }
-
-        .content .info-block {
-            background: #4a4a4a;
-            padding: 20px;
-            border: 4px solid #5a5a5a;
-            margin-top: 20px;
-            box-shadow: inset 0 -4px 0 #2a2a2a;
-        }
-
-        .resource-pack-card {
-            background: #4a4a4a;
-            padding: 25px;
-            border: 6px solid #6b4c2a;
-            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
-            margin: 20px 0;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .resource-pack-card .pack-info {
-            flex: 2;
-            min-width: 200px;
-        }
-
-        .resource-pack-card .pack-info h3 {
+        .nickname-box h2 {
             color: #f0d040;
             font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-
-        .resource-pack-card .pack-info p {
-            font-size: 0.75rem;
-            line-height: 1.8;
             margin-bottom: 10px;
         }
 
-        .resource-pack-card .pack-download {
-            flex: 1;
-            min-width: 150px;
+        .nickname-box p {
+            color: #aaa;
+            font-size: 0.6rem;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .nickname-box input {
+            width: 100%;
+            padding: 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            background: #2a2a2a;
+            border: 4px solid #5a5a5a;
+            color: #fff;
+            box-shadow: inset 0 -4px 0 #1a1a1a;
+            margin-bottom: 20px;
             text-align: center;
         }
 
-        .download-btn {
-            display: inline-block;
-            padding: 16px 30px;
+        .nickname-box input:focus {
+            outline: none;
+            border-color: #f0d040;
+        }
+
+        .nickname-box .submit-btn {
+            width: 100%;
+            padding: 16px;
             font-family: 'Press Start 2P', cursive;
             font-size: 0.9rem;
             color: #fff;
             background: #3a8a3a;
-            border: 6px solid #2a6a2a;
-            box-shadow: inset 0 -8px 0 #1a4a1a, 6px 6px 0 rgba(0,0,0,0.5);
+            border: 4px solid #2a6a2a;
+            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.4);
             cursor: pointer;
             transition: all 0.05s linear;
-            text-decoration: none;
             text-transform: uppercase;
         }
 
-        .download-btn:hover {
+        .nickname-box .submit-btn:hover {
             background: #4a9a4a;
             transform: translate(2px, 2px);
-            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.5);
         }
 
-        .download-btn:active {
-            transform: translate(4px, 4px);
-            box-shadow: inset 0 -4px 0 #1a4a1a, 2px 2px 0 rgba(0,0,0,0.5);
+        .nickname-box .error-msg {
+            color: #f88;
+            font-size: 0.6rem;
+            margin-top: 10px;
+            display: none;
         }
 
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .social-item {
-            background: #4a4a4a;
-            padding: 20px 15px;
-            text-align: center;
-            border: 4px solid #5a5a5a;
-            box-shadow: inset 0 -4px 0 #2a2a2a;
-            transition: 0.1s linear;
-            font-size: 0.75rem;
-            cursor: pointer;
-        }
-
-        .social-item:hover {
-            transform: scale(1.05);
-            background: #5a5a5a;
-        }
-
-        .social-item .social-icon {
-            font-size: 2.5rem;
+        .nickname-box .error-msg.show {
             display: block;
-            margin-bottom: 10px;
         }
 
-        .rules-container {
-            background: #4a4a4a;
-            padding: 25px;
-            border: 6px solid #6b4c2a;
-            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
-            margin-top: 20px;
+        /* ===== КРУЖОК ===== */
+        .user-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
         }
 
-        .rules-container .rules-list {
-            list-style: none;
-            padding: 0;
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #6b4c2a;
+            border: 4px solid #8b6b4a;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .rules-container .rules-list li {
-            padding: 12px 0;
-            border-bottom: 2px solid #5a5a5a;
-            font-size: 0.7rem;
-            line-height: 2;
-            color: #ddd;
-        }
-
-        .rules-container .rules-list li::before {
-            content: "▸ ";
-            color: #f0d040;
-        }
-
-        .rules-container .rules-list li:last-child {
-            border-bottom: none;
-        }
-
-        .builds-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .build-card {
-            background: #4a4a4a;
-            padding: 25px;
-            border: 6px solid #6b4c2a;
-            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
-            transition: 0.2s ease;
-            text-align: center;
-        }
-
-        .build-card:hover {
-            transform: translateY(-5px);
+        .user-avatar:hover {
+            transform: scale(1.1);
             border-color: #f0d040;
         }
 
-        .build-card .build-icon {
-            font-size: 4rem;
-            display: block;
-            margin-bottom: 15px;
+        .user-avatar .status-dot {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid #2d2d2d;
         }
 
-        .build-card h3 {
-            color: #f0d040;
-            font-size: 1rem;
+        .user-avatar .status-dot.online {
+            background: #3a8a3a;
+        }
+
+        .user-avatar .status-dot.offline {
+            background: #8a3a3a;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: #4a4a4a;
+            border: 4px solid #6b4c2a;
+            box-shadow: inset 0 -4px 0 #2a2a2a, 8px 8px 0 rgba(0,0,0,0.5);
+            min-width: 200px;
+            display: none;
+            padding: 10px 0;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .dropdown-menu .user-info {
+            padding: 10px 20px;
+            border-bottom: 2px solid #5a5a5a;
             margin-bottom: 10px;
         }
 
-        .build-card p {
-            font-size: 0.65rem;
-            line-height: 1.8;
-            color: #bbb;
-            margin-bottom: 15px;
+        .dropdown-menu .user-info .username {
+            color: #f0d040;
+            font-size: 0.7rem;
         }
 
-        .build-card .build-version {
-            display: inline-block;
-            padding: 5px 15px;
-            background: #3a3a3a;
-            border: 2px solid #5a5a5a;
+        .dropdown-menu .user-info .user-role {
+            color: #888;
             font-size: 0.5rem;
+            margin-top: 3px;
+        }
+
+        .dropdown-menu .menu-item {
+            padding: 12px 20px;
+            font-size: 0.6rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dropdown-menu .menu-item:hover {
+            background: #5a5a5a;
+            color: #fff;
+        }
+
+        .dropdown-menu .menu-item .item-icon {
+            margin-right: 10px;
+        }
+
+        .dropdown-menu .menu-item.danger {
+            color: #f88;
+        }
+
+        .dropdown-menu .menu-item.danger:hover {
+            background: #6a2a2a;
+        }
+
+        /* ===== МОДАЛЬНОЕ ОКНО ПАРОЛЯ ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #3a3a3a;
+            padding: 30px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -6px 0 #2a2a2a, 12px 12px 0 rgba(0,0,0,0.5);
+            max-width: 400px;
+            width: 100%;
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        .modal-content h2 {
+            color: #f0d040;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border-bottom: 4px solid #6b4c2a;
+            padding-bottom: 12px;
+            text-align: center;
+        }
+
+        .modal-content label {
+            display: block;
+            font-size: 0.7rem;
+            margin-bottom: 8px;
+            color: #ddd;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            background: #2a2a2a;
+            border: 4px solid #5a5a5a;
+            color: #fff;
+            box-shadow: inset 0 -4px 0 #1a1a1a;
+        }
+
+        .modal-content input:focus {
+            outline: none;
+            border-color: #f0d040;
+        }
+
+        .modal-content .submit-btn {
+            width: 100%;
+            padding: 14px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            color: #fff;
+            background: #3a8a3a;
+            border: 4px solid #2a6a2a;
+            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: all 0.05s linear;
+            text-transform: uppercase;
+        }
+
+        .modal-content .submit-btn:hover {
+            background: #4a9a4a;
+            transform: translate(2px, 2px);
+        }
+
+        .modal-content .modal-message {
+            margin-top: 15px;
+            padding: 10px;
+            font-size: 0.6rem;
+            display: none;
+        }
+
+        .modal-content .modal-message.success {
+            display: block;
+            background: #1a4a1a;
+            border: 2px solid #3a8a3a;
             color: #8f8;
+        }
+
+        .modal-content .modal-message.error {
+            display: block;
+            background: #4a1a1a;
+            border: 2px solid #8a3a3a;
+            color: #f88;
+        }
+
+        /* ===== АДМИН ПАНЕЛЬ ===== */
+        .admin-panel {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            min-height: 500px;
+        }
+
+        .admin-sidebar {
+            flex: 0 0 280px;
+            background: #4a4a4a;
+            padding: 20px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .admin-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .admin-sidebar::-webkit-scrollbar-track {
+            background: #2a2a2a;
+        }
+        .admin-sidebar::-webkit-scrollbar-thumb {
+            background: #6b4c2a;
+            border: 2px solid #4a3520;
+        }
+
+        .admin-sidebar h3 {
+            color: #f0d040;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            border-bottom: 4px solid #6b4c2a;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-sidebar .app-item {
+            padding: 12px 15px;
+            background: #3a3a3a;
+            border: 4px solid #5a5a5a;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.6rem;
+        }
+
+        .admin-sidebar .app-item:hover {
+            border-color: #f0d040;
+            background: #4a4a4a;
+        }
+
+        .admin-sidebar .app-item.active {
+            border-color: #f0d040;
+            background: #4a4a4a;
+            box-shadow: 0 0 20px rgba(240, 208, 64, 0.2);
+        }
+
+        .admin-sidebar .app-item .app-nick {
+            color: #f0d040;
+            font-size: 0.7rem;
+        }
+
+        .admin-sidebar .app-item .app-time {
+            color: #888;
+            font-size: 0.5rem;
+            margin-top: 5px;
+        }
+
+        .admin-sidebar .app-item .app-status {
+            display: inline-block;
+            padding: 2px 10px;
+            font-size: 0.4rem;
+            margin-top: 5px;
+            border: 2px solid;
+        }
+
+        .app-status.pending {
+            background: #6a5a2a;
+            border-color: #8a7a3a;
+            color: #ff8;
+        }
+
+        .app-status.accepted {
+            background: #2a6a2a;
+            border-color: #3a8a3a;
+            color: #8f8;
+        }
+
+        .app-status.denied {
+            background: #6a2a2a;
+            border-color: #8a3a3a;
+            color: #f88;
+        }
+
+        .admin-main {
+            flex: 1;
+            background: #4a4a4a;
+            padding: 25px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
+            min-height: 400px;
+        }
+
+        .admin-main .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            color: #888;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .admin-main .empty-state .big-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .admin-main .app-detail .detail-nick {
+            color: #f0d040;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .admin-main .app-detail .detail-time {
+            color: #888;
+            font-size: 0.6rem;
             margin-bottom: 15px;
         }
 
+        .admin-main .app-detail .detail-reason {
+            background: #3a3a3a;
+            padding: 15px;
+            border: 4px solid #5a5a5a;
+            font-size: 0.7rem;
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        .admin-main .app-detail .detail-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .admin-main .app-detail .detail-actions .action-btn {
+            padding: 14px 30px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: #fff;
+            border: 4px solid;
+            cursor: pointer;
+            transition: all 0.05s linear;
+            text-transform: uppercase;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .admin-main .app-detail .detail-actions .action-btn.accept {
+            background: #3a8a3a;
+            border-color: #2a6a2a;
+            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.4);
+        }
+
+        .admin-main .app-detail .detail-actions .action-btn.accept:hover {
+            background: #4a9a4a;
+            transform: translate(2px, 2px);
+        }
+
+        .admin-main .app-detail .detail-actions .action-btn.deny {
+            background: #8a3a3a;
+            border-color: #6a2a2a;
+            box-shadow: inset 0 -6px 0 #4a1a1a, 4px 4px 0 rgba(0,0,0,0.4);
+        }
+
+        .admin-main .app-detail .detail-actions .action-btn.deny:hover {
+            background: #9a4a4a;
+            transform: translate(2px, 2px);
+        }
+
+        .admin-main .app-detail .detail-actions .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ===== ДИАЛОГ ЗАЯВКИ ===== */
         .dialog-container {
             background: #4a4a4a;
             padding: 30px;
             border: 6px solid #6b4c2a;
             box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
             margin-top: 20px;
-            min-height: 300px;
+            min-height: 250px;
             position: relative;
         }
 
@@ -413,11 +643,6 @@
             box-shadow: inset 0 -4px 0 #3a2a1a, 2px 2px 0 rgba(0,0,0,0.4);
         }
 
-        .dialog-btn:active {
-            transform: translate(4px, 4px);
-            box-shadow: inset 0 -2px 0 #3a2a1a, 0px 0px 0 rgba(0,0,0,0.4);
-        }
-
         .dialog-btn.primary {
             background: #3a8a3a;
             border-color: #2a6a2a;
@@ -438,14 +663,253 @@
             background: #9a4a4a;
         }
 
-        .dialog-btn.info {
-            background: #3a6a8a;
-            border-color: #2a4a6a;
-            box-shadow: inset 0 -6px 0 #1a2a4a, 4px 4px 0 rgba(0,0,0,0.4);
+        /* ===== МЕНЮ ===== */
+        .menu-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
         }
 
-        .dialog-btn.info:hover {
-            background: #4a7a9a;
+        .side-menu {
+            flex: 0 0 220px;
+            background: #8b6b4a;
+            padding: 20px 10px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -8px 0 #4a3520, 8px 8px 0 rgba(0,0,0,0.5);
+            transform: translateX(-60px);
+            opacity: 0;
+            animation: slideLeft 0.9s ease-out forwards;
+            animation-delay: 0.5s;
+            height: fit-content;
+        }
+
+        @keyframes slideLeft {
+            0% { transform: translateX(-100px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .side-menu ul {
+            list-style: none;
+        }
+
+        .side-menu li {
+            margin-bottom: 18px;
+        }
+
+        .minecraft-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 8px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background: #7a5a3a;
+            border: 4px solid #5a3a2a;
+            box-shadow: inset 0 -6px 0 #3a2a1a, 4px 4px 0 rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: all 0.05s linear;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .minecraft-btn:hover {
+            background: #9a7a5a;
+            transform: translate(2px, 2px);
+            box-shadow: inset 0 -4px 0 #3a2a1a, 2px 2px 0 rgba(0,0,0,0.4);
+        }
+
+        .minecraft-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: inset 0 -2px 0 #3a2a1a, 0px 0px 0 rgba(0,0,0,0.4);
+        }
+
+        .btn-icon {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.2rem;
+            filter: drop-shadow(2px 2px 0 #2a1a0a);
+        }
+
+        .content {
+            flex: 1;
+            background: rgba(60, 60, 60, 0.7);
+            padding: 30px 25px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -6px 0 #3a2a1a, 8px 8px 0 rgba(0,0,0,0.5);
+            backdrop-filter: blur(2px);
+            transform: scale(0.95);
+            opacity: 0;
+            animation: scaleIn 0.8s ease-out forwards;
+            animation-delay: 0.7s;
+            min-height: 400px;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .content h2 {
+            font-size: 1.5rem;
+            color: #f0d040;
+            text-shadow: 3px 3px 0 #3a2a0a;
+            margin-bottom: 20px;
+            border-bottom: 4px solid #6b4c2a;
+            padding-bottom: 12px;
+        }
+
+        .content p {
+            line-height: 2;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        .content .info-block {
+            background: #4a4a4a;
+            padding: 20px;
+            border: 4px solid #5a5a5a;
+            margin-top: 20px;
+            box-shadow: inset 0 -4px 0 #2a2a2a;
+        }
+
+        .builds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .build-card {
+            background: #4a4a4a;
+            padding: 25px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
+            text-align: center;
+            transition: 0.2s ease;
+        }
+
+        .build-card:hover {
+            transform: translateY(-5px);
+            border-color: #f0d040;
+        }
+
+        .build-card .build-icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .build-card h3 {
+            color: #f0d040;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .build-card p {
+            font-size: 0.6rem;
+            line-height: 1.8;
+            color: #bbb;
+            margin-bottom: 15px;
+        }
+
+        .build-card .build-version {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #3a3a3a;
+            border: 2px solid #5a5a5a;
+            font-size: 0.5rem;
+            color: #8f8;
+            margin-bottom: 15px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: #fff;
+            background: #3a8a3a;
+            border: 4px solid #2a6a2a;
+            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: all 0.05s linear;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .download-btn:hover {
+            background: #4a9a4a;
+            transform: translate(2px, 2px);
+        }
+
+        .resource-pack-card {
+            background: #4a4a4a;
+            padding: 25px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
+            margin: 20px 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .resource-pack-card .pack-info {
+            flex: 2;
+            min-width: 200px;
+        }
+
+        .resource-pack-card .pack-info h3 {
+            color: #f0d040;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .resource-pack-card .pack-info p {
+            font-size: 0.7rem;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .resource-pack-card .pack-download {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-item {
+            background: #4a4a4a;
+            padding: 20px 15px;
+            text-align: center;
+            border: 4px solid #5a5a5a;
+            box-shadow: inset 0 -4px 0 #2a2a2a;
+            transition: 0.1s linear;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+
+        .social-item:hover {
+            transform: scale(1.05);
+            background: #5a5a5a;
+        }
+
+        .social-item .social-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
         }
 
         .message {
@@ -453,7 +917,7 @@
             margin-top: 20px;
             border: 4px solid;
             display: none;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             animation: scaleIn 0.5s ease-out;
         }
 
@@ -478,59 +942,6 @@
             color: #8cf;
         }
 
-        .message.warning {
-            display: block;
-            background: #6a5a2a;
-            border-color: #8a7a3a;
-            color: #ff8;
-        }
-
-        /* ===== СТАТУС TELEGRAM ===== */
-        .telegram-status {
-            padding: 12px 20px;
-            margin-top: 15px;
-            border: 4px solid;
-            font-size: 0.65rem;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .telegram-status.online {
-            background: #1a4a1a;
-            border-color: #3a8a3a;
-            color: #8f8;
-        }
-
-        .telegram-status.offline {
-            background: #4a1a1a;
-            border-color: #8a3a3a;
-            color: #f88;
-        }
-
-        .telegram-status .status-dot {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        .telegram-status.online .status-dot {
-            background: #3a8a3a;
-        }
-
-        .telegram-status.offline .status-dot {
-            background: #8a3a3a;
-            animation: none;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
         .footer-info {
             margin-top: 50px;
             padding: 30px 20px;
@@ -550,7 +961,7 @@
         }
 
         .footer-info p {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             line-height: 1.8;
             color: #bbb;
         }
@@ -561,6 +972,22 @@
         .page-section.active {
             display: block;
             animation: scaleIn 0.5s ease-out;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .admin-mode .site-content {
+            display: none;
+        }
+
+        .admin-content {
+            display: none;
+        }
+
+        .admin-mode .admin-content {
+            display: block;
         }
 
         @media (max-width: 700px) {
@@ -575,19 +1002,35 @@
             .logo {
                 font-size: 2rem;
             }
+            .logo span {
+                font-size: 1.2rem;
+            }
             .content h2 {
                 font-size: 1.2rem;
             }
             .minecraft-btn {
-                font-size: 0.6rem;
+                font-size: 0.55rem;
                 padding: 10px 6px;
             }
-            .resource-pack-card {
-                flex-direction: column;
-                text-align: center;
+            .user-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
-            .builds-grid {
-                grid-template-columns: 1fr;
+            .dropdown-menu {
+                min-width: 150px;
+                right: -10px;
+            }
+            .admin-panel {
+                flex-direction: column;
+            }
+            .admin-sidebar {
+                flex: none;
+                max-height: 300px;
+            }
+            .nickname-box {
+                margin: 20px;
+                padding: 25px;
             }
             .dialog-buttons {
                 flex-direction: column;
@@ -600,287 +1043,466 @@
 </head>
 <body>
 
+<!-- ===== ЭКРАН ВВОДА НИКА ===== -->
+<div class="nickname-screen" id="nicknameScreen">
+    <div class="nickname-box">
+        <h2>⛏️ Добро пожаловать!</h2>
+        <p>Напишите свой ник в Minecraft, чтобы продолжить</p>
+        <input type="text" id="nicknameInput" placeholder="Ваш ник..." maxlength="20" />
+        <button class="submit-btn" id="nicknameSubmitBtn">Войти на сервер</button>
+        <div class="error-msg" id="nicknameError">❌ Пожалуйста, введите ваш ник!</div>
+    </div>
+</div>
+
+<!-- ===== КРУЖОК ===== -->
+<div class="user-menu" id="userMenu" style="display:none;">
+    <div class="user-avatar" id="userAvatar">
+        👤
+        <span class="status-dot offline" id="statusDot"></span>
+    </div>
+    <div class="dropdown-menu" id="dropdownMenu">
+        <div class="user-info">
+            <div class="username" id="dropdownUsername">Игрок</div>
+            <div class="user-role" id="dropdownRole">Игрок</div>
+        </div>
+        <button class="menu-item" id="settingsBtn">
+            <span class="item-icon">⚙️</span> Настройки
+        </button>
+        <button class="menu-item danger" id="logoutBtn">
+            <span class="item-icon">🚪</span> Выйти
+        </button>
+    </div>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО НАСТРОЕК ===== -->
+<div class="modal-overlay" id="settingsModal">
+    <div class="modal-content">
+        <h2>⚙️ Настройки</h2>
+        <label>🎨 Цвет сайта</label>
+        <div class="color-options" id="colorOptions" style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin:15px 0;">
+            <div class="color-btn" style="background:#f0d040;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#f0d040"></div>
+            <div class="color-btn" style="background:#ff6b6b;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#ff6b6b"></div>
+            <div class="color-btn" style="background:#ffa94d;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#ffa94d"></div>
+            <div class="color-btn" style="background:#69db7c;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#69db7c"></div>
+            <div class="color-btn" style="background:#4dabf7;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#4dabf7"></div>
+            <div class="color-btn" style="background:#9775fa;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#9775fa"></div>
+            <div class="color-btn" style="background:#ff6b9d;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#ff6b9d"></div>
+        </div>
+        <button class="submit-btn" id="settingsCloseBtn">Закрыть</button>
+    </div>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО ПАРОЛЯ ===== -->
+<div class="modal-overlay" id="passwordModal">
+    <div class="modal-content">
+        <h2>🔑 Вход в админку</h2>
+        <label for="adminPassword">🔒 Введите пароль администратора</label>
+        <input type="password" id="adminPassword" placeholder="Пароль..." />
+        <button class="submit-btn" id="passwordSubmitBtn">Войти</button>
+        <div class="modal-message" id="passwordMessage"></div>
+    </div>
+</div>
+
 <div class="container">
 
     <div class="logo">
         <span>⛏️ HERICRAFT</span>
     </div>
 
-    <div class="menu-wrapper">
+    <!-- ===== ОБЫЧНЫЙ САЙТ ===== -->
+    <div class="site-content" id="siteContent">
 
-        <nav class="side-menu">
-            <ul>
-                <li>
-                    <button class="minecraft-btn" data-page="home">
-                        <span class="btn-icon">🏠</span> Главная
-                    </button>
-                </li>
-                <li>
-                    <button class="minecraft-btn" data-page="applications">
-                        <span class="btn-icon">📝</span> Заявки
-                    </button>
-                </li>
-                <li>
-                    <button class="minecraft-btn" data-page="rules">
-                        <span class="btn-icon">📋</span> Правила
-                    </button>
-                </li>
-                <li>
-                    <button class="minecraft-btn" data-page="builds">
-                        <span class="btn-icon">⚡</span> Сборки
-                    </button>
-                </li>
-                <li>
-                    <button class="minecraft-btn" data-page="social">
-                        <span class="btn-icon">📱</span> Соцсети
-                    </button>
-                </li>
-                <li>
-                    <button class="minecraft-btn" data-page="packs">
-                        <span class="btn-icon">📦</span> Ресурс-паки
-                    </button>
-                </li>
-            </ul>
-        </nav>
+        <div class="menu-wrapper">
 
-        <main class="content">
+            <nav class="side-menu">
+                <ul>
+                    <li>
+                        <button class="minecraft-btn" data-page="home">
+                            <span class="btn-icon">🏠</span> Главная
+                        </button>
+                    </li>
+                    <li>
+                        <button class="minecraft-btn" data-page="apply">
+                            <span class="btn-icon">📝</span> Заявки
+                        </button>
+                    </li>
+                    <li>
+                        <button class="minecraft-btn" data-page="rules">
+                            <span class="btn-icon">📋</span> Правила
+                        </button>
+                    </li>
+                    <li>
+                        <button class="minecraft-btn" data-page="builds">
+                            <span class="btn-icon">⚡</span> Сборки
+                        </button>
+                    </li>
+                    <li>
+                        <button class="minecraft-btn" data-page="social">
+                            <span class="btn-icon">📱</span> Соцсети
+                        </button>
+                    </li>
+                    <li>
+                        <button class="minecraft-btn" data-page="packs">
+                            <span class="btn-icon">📦</span> Ресурс-пак
+                        </button>
+                    </li>
+                </ul>
+            </nav>
 
-            <!-- ГЛАВНАЯ -->
-            <div id="home" class="page-section active">
-                <h2>🏹 Добро пожаловать на HeriCraft!</h2>
-                <p>
-                    Лучший Minecraft сервер для настоящих героев!
-                </p>
-                <div class="info-block">
-                    <p>⛏️ <strong>IP сервера:</strong> mc.hericraft.ru</p>
-                    <p>⚡ <strong>Версия:</strong> 1.21.4</p>
-                </div>
-                <p style="margin-top:20px;">
-                    Присоединяйся к нам и становись частью легенды!
-                </p>
-            </div>
+            <main class="content">
 
-            <!-- ЗАЯВКИ -->
-            <div id="applications" class="page-section">
-                <h2>📝 Подать заявку</h2>
-                <p>Пройди диалог, чтобы стать частью нашего сообщества!</p>
-
-                <div id="telegramStatus" class="telegram-status">
-                    <span class="status-dot"></span>
-                    <span id="telegramStatusText">Проверка подключения к Telegram...</span>
+                <!-- ГЛАВНАЯ -->
+                <div id="home" class="page-section active">
+                    <h2>🏹 Добро пожаловать на HeriCraft!</h2>
+                    <p>Лучший Minecraft сервер для настоящих героев!</p>
+                    <div class="info-block">
+                        <p>⛏️ <strong>IP сервера:</strong> mc.hericraft.ru</p>
+                        <p>⚡ <strong>Версия:</strong> 1.21.4</p>
+                    </div>
+                    <p style="margin-top:20px;">Присоединяйся к нам и становись частью легенды!</p>
                 </div>
 
-                <div id="applicationStatus" class="message" style="display:none;"></div>
-
-                <div class="dialog-container" id="dialogContainer">
-                    <div id="dialogMessage" class="dialog-message"></div>
-                    <div id="dialogInputArea"></div>
-                    <div id="dialogButtons" class="dialog-buttons"></div>
-                </div>
-            </div>
-
-            <!-- ПРАВИЛА -->
-            <div id="rules" class="page-section">
-                <h2>📋 Правила сервера</h2>
-                <p>Ознакомься с правилами перед подачей заявки!</p>
-
-                <div class="rules-container">
-                    <ul class="rules-list">
-                        <li><strong>1.</strong> Уважай всех игроков и администраторов.</li>
-                        <li><strong>2.</strong> Запрещены читы, баги и любые виды гриферства.</li>
-                        <li><strong>3.</strong> Не используй нецензурную лексику в чате.</li>
-                        <li><strong>4.</strong> Не создавай конфликтных ситуаций.</li>
-                        <li><strong>5.</strong> Соблюдай правила PvP — только по согласию.</li>
-                        <li><strong>6.</strong> Не строй постройки рядом с чужими домами.</li>
-                        <li><strong>7.</strong> Помогай новым игрокам.</li>
-                        <li><strong>8.</strong> Нарушение правил = бан или кик.</li>
-                        <li><strong>9.</strong> На сервере запрещены спам и реклама.</li>
-                        <li><strong>10.</strong> Приятной игры! ❤️</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- СБОРКИ -->
-            <div id="builds" class="page-section">
-                <h2>⚡ Наши сборки</h2>
-                <p>Улучши свой игровой опыт с нашими сборками!</p>
-
-                <div class="builds-grid">
-                    <div class="build-card">
-                        <span class="build-icon">⚔️</span>
-                        <h3>HeriCraft PvP</h3>
-                        <span class="build-version">v2.1.0</span>
-                        <p>Сборка для PvP сражений. Включает оптимизацию, улучшенные текстуры и кастомные звуки.</p>
-                        <a href="#" class="download-btn" style="font-size:0.7rem; padding:12px 20px;">⬇ Скачать</a>
-                    </div>
-
-                    <div class="build-card">
-                        <span class="build-icon">🏰</span>
-                        <h3>HeriCraft Survival</h3>
-                        <span class="build-version">v1.8.0</span>
-                        <p>Оптимальная сборка для выживания. Добавляет улучшенную графику, новые блоки и механизмы.</p>
-                        <a href="#" class="download-btn" style="font-size:0.7rem; padding:12px 20px;">⬇ Скачать</a>
-                    </div>
-
-                    <div class="build-card">
-                        <span class="build-icon">🎮</span>
-                        <h3>HeriCraft Ultra</h3>
-                        <span class="build-version">v3.0.0</span>
-                        <p>Максимальная сборка со всеми дополнениями. Шейдеры, HD текстуры и кастомный интерфейс.</p>
-                        <a href="#" class="download-btn" style="font-size:0.7rem; padding:12px 20px;">⬇ Скачать</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- СОЦСЕТИ -->
-            <div id="social" class="page-section">
-                <h2>📱 Наши соцсети</h2>
-                <p>Подписывайся и будь в курсе всех событий:</p>
-                <div class="social-grid">
-                    <div class="social-item" onclick="window.open('https://www.tiktok.com/@hericraft_minecraft?_r=1&_t=ZS-9988WUjU1jA', '_blank')">
-                        <span class="social-icon">📹</span>
-                        <strong>TikTok</strong>
-                        <p style="font-size:0.6rem; margin-top:8px;">@hericraft_minecraft</p>
-                    </div>
-                    
-                    <div class="social-item" onclick="window.open('https://t.me/HeriCraft_groups', '_blank')">
-                        <span class="social-icon">💬</span>
-                        <strong>Telegram</strong>
-                        <p style="font-size:0.6rem; margin-top:8px;">@hericraft_groups</p>
-                    </div>
-                    
-                    <div class="social-item" onclick="window.open('https://discord.gg/H2daUkrrQ', '_blank')">
-                        <span class="social-icon">🎮</span>
-                        <strong>Discord</strong>
-                        <p style="font-size:0.6rem; margin-top:8px;">@hericraftеры</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- РЕСУРС-ПАКИ -->
-            <div id="packs" class="page-section">
-                <h2>📦 Ресурс-паки</h2>
-                <p>Скачивай наш официальный ресурс-пак для полного погружения!</p>
-
-                <div class="resource-pack-card">
-                    <div class="pack-info">
-                        <h3>🎨 HeriCraft Resource Pack</h3>
-                        <p>
-                            <strong>Совместимость:</strong> 1.21.4
-                        </p>
-                    </div>
-                    <div class="pack-download">
-                        <a href="https://github.com/setertop92222-beep/zip/raw/refs/heads/main/HeriCraft_new.zip" 
-                           class="download-btn" 
-                           target="_blank">
-                            ⬇ Скачать
-                        </a>
-                        <p style="font-size:0.5rem; margin-top:10px; color:#aaa;">
-                            ZIP-архив
-                        </p>
+                <!-- ЗАЯВКИ -->
+                <div id="apply" class="page-section">
+                    <h2>📝 Подать заявку</h2>
+                    <p>Пройди диалог, чтобы стать частью нашего сообщества!</p>
+                    <div class="dialog-container" id="dialogContainer">
+                        <div id="dialogMessage" class="dialog-message"></div>
+                        <div id="dialogInputArea"></div>
+                        <div id="dialogButtons" class="dialog-buttons"></div>
                     </div>
                 </div>
 
-                <p style="font-size:0.7rem; color:#aaa; margin-top:10px;">
-                    * Установи ресурс-пак в папку resourcepacks и активируй в игре.
-                </p>
-            </div>
-        </main>
+                <!-- ПРАВИЛА -->
+                <div id="rules" class="page-section">
+                    <h2>📋 Правила сервера</h2>
+                    <p>Ознакомься с правилами перед подачей заявки!</p>
+                    <div style="background:#4a4a4a;padding:25px;border:6px solid #6b4c2a;box-shadow:inset 0 -6px 0 #2a2a2a,6px 6px 0 rgba(0,0,0,0.5);margin-top:20px;">
+                        <ul style="list-style:none;padding:0;">
+                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>1.</strong> Уважай всех игроков и администраторов.</li>
+                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>2.</strong> Запрещены читы, баги и любые виды гриферства.</li>
+                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>3.</strong> Не используй нецензурную лексику в чате.</li>
+                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>4.</strong> Не создавай конфликтных ситуаций.</li>
+                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>5.</strong> Соблюдай правила PvP — только по согласию.</li>
+                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>6.</strong> Не строй постройки рядом с чужими домами.</li>
+                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>7.</strong> Помогай новым игрокам.</li>
+                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>8.</strong> Нарушение правил = бан или кик.</li>
+                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>9.</strong> На сервере запрещены спам и реклама.</li>
+                            <li style="padding:12px 0;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>10.</strong> Приятной игры! ❤️</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- СБОРКИ -->
+                <div id="builds" class="page-section">
+                    <h2>⚡ Наши сборки</h2>
+                    <p>Улучши свой игровой опыт с нашими сборками!</p>
+                    <div class="builds-grid">
+                        <div class="build-card">
+                            <span class="build-icon">⚔️</span>
+                            <h3>HeriCraft PvP</h3>
+                            <span class="build-version">v2.1.0</span>
+                            <p>Сборка для PvP сражений. Оптимизация, улучшенные текстуры и кастомные звуки.</p>
+                            <a href="#" class="download-btn">⬇ Скачать</a>
+                        </div>
+                        <div class="build-card">
+                            <span class="build-icon">🏰</span>
+                            <h3>HeriCraft Survival</h3>
+                            <span class="build-version">v1.8.0</span>
+                            <p>Оптимальная сборка для выживания. Улучшенная графика, новые блоки и механизмы.</p>
+                            <a href="#" class="download-btn">⬇ Скачать</a>
+                        </div>
+                        <div class="build-card">
+                            <span class="build-icon">🎮</span>
+                            <h3>HeriCraft Ultra</h3>
+                            <span class="build-version">v3.0.0</span>
+                            <p>Максимальная сборка со всеми дополнениями. Шейдеры, HD текстуры и кастомный интерфейс.</p>
+                            <a href="#" class="download-btn">⬇ Скачать</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- СОЦСЕТИ -->
+                <div id="social" class="page-section">
+                    <h2>📱 Наши соцсети</h2>
+                    <p>Подписывайся и будь в курсе всех событий:</p>
+                    <div class="social-grid">
+                        <div class="social-item" onclick="window.open('https://www.tiktok.com/@hericraft_minecraft', '_blank')">
+                            <span class="social-icon">📹</span>
+                            <strong>TikTok</strong>
+                            <p style="font-size:0.5rem; margin-top:5px;">@hericraft_minecraft</p>
+                        </div>
+                        <div class="social-item" onclick="window.open('https://t.me/HeriCraft_groups', '_blank')">
+                            <span class="social-icon">💬</span>
+                            <strong>Telegram</strong>
+                            <p style="font-size:0.5rem; margin-top:5px;">@hericraft_groups</p>
+                        </div>
+                        <div class="social-item" onclick="window.open('https://discord.gg/H2daUkrrQ', '_blank')">
+                            <span class="social-icon">🎮</span>
+                            <strong>Discord</strong>
+                            <p style="font-size:0.5rem; margin-top:5px;">discord.gg/hericraft</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- РЕСУРС-ПАК -->
+                <div id="packs" class="page-section">
+                    <h2>📦 Ресурс-пак</h2>
+                    <p>Скачивай наш официальный ресурс-пак для полного погружения!</p>
+                    <div class="resource-pack-card">
+                        <div class="pack-info">
+                            <h3>🎨 HeriCraft Resource Pack</h3>
+                            <p><strong>Совместимость:</strong> 1.21.4</p>
+                        </div>
+                        <div class="pack-download">
+                            <a href="#" class="download-btn" target="_blank">⬇ Скачать</a>
+                            <p style="font-size:0.5rem; margin-top:10px; color:#aaa;">ZIP-архив</p>
+                        </div>
+                    </div>
+                    <p style="font-size:0.6rem; color:#aaa; margin-top:10px;">* Установи ресурс-пак в папку resourcepacks и активируй в игре.</p>
+                </div>
+            </main>
+        </div>
+
+        <div class="footer-info">
+            <h3>📜 О сервере HeriCraft</h3>
+            <p>HeriCraft — это уникальный Minecraft сервер с захватывающими приключениями, и дружным сообществом. Мы создаём мир, где каждый может стать героем!</p>
+            <p style="margin-top: 15px; font-size: 0.6rem; color: #888;">© 2026 HeriCraft. Все права защищены.</p>
+        </div>
     </div>
 
-    <div class="footer-info">
-        <h3>📜 О сервере HeriCraft</h3>
-        <p>
-            HeriCraft — это уникальный Minecraft сервер с захватывающими приключениями,
-            и дружным сообществом. Мы создаём мир, где каждый может стать героем!
-        </p>
-        <p style="margin-top: 15px; font-size: 0.6rem; color: #888;">
-            © 2026 HeriCraft. Все права защищены.
-        </p>
+    <!-- ===== АДМИН ПАНЕЛЬ ===== -->
+    <div class="admin-content" id="adminContent">
+        <div class="admin-panel">
+            <div class="admin-sidebar" id="adminSidebar">
+                <h3>📋 Заявки <span id="badgeCount" style="font-size:0.6rem;color:#ff8;"></span></h3>
+                <div id="applicationsList"></div>
+            </div>
+            <div class="admin-main" id="adminMain">
+                <div class="empty-state" id="emptyState">
+                    <div class="big-icon">📭</div>
+                    <p>Выберите заявку слева</p>
+                </div>
+                <div class="app-detail" id="appDetail" style="display:none;">
+                    <div class="detail-nick" id="detailNick">🎮 Player123</div>
+                    <div class="detail-time" id="detailTime">🕐 24.08.2024 15:30:00</div>
+                    <div class="detail-reason" id="detailReason">💭 Хочу играть на сервере!</div>
+                    <div class="detail-actions" id="detailActions">
+                        <button class="action-btn accept" id="acceptBtn">✅ Принять</button>
+                        <button class="action-btn deny" id="denyBtn">❌ Отказать</button>
+                    </div>
+                    <div id="detailMessage" class="message" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
 
 <script>
     // =============================================
-    // 1. НАСТРОЙКА TELEGRAM
+    // 1. НАСТРОЙКИ GITHUB
     // =============================================
-    const TELEGRAM_BOT_TOKEN = '8987375609:AAG4GiltPO4fuhc8twbt1oGpvcFykLgTNkc';
-    const TELEGRAM_CHAT_ID = '7227279621';
+    const GITHUB_TOKEN = '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';  // Создать в Settings → Developer settings
+    const REPO_OWNER = 'setertop911-alt';
+    const REPO_NAME = 'applications';
+    const FILE_PATH = 'applications.json';
 
     // =============================================
-    // 2. ПРОВЕРКА ПОДКЛЮЧЕНИЯ К TELEGRAM
+    // 2. АККАУНТЫ
     // =============================================
-    const telegramStatus = document.getElementById('telegramStatus');
-    const telegramStatusText = document.getElementById('telegramStatusText');
+    const ADMIN_PASSWORD = '2480089009333003';
 
-    let telegramOnline = false;
+    let currentUser = null;
+    let isAdmin = false;
+    let selectedAppId = null;
+    let dialogState = { step: 0, data: {} };
 
-    async function checkTelegramConnection() {
-        if (TELEGRAM_BOT_TOKEN === 'ВАШ_ТОКЕН_БОТА' || TELEGRAM_CHAT_ID === 'ВАШ_CHAT_ID') {
-            telegramStatus.className = 'telegram-status offline';
-            telegramStatusText.textContent = '❌ Ошибка: не заполнены настройки Telegram! (Токен или Chat ID)';
-            telegramOnline = false;
-            return false;
-        }
+    // =============================================
+    // 3. РАБОТА С ЗАЯВКАМИ (GitHub API + localStorage)
+    // =============================================
+    let cachedApps = [];
 
+    async function loadApplicationsFromGitHub() {
         try {
-            const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getMe`, {
-                method: 'GET',
-                timeout: 5000
+            const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `token ${GITHUB_TOKEN}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
             });
 
-            if (!response.ok) {
-                throw new Error('Бот не отвечает');
+            if (response.status === 404) {
+                cachedApps = [];
+                saveToLocalStorage(cachedApps);
+                return cachedApps;
             }
 
             const data = await response.json();
-            
-            if (data.ok) {
-                // Проверяем, есть ли чат
-                const chatCheck = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getChat`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID })
+            const content = atob(data.content);
+            cachedApps = JSON.parse(content);
+            saveToLocalStorage(cachedApps);
+            return cachedApps;
+        } catch (error) {
+            console.error('Ошибка загрузки из GitHub:', error);
+            // Пробуем загрузить из localStorage
+            const local = loadFromLocalStorage();
+            if (local.length > 0) {
+                cachedApps = local;
+                return local;
+            }
+            cachedApps = [];
+            return [];
+        }
+    }
+
+    async function saveApplicationsToGitHub(apps) {
+        try {
+            const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+            const content = btoa(JSON.stringify(apps, null, 2));
+
+            // Получаем SHA файла
+            let sha = null;
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
                 });
-
-                if (!chatCheck.ok) {
-                    throw new Error('Неверный Chat ID');
+                if (response.ok) {
+                    const data = await response.json();
+                    sha = data.sha;
                 }
+            } catch (e) {}
 
-                const chatData = await chatCheck.json();
-                
-                if (chatData.ok) {
-                    telegramStatus.className = 'telegram-status online';
-                    telegramStatusText.textContent = '✅ Telegram бот подключён и работает!';
-                    telegramOnline = true;
-                    return true;
-                } else {
-                    throw new Error('Неверный Chat ID');
-                }
+            const body = {
+                message: `Обновление заявок ${new Date().toLocaleString()}`,
+                content: content,
+                sha: sha || undefined
+            };
+
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${GITHUB_TOKEN}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/vnd.github.v3+json'
+                },
+                body: JSON.stringify(body)
+            });
+
+            if (response.ok) {
+                cachedApps = apps;
+                saveToLocalStorage(apps);
+                return true;
             } else {
-                throw new Error('Неверный токен бота');
+                console.error('Ошибка сохранения в GitHub:', await response.text());
+                return false;
             }
         } catch (error) {
-            let errorMessage = '⚠️ Ошибка подключения к Telegram: ';
-            
-            if (error.message.includes('Неверный токен') || error.message.includes('бот не отвечает')) {
-                errorMessage += 'неправильный токен бота. Проверьте настройки!';
-            } else if (error.message.includes('Неверный Chat ID')) {
-                errorMessage += 'неправильный Chat ID. Проверьте настройки!';
-            } else {
-                errorMessage += 'проверьте интернет-соединение или настройки бота.';
-            }
-            
-            telegramStatus.className = 'telegram-status offline';
-            telegramStatusText.textContent = errorMessage;
-            telegramOnline = false;
+            console.error('Ошибка сохранения в GitHub:', error);
+            // Сохраняем локально как резерв
+            saveToLocalStorage(apps);
+            cachedApps = apps;
             return false;
         }
     }
 
+    function loadFromLocalStorage() {
+        const data = localStorage.getItem('applications');
+        return data ? JSON.parse(data) : [];
+    }
+
+    function saveToLocalStorage(apps) {
+        localStorage.setItem('applications', JSON.stringify(apps));
+    }
+
+    function getApplications() {
+        return cachedApps.length > 0 ? cachedApps : loadFromLocalStorage();
+    }
+
+    function getNextId() {
+        const apps = getApplications();
+        if (apps.length === 0) return 1;
+        return Math.max(...apps.map(a => a.id)) + 1;
+    }
+
+    async function addApplication(nickname, reason) {
+        const apps = getApplications();
+        const newApp = {
+            id: getNextId(),
+            time: new Date().toLocaleString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            }),
+            nickname: nickname,
+            reason: reason,
+            status: 'pending'
+        };
+        apps.push(newApp);
+        await saveApplicationsToGitHub(apps);
+        return newApp;
+    }
+
+    async function updateApplicationStatus(id, status) {
+        const apps = getApplications();
+        const app = apps.find(a => a.id === id);
+        if (app) {
+            app.status = status;
+            await saveApplicationsToGitHub(apps);
+            return true;
+        }
+        return false;
+    }
+
+    function getApplicationById(id) {
+        const apps = getApplications();
+        return apps.find(a => a.id === id);
+    }
+
     // =============================================
-    // 3. ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
+    // 4. ЭКРАН ВВОДА НИКА
+    // =============================================
+    const nicknameScreen = document.getElementById('nicknameScreen');
+    const nicknameInput = document.getElementById('nicknameInput');
+    const nicknameSubmitBtn = document.getElementById('nicknameSubmitBtn');
+    const nicknameError = document.getElementById('nicknameError');
+    const userMenu = document.getElementById('userMenu');
+
+    const savedNickname = localStorage.getItem('playerNickname');
+    if (savedNickname) {
+        nicknameScreen.classList.add('hidden');
+        userMenu.style.display = 'block';
+        currentUser = savedNickname;
+        updateUserUI();
+    }
+
+    nicknameSubmitBtn.addEventListener('click', function() {
+        const nickname = nicknameInput.value.trim();
+        if (!nickname) {
+            nicknameError.classList.add('show');
+            return;
+        }
+        nicknameError.classList.remove('show');
+        localStorage.setItem('playerNickname', nickname);
+        currentUser = nickname;
+        nicknameScreen.classList.add('hidden');
+        userMenu.style.display = 'block';
+        updateUserUI();
+    });
+
+    nicknameInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') nicknameSubmitBtn.click();
+    });
+
+    // =============================================
+    // 5. ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
     // =============================================
     const buttons = document.querySelectorAll('.minecraft-btn');
     const sections = document.querySelectorAll('.page-section');
@@ -899,190 +1521,293 @@
             const page = this.dataset.page;
             if (page) {
                 switchPage(page);
-                if (page === 'applications') {
-                    checkTelegramConnection();
-                    initDialog();
-                }
+                if (page === 'apply') initDialog();
             }
         });
     });
 
     // =============================================
-    // 4. ДИАЛОГОВАЯ СИСТЕМА
+    // 6. ПОЛЬЗОВАТЕЛЬСКОЕ МЕНЮ
     // =============================================
-    let dialogState = {
-        step: 0,
-        data: {},
-        finished: false
+    const userAvatar = document.getElementById('userAvatar');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const statusDot = document.getElementById('statusDot');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const dropdownUsername = document.getElementById('dropdownUsername');
+    const dropdownRole = document.getElementById('dropdownRole');
+
+    userAvatar.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', function() {
+        dropdownMenu.classList.remove('active');
+    });
+
+    function updateUserUI() {
+        if (currentUser) {
+            dropdownUsername.textContent = '🎮 ' + currentUser;
+            if (isAdmin) {
+                dropdownRole.textContent = '👑 Администратор';
+                statusDot.className = 'status-dot online';
+                userAvatar.textContent = '👑';
+            } else {
+                dropdownRole.textContent = 'Игрок';
+                statusDot.className = 'status-dot online';
+                userAvatar.textContent = '👤';
+            }
+        } else {
+            dropdownRole.textContent = 'Не авторизован';
+            statusDot.className = 'status-dot offline';
+            userAvatar.textContent = '👤';
+        }
+    }
+
+    // =============================================
+    // 7. ВХОД В АДМИНКУ
+    // =============================================
+    const passwordModal = document.getElementById('passwordModal');
+    const adminPassword = document.getElementById('adminPassword');
+    const passwordSubmitBtn = document.getElementById('passwordSubmitBtn');
+    const passwordMessage = document.getElementById('passwordMessage');
+
+    userAvatar.addEventListener('dblclick', function() {
+        if (currentUser && !isAdmin) {
+            passwordModal.classList.add('active');
+            adminPassword.value = '';
+            passwordMessage.className = 'modal-message';
+            passwordMessage.textContent = '';
+        }
+    });
+
+    passwordSubmitBtn.addEventListener('click', function() {
+        const password = adminPassword.value.trim();
+        if (!password) {
+            passwordMessage.className = 'modal-message error';
+            passwordMessage.textContent = '❌ Введите пароль!';
+            return;
+        }
+        if (password === ADMIN_PASSWORD) {
+            isAdmin = true;
+            passwordMessage.className = 'modal-message success';
+            passwordMessage.textContent = '✅ Вход выполнен!';
+            setTimeout(() => {
+                passwordModal.classList.remove('active');
+                enterAdminMode();
+            }, 500);
+        } else {
+            passwordMessage.className = 'modal-message error';
+            passwordMessage.textContent = '❌ Неверный пароль!';
+        }
+    });
+
+    adminPassword.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') passwordSubmitBtn.click();
+    });
+
+    // =============================================
+    // 8. ВЫХОД
+    // =============================================
+    logoutBtn.addEventListener('click', function() {
+        dropdownMenu.classList.remove('active');
+        localStorage.removeItem('playerNickname');
+        currentUser = null;
+        isAdmin = false;
+        userMenu.style.display = 'none';
+        nicknameScreen.classList.remove('hidden');
+        nicknameInput.value = '';
+        if (document.body.classList.contains('admin-mode')) {
+            exitAdminMode();
+        }
+        updateUserUI();
+    });
+
+    // =============================================
+    // 9. АДМИН РЕЖИМ
+    // =============================================
+    async function enterAdminMode() {
+        document.body.classList.add('admin-mode');
+        updateUserUI();
+        await loadApplicationsFromGitHub();
+        renderApplicationsList();
+    }
+
+    function exitAdminMode() {
+        document.body.classList.remove('admin-mode');
+        isAdmin = false;
+        updateUserUI();
+        selectedAppId = null;
+        document.getElementById('emptyState').style.display = 'block';
+        document.getElementById('appDetail').style.display = 'none';
+    }
+
+    // =============================================
+    // 10. РЕНДЕР ЗАЯВОК В АДМИНКЕ
+    // =============================================
+    function renderApplicationsList() {
+        const apps = getApplications();
+        const list = document.getElementById('applicationsList');
+        const badge = document.getElementById('badgeCount');
+        const pending = apps.filter(a => a.status === 'pending');
+
+        badge.textContent = pending.length > 0 ? `(${pending.length})` : '';
+
+        if (pending.length === 0) {
+            list.innerHTML = `
+                <div style="padding:20px;text-align:center;color:#888;font-size:0.6rem;">
+                    📭 Нет новых заявок
+                </div>
+            `;
+            return;
+        }
+
+        let html = '';
+        pending.forEach(app => {
+            const active = selectedAppId === app.id ? 'active' : '';
+            html += `
+                <div class="app-item ${active}" onclick="selectApplication(${app.id})">
+                    <div class="app-nick">🎮 ${app.nickname}</div>
+                    <div class="app-time">🕐 ${app.time}</div>
+                    <span class="app-status pending">⏳ Ожидает</span>
+                </div>
+            `;
+        });
+
+        list.innerHTML = html;
+    }
+
+    // =============================================
+    // 11. ВЫБОР ЗАЯВКИ
+    // =============================================
+    window.selectApplication = function(id) {
+        if (!isAdmin) return;
+        selectedAppId = id;
+        const app = getApplicationById(id);
+        if (!app) return;
+
+        renderApplicationsList();
+
+        document.getElementById('emptyState').style.display = 'none';
+        document.getElementById('appDetail').style.display = 'block';
+
+        document.getElementById('detailNick').textContent = `🎮 ${app.nickname}`;
+        document.getElementById('detailTime').textContent = `🕐 ${app.time}`;
+        document.getElementById('detailReason').textContent = `💭 ${app.reason}`;
+
+        const detailMessage = document.getElementById('detailMessage');
+        detailMessage.className = 'message';
+        detailMessage.style.display = 'none';
+
+        document.getElementById('acceptBtn').disabled = false;
+        document.getElementById('denyBtn').disabled = false;
     };
 
+    // =============================================
+    // 12. ПРИНЯТЬ/ОТКАЗАТЬ
+    // =============================================
+    document.getElementById('acceptBtn').addEventListener('click', async function() {
+        if (!selectedAppId || !isAdmin) return;
+        const app = getApplicationById(selectedAppId);
+        if (!app || app.status !== 'pending') return;
+
+        if (await updateApplicationStatus(selectedAppId, 'accepted')) {
+            const detailMessage = document.getElementById('detailMessage');
+            detailMessage.className = 'message success';
+            detailMessage.textContent = `✅ Заявка #${app.id} принята!`;
+            detailMessage.style.display = 'block';
+            this.disabled = true;
+            document.getElementById('denyBtn').disabled = true;
+
+            setTimeout(() => {
+                renderApplicationsList();
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('appDetail').style.display = 'none';
+                selectedAppId = null;
+            }, 1500);
+        }
+    });
+
+    document.getElementById('denyBtn').addEventListener('click', async function() {
+        if (!selectedAppId || !isAdmin) return;
+        const app = getApplicationById(selectedAppId);
+        if (!app || app.status !== 'pending') return;
+
+        if (await updateApplicationStatus(selectedAppId, 'denied')) {
+            const detailMessage = document.getElementById('detailMessage');
+            detailMessage.className = 'message error';
+            detailMessage.textContent = `❌ Заявка #${app.id} отклонена!`;
+            detailMessage.style.display = 'block';
+            this.disabled = true;
+            document.getElementById('acceptBtn').disabled = true;
+
+            setTimeout(() => {
+                renderApplicationsList();
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('appDetail').style.display = 'none';
+                selectedAppId = null;
+            }, 1500);
+        }
+    });
+
+    // =============================================
+    // 13. ДИАЛОГ ЗАЯВКИ
+    // =============================================
     const dialogContainer = document.getElementById('dialogContainer');
     const dialogMessage = document.getElementById('dialogMessage');
     const dialogInputArea = document.getElementById('dialogInputArea');
     const dialogButtons = document.getElementById('dialogButtons');
 
-    function getApplicationStatus() {
-        const status = localStorage.getItem('applicationStatus');
-        if (status === 'accepted') return 'accepted';
-        if (status === 'rejected') return 'rejected';
-        if (status === 'pending') return 'pending';
-        return null;
-    }
-
-    async function sendToTelegram(data) {
-        if (!telegramOnline) {
-            return { ok: false, error: 'Telegram не подключён' };
-        }
-
-        const text = `📝 **НОВАЯ ЗАЯВКА НА HERICRAFT!**
-
-🆔 **Номер:** #${data.id}
-🎮 **Ник в Minecraft:** ${data.nickname}
-💭 **Причина:** ${data.reason}
-🕐 **Время:** ${data.time}
-📦 **Сборка:** ${data.pack || 'Не указано'}
-
----
-✅ Чтобы принять заявку:
-\`/accept ${data.id}\`
-
-❌ Чтобы отклонить заявку:
-\`/deny ${data.id}\``;
-
-        try {
-            const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: text,
-                    parse_mode: 'Markdown'
-                })
-            });
-
-            const result = await response.json();
-            return { ok: result.ok, error: result.description || 'Неизвестная ошибка' };
-        } catch (error) {
-            return { ok: false, error: error.message };
-        }
-    }
-
-    function generateApplicationId() {
-        const apps = JSON.parse(localStorage.getItem('applications') || '[]');
-        if (apps.length === 0) return 1;
-        return Math.max(...apps.map(a => a.id)) + 1;
-    }
-
-    const dialogSteps = [
-        {
-            message: '👋 Привет! Добро пожаловать в систему подачи заявок на сервер <span class="highlight">HeriCraft</span>!\n\nТы хочешь подать заявку на вступление в наш проект?',
-            buttons: [
-                { text: '✅ Да, хочу!', action: 'next' },
-                { text: '❌ Нет, спасибо', action: 'cancel' }
-            ],
-            input: false
-        },
-        {
-            message: '📝 Отлично! Расскажи, <span class="highlight">почему ты хочешь вступить в наш проект?</span>\n\nНапиши причину в поле ниже:',
-            buttons: [
-                { text: '⬅️ Назад', action: 'back' }
-            ],
-            input: true,
-            placeholder: 'Напишите причину...',
-            field: 'reason'
-        },
-        {
-            message: '🎮 Теперь <span class="highlight">введи свой ник в Minecraft</span>:',
-            buttons: [
-                { text: '⬅️ Назад', action: 'back' }
-            ],
-            input: true,
-            placeholder: 'Введите ник...',
-            field: 'nickname'
-        },
-        {
-            message: '📦 <span class="highlight">Мы предлагаем вам скачать нашу сборку для лучшего игрового опыта!</span>\n\nЕсли хотите, перейдите в раздел "Сборки" после подачи заявки.',
-            buttons: [
-                { text: '➡️ Далее', action: 'next' }
-            ],
-            input: false
-        },
-        {
-            message: '✅ Отлично! Твоя заявка готова к отправке!\n\n📋 Проверь данные:\n\n🎮 Ник: <span class="highlight">{nickname}</span>\n💭 Причина: <span class="highlight">{reason}</span>\n\nВсё верно?',
-            buttons: [
-                { text: '✅ Отправить заявку', action: 'submit' },
-                { text: '⬅️ Назад', action: 'back' }
-            ],
-            input: false
-        },
-        {
-            message: '🎉 <span class="highlight">Спасибо, что подали заявку на сервер HeriCraft!</span>\n\nВаша заявка будет обработана модерацией в течение дня.\n\nОжидайте ответа в Telegram или Discord.\n\n⏳ Спасибо, что участвуете в нашем проекте!',
-            buttons: [
-                { text: '🏠 На главную', action: 'home' }
-            ],
-            input: false,
-            final: true
-        }
-    ];
+    let dialogSteps = [];
 
     function initDialog() {
-        const status = getApplicationStatus();
-        if (status === 'accepted') {
-            dialogContainer.innerHTML = `
-                <div class="dialog-message">
-                    ✅ Поздравляем! Ваша заявка одобрена! 🎉<br><br>
-                    Вы можете заходить на сервер:<br>
-                    <span class="highlight">mc.hericraft.ru</span><br>
-                    Версия: <span class="highlight">1.21.4</span>
-                </div>
-            `;
-            return;
-        }
-        
-        if (status === 'pending') {
-            dialogContainer.innerHTML = `
-                <div class="dialog-message">
-                    ⏳ Ваша заявка уже отправлена и находится на рассмотрении.<br><br>
-                    Ожидайте ответа администрации.
-                </div>
-            `;
-            return;
+        const apps = getApplications();
+        const existing = apps.find(a => a.nickname === currentUser);
+        if (existing) {
+            if (existing.status === 'accepted') {
+                dialogContainer.innerHTML = `
+                    <div class="dialog-message">✅ Ваша заявка уже принята! Вы можете заходить на сервер.</div>
+                `;
+                return;
+            } else if (existing.status === 'pending') {
+                dialogContainer.innerHTML = `
+                    <div class="dialog-message">⏳ Ваша заявка уже на рассмотрении. Ожидайте ответа.</div>
+                `;
+                return;
+            } else if (existing.status === 'denied') {
+                const newApps = apps.filter(a => a.nickname !== currentUser);
+                saveApplicationsToGitHub(newApps);
+            }
         }
 
-        if (status === 'rejected') {
-            dialogContainer.innerHTML = `
-                <div class="dialog-message">
-                    ❌ Ваша заявка была отклонена администрацией.<br><br>
-                    Вы можете подать новую заявку.
-                </div>
-                <div class="dialog-buttons">
-                    <button class="dialog-btn primary" onclick="resetApplication()">🔄 Подать новую заявку</button>
-                    <button class="dialog-btn" onclick="switchPage('home')">🏠 На главную</button>
-                </div>
-            `;
-            return;
-        }
+        dialogSteps = [
+            {
+                message: '📝 Расскажи, <span class="highlight">почему ты хочешь присоединиться к нашему проекту?</span>',
+                buttons: [],
+                input: true,
+                placeholder: 'Напишите причину...',
+                field: 'reason'
+            },
+            {
+                message: '📦 <span class="highlight">Хочешь скачать нашу сборку?</span>\n\nТы можешь найти её в разделе "Сборки".',
+                buttons: [
+                    { text: '➡️ Пропустить', action: 'next' }
+                ],
+                input: false
+            }
+        ];
 
-        dialogState = {
-            step: 0,
-            data: {},
-            finished: false
-        };
-        renderStep(0);
+        dialogState = { step: 0, data: {} };
+        renderDialogStep(0);
     }
 
-    function renderStep(step) {
+    function renderDialogStep(step) {
         if (step >= dialogSteps.length || dialogState.finished) {
             return;
         }
 
         const currentStep = dialogSteps[step];
-        
-        let message = currentStep.message;
-        message = message.replace(/{nickname}/g, dialogState.data.nickname || 'не указан');
-        message = message.replace(/{reason}/g, dialogState.data.reason || 'не указана');
-        message = message.replace(/{pack}/g, dialogState.data.pack || 'Не указано');
-        dialogMessage.innerHTML = message;
+        dialogMessage.innerHTML = currentStep.message;
 
         dialogInputArea.innerHTML = '';
         dialogButtons.innerHTML = '';
@@ -1097,165 +1822,137 @@
                 input.value = dialogState.data[currentStep.field];
             }
             dialogInputArea.appendChild(input);
-            
             setTimeout(() => input.focus(), 100);
-            
             input.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     const value = this.value.trim();
                     if (value) {
                         dialogState.data[currentStep.field] = value;
-                        renderStep(step + 1);
+                        renderDialogStep(step + 1);
                     }
                 }
             });
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'dialog-btn primary';
+            nextBtn.textContent = '➡️ Далее';
+            nextBtn.addEventListener('click', function() {
+                const input = document.getElementById('dialogInput');
+                const value = input ? input.value.trim() : '';
+                if (value) {
+                    dialogState.data[currentStep.field] = value;
+                    renderDialogStep(step + 1);
+                }
+            });
+            dialogButtons.appendChild(nextBtn);
         }
 
         currentStep.buttons.forEach(btn => {
             const button = document.createElement('button');
             button.className = 'dialog-btn';
-            if (btn.action === 'submit') button.classList.add('primary');
-            if (btn.action === 'cancel' || btn.action === 'home') button.classList.add('danger');
-            if (btn.action === 'pack_yes' || btn.action === 'pack_no') button.classList.add('info');
+            if (btn.action === 'home') button.classList.add('danger');
+            if (btn.action === 'next') button.classList.add('primary');
             button.textContent = btn.text;
-            
             button.addEventListener('click', function() {
-                handleAction(btn.action, currentStep);
+                handleDialogAction(btn.action, currentStep);
             });
-            
             dialogButtons.appendChild(button);
         });
 
         dialogContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
-    function handleAction(action, currentStep) {
+    async function handleDialogAction(action, currentStep) {
         const step = dialogState.step;
 
         switch(action) {
             case 'next':
-                const input = document.getElementById('dialogInput');
-                if (input && input.value.trim()) {
-                    dialogState.data[currentStep.field] = input.value.trim();
-                    dialogState.step = step + 1;
-                    renderStep(step + 1);
-                } else if (!currentStep.input) {
-                    dialogState.step = step + 1;
-                    renderStep(step + 1);
+                if (step === 1) {
+                    // Финальный шаг — отправляем заявку
+                    const reason = dialogState.data.reason || 'Не указана';
+                    const newApp = await addApplication(currentUser, reason);
+                    dialogMessage.innerHTML = `
+                        ✅ <span class="highlight">Ваша заявка #${newApp.id} была отправлена администрации!</span><br><br>
+                        Ожидайте ответа в течение дня.<br><br>
+                        Спасибо, что участвуете в нашем проекте! 🙌
+                    `;
+                    dialogInputArea.innerHTML = '';
+                    dialogButtons.innerHTML = '';
+                    const homeBtn = document.createElement('button');
+                    homeBtn.className = 'dialog-btn danger';
+                    homeBtn.textContent = '🏠 На главную';
+                    homeBtn.addEventListener('click', function() {
+                        switchPage('home');
+                    });
+                    dialogButtons.appendChild(homeBtn);
+                    dialogContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    if (isAdmin) renderApplicationsList();
+                    return;
                 }
+                dialogState.step = step + 1;
+                renderDialogStep(step + 1);
                 break;
-
-            case 'back':
-                if (step > 0) {
-                    dialogState.step = step - 1;
-                    renderStep(step - 1);
-                }
-                break;
-
-            case 'cancel':
-                dialogContainer.innerHTML = `
-                    <div class="dialog-message">
-                        ❌ Ты отказался от подачи заявки.\n\nЕсли передумаешь, просто нажми "Заявки" снова.
-                    </div>
-                    <div class="dialog-buttons">
-                        <button class="dialog-btn" onclick="switchPage('home')">🏠 На главную</button>
-                    </div>
-                `;
-                dialogState.finished = true;
-                break;
-
-            case 'submit':
-                submitApplication();
-                break;
-
             case 'home':
                 switchPage('home');
                 break;
-
             default:
                 console.warn('Неизвестное действие:', action);
         }
     }
 
-    async function submitApplication() {
-        const data = dialogState.data;
-        
-        if (!data.nickname || !data.reason) {
-            dialogMessage.innerHTML = '❌ Ошибка! Заполнены не все поля.';
-            return;
-        }
-
-        if (!telegramOnline) {
-            dialogMessage.innerHTML = '❌ Ошибка: Telegram не подключён! Проверьте настройки бота.';
-            return;
-        }
-
-        const applicationId = generateApplicationId();
-        const applicationData = {
-            id: applicationId,
-            time: new Date().toLocaleString('ru-RU', { 
-                day: '2-digit', 
-                month: '2-digit', 
-                year: 'numeric', 
-                hour: '2-digit', 
-                minute: '2-digit',
-                second: '2-digit'
-            }),
-            nickname: data.nickname,
-            reason: data.reason,
-            pack: data.pack || 'Не указано'
-        };
-
-        const result = await sendToTelegram(applicationData);
-
-        if (result.ok) {
-            const apps = JSON.parse(localStorage.getItem('applications') || '[]');
-            apps.push(applicationData);
-            localStorage.setItem('applications', JSON.stringify(apps));
-            localStorage.setItem('applicationStatus', 'pending');
-            
-            dialogState.step = 5;
-            renderStep(5);
-        } else {
-            dialogMessage.innerHTML = `⚠️ Ошибка отправки в Telegram: ${result.error}\n\nПроверьте настройки бота и попробуйте снова.`;
-        }
-    }
-
-    window.resetApplication = function() {
-        localStorage.removeItem('applicationStatus');
-        localStorage.removeItem('applications');
-        dialogState = {
-            step: 0,
-            data: {},
-            finished: false
-        };
-        initDialog();
-    };
-
     // =============================================
-    // 5. ИНИЦИАЛИЗАЦИЯ
+    // 14. НАСТРОЙКИ (ЦВЕТ)
     // =============================================
-    document.addEventListener('DOMContentLoaded', function() {
-        const isApplicationsPage = document.getElementById('applications').classList.contains('active');
-        if (isApplicationsPage) {
-            checkTelegramConnection();
-            initDialog();
-        }
-        
-        // Проверяем подключение каждые 30 секунд
-        setInterval(() => {
-            if (document.getElementById('applications').classList.contains('active')) {
-                checkTelegramConnection();
-            }
-        }, 30000);
+    const settingsModal = document.getElementById('settingsModal');
+    const settingsCloseBtn = document.getElementById('settingsCloseBtn');
+    const settingsBtn = document.getElementById('settingsBtn');
+    const colorOptions = document.querySelectorAll('.color-btn');
+
+    settingsBtn.addEventListener('click', function() {
+        dropdownMenu.classList.remove('active');
+        settingsModal.classList.add('active');
     });
 
-    console.log('📝 Диалоговая система HeriCraft загружена!');
-    console.log('📱 Настройки Telegram:');
-    console.log(`  Токен: ${TELEGRAM_BOT_TOKEN}`);
-    console.log(`  Chat ID: ${TELEGRAM_CHAT_ID}`);
-    console.log('🔍 Проверка подключения...');
-    checkTelegramConnection();
+    settingsCloseBtn.addEventListener('click', function() {
+        settingsModal.classList.remove('active');
+    });
+
+    colorOptions.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const color = this.dataset.color;
+            document.body.style.setProperty('--accent-color', color);
+            document.querySelectorAll('.logo span, .content h2, .build-card h3, .resource-pack-card .pack-info h3, .modal-content h2, .footer-info h3, .admin-sidebar h3, .admin-main .app-detail .detail-nick, .nickname-box h2, .dropdown-menu .user-info .username, .dialog-message .highlight').forEach(el => {
+                el.style.color = color;
+            });
+            localStorage.setItem('siteColor', color);
+            colorOptions.forEach(c => c.style.borderColor = '#5a5a5a');
+            this.style.borderColor = '#f0d040';
+        });
+    });
+
+    const savedColor = localStorage.getItem('siteColor');
+    if (savedColor) {
+        document.body.style.setProperty('--accent-color', savedColor);
+        document.querySelectorAll('.logo span, .content h2, .build-card h3, .resource-pack-card .pack-info h3, .modal-content h2, .footer-info h3, .admin-sidebar h3, .admin-main .app-detail .detail-nick, .nickname-box h2, .dropdown-menu .user-info .username, .dialog-message .highlight').forEach(el => {
+            el.style.color = savedColor;
+        });
+        colorOptions.forEach(btn => {
+            if (btn.dataset.color === savedColor) {
+                btn.style.borderColor = '#f0d040';
+            }
+        });
+    }
+
+    // =============================================
+    // 15. ИНИЦИАЛИЗАЦИЯ
+    // =============================================
+    async function init() {
+        await loadApplicationsFromGitHub();
+        console.log('👑 HeriCraft загружен!');
+        console.log('📝 Заявки сохраняются в GitHub');
+        console.log('🔄 Двойной клик по аватарке для входа в админку');
+    }
+
+    init();
 </script>
 
 </body>
