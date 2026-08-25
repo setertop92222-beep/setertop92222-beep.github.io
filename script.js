@@ -1,12 +1,11 @@
 // =============================================
-// 1. НАСТРОЙКИ TELEGRAM
+// 1. НАСТРОЙКИ TELEGRAM (ЗАМЕНИТЕ НА СВОИ!)
 // =============================================
-// 🔑 ЗАМЕНИТЕ НА СВОИ ДАННЫЕ!
 const TELEGRAM_BOT_TOKEN = '8987375609:AAG4GiltPO4fuhc8twbt1oGpvcFykLgTNkc';  // Токен от @BotFather
 const TELEGRAM_CHAT_ID = '7227279621';      // Ваш ID в Telegram
 
 // =============================================
-// 2. РАБОТА С ЭКРАНОМ ВВОДА НИКА
+// 2. ЭКРАН ВВОДА НИКА
 // =============================================
 const nicknameScreen = document.getElementById('nicknameScreen');
 const nicknameInput = document.getElementById('nicknameInput');
@@ -14,7 +13,6 @@ const nicknameSubmitBtn = document.getElementById('nicknameSubmitBtn');
 const nicknameError = document.getElementById('nicknameError');
 const userMenu = document.getElementById('userMenu');
 
-// Сохраняем ник
 let currentUser = localStorage.getItem('playerNickname');
 
 if (currentUser) {
@@ -42,7 +40,7 @@ nicknameInput.addEventListener('keydown', function(e) {
 });
 
 // =============================================
-// 3. ПОЛЬЗОВАТЕЛЬСКОЕ МЕНЮ
+// 3. МЕНЮ
 // =============================================
 const userAvatar = document.getElementById('userAvatar');
 const dropdownMenu = document.getElementById('dropdownMenu');
@@ -65,7 +63,6 @@ function updateUserUI() {
     }
 }
 
-// Выход из аккаунта
 logoutBtn.addEventListener('click', function() {
     dropdownMenu.classList.remove('active');
     localStorage.removeItem('playerNickname');
@@ -102,13 +99,14 @@ buttons.forEach(btn => {
 // 5. ОТПРАВКА В TELEGRAM
 // =============================================
 async function sendToTelegram(data) {
-    // Проверяем настройки
-    if (TELEGRAM_BOT_TOKEN === 'ВАШ_ТОКЕН_БОТА' || TELEGRAM_CHAT_ID === 'ВАШ_CHAT_ID') {
-        console.warn('⚠️ Настройки Telegram не заполнены!');
-        return { ok: false, error: 'Настройки Telegram не заполнены' };
+    // Проверяем, заполнены ли настройки
+    if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN === 'ВАШ_ТОКЕН_БОТА') {
+        return { ok: false, error: '❌ Токен бота не настроен!' };
+    }
+    if (!TELEGRAM_CHAT_ID || TELEGRAM_CHAT_ID === 'ВАШ_CHAT_ID') {
+        return { ok: false, error: '❌ Chat ID не настроен!' };
     }
 
-    // Формируем сообщение
     const text = `📝 **НОВАЯ ЗАЯВКА НА HERICRAFT!**
 
 🆔 **Номер:** #${data.id}
@@ -133,7 +131,7 @@ async function sendToTelegram(data) {
         const result = await response.json();
         return { ok: result.ok, error: result.description };
     } catch (error) {
-        return { ok: false, error: error.message };
+        return { ok: false, error: '❌ Нет подключения к интернету или Telegram заблокирован' };
     }
 }
 
@@ -147,17 +145,27 @@ const dialogButtons = document.getElementById('dialogButtons');
 const applyStatus = document.getElementById('applyStatus');
 
 let dialogState = { step: 0, data: {} };
-let applicationId = 1;
 
-// Генерация ID
 function generateId() {
     return Date.now().toString(36).substring(2, 8).toUpperCase();
 }
 
 function initDialog() {
     // Проверяем, есть ли уже заявка от этого пользователя
-    // (в localStorage храним только заявки, отправленные в Telegram)
-    // Для простоты просто начинаем диалог
+    const apps = JSON.parse(localStorage.getItem('applications') || '[]');
+    const existing = apps.find(a => a.nickname === currentUser);
+
+    if (existing) {
+        dialogContainer.innerHTML = `
+            <div class="dialog-message">
+                ${existing.status === 'accepted' 
+                    ? '✅ Ваша заявка уже принята! Вы можете заходить на сервер.'
+                    : '⏳ Ваша заявка уже на рассмотрении. Ожидайте ответа.'
+                }
+            </div>
+        `;
+        return;
+    }
 
     dialogState = { step: 0, data: {} };
     renderDialogStep(0);
@@ -174,14 +182,12 @@ function renderDialogStep(step) {
     ];
 
     if (step >= steps.length) {
-        // Заявка готова — отправляем
         submitApplication();
         return;
     }
 
     const currentStep = steps[step];
     dialogMessage.innerHTML = currentStep.message;
-
     dialogInputArea.innerHTML = '';
     dialogButtons.innerHTML = '';
 
@@ -222,13 +228,9 @@ function renderDialogStep(step) {
     }
 }
 
-// =============================================
-// 7. ОТПРАВКА ЗАЯВКИ
-// =============================================
 async function submitApplication() {
     const reason = dialogState.data.reason || 'Не указана';
 
-    // Проверяем, что пользователь вошёл
     if (!currentUser) {
         applyStatus.className = 'message error';
         applyStatus.textContent = '❌ Сначала войдите на сайт!';
@@ -250,17 +252,14 @@ async function submitApplication() {
         reason: reason
     };
 
-    // Показываем загрузку
     dialogMessage.innerHTML = '⏳ Отправка заявки...';
     dialogInputArea.innerHTML = '';
     dialogButtons.innerHTML = '';
     applyStatus.style.display = 'block';
 
-    // Отправляем в Telegram
     const result = await sendToTelegram(appData);
 
     if (result.ok) {
-        // Сохраняем в localStorage
         const apps = JSON.parse(localStorage.getItem('applications') || '[]');
         apps.push(appData);
         localStorage.setItem('applications', JSON.stringify(apps));
@@ -272,10 +271,9 @@ async function submitApplication() {
         `;
 
         applyStatus.className = 'message success';
-        applyStatus.textContent = `✅ Заявка #${appData.id} отправлена в Telegram!`;
+        applyStatus.textContent = `✅ Заявка #${appData.id} отправлена!`;
         applyStatus.style.display = 'block';
 
-        // Кнопка на главную
         const homeBtn = document.createElement('button');
         homeBtn.className = 'dialog-btn danger';
         homeBtn.textContent = '🏠 На главную';
@@ -292,7 +290,7 @@ async function submitApplication() {
         `;
 
         applyStatus.className = 'message error';
-        applyStatus.textContent = `❌ Ошибка: ${result.error || 'Неизвестная ошибка'}`;
+        applyStatus.textContent = `❌ ${result.error || 'Неизвестная ошибка'}`;
         applyStatus.style.display = 'block';
 
         const retryBtn = document.createElement('button');
@@ -309,10 +307,20 @@ async function submitApplication() {
 }
 
 // =============================================
-// 8. ИНИЦИАЛИЗАЦИЯ
+// 7. ИНИЦИАЛИЗАЦИЯ
 // =============================================
 console.log('📝 HeriCraft загружен!');
-console.log('📌 Настройте TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID в script.js');
+
+// Проверяем настройки Telegram
+if (TELEGRAM_BOT_TOKEN === 'ВАШ_ТОКЕН_БОТА' || TELEGRAM_CHAT_ID === 'ВАШ_CHAT_ID') {
+    console.warn('⚠️ Настройки Telegram не заполнены! Заявки не будут отправляться.');
+    document.querySelector('.content').insertAdjacentHTML('afterbegin', `
+        <div class="message error" style="display:block;margin-bottom:20px;">
+            ⚠️ Настройки Telegram не заполнены! Заявки не будут отправляться.
+            <br><small>Откройте script.js и вставьте TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID</small>
+        </div>
+    `);
+}
 
 // Если страница заявок активна — запускаем диалог
 if (document.getElementById('apply').classList.contains('active')) {
