@@ -1,11 +1,5 @@
 // =============================================
-// 1. НАСТРОЙКИ TELEGRAM (ЗАМЕНИТЕ НА СВОИ!)
-// =============================================
-const TELEGRAM_BOT_TOKEN = '8987375609:AAG4GiltPO4fuhc8twbt1oGpvcFykLgTNkc';  // Токен от @BotFather
-const TELEGRAM_CHAT_ID = '7227279621';      // Ваш ID в Telegram
-
-// =============================================
-// 2. ЭКРАН ВВОДА НИКА
+// 1. ЭКРАН ВВОДА НИКА
 // =============================================
 const nicknameScreen = document.getElementById('nicknameScreen');
 const nicknameInput = document.getElementById('nicknameInput');
@@ -40,7 +34,7 @@ nicknameInput.addEventListener('keydown', function(e) {
 });
 
 // =============================================
-// 3. МЕНЮ
+// 2. МЕНЮ
 // =============================================
 const userAvatar = document.getElementById('userAvatar');
 const dropdownMenu = document.getElementById('dropdownMenu');
@@ -73,7 +67,7 @@ logoutBtn.addEventListener('click', function() {
 });
 
 // =============================================
-// 4. ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
+// 3. ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
 // =============================================
 const buttons = document.querySelectorAll('.minecraft-btn');
 const sections = document.querySelectorAll('.page-section');
@@ -96,47 +90,7 @@ buttons.forEach(btn => {
 });
 
 // =============================================
-// 5. ОТПРАВКА В TELEGRAM
-// =============================================
-async function sendToTelegram(data) {
-    // Проверяем, заполнены ли настройки
-    if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN === 'ВАШ_ТОКЕН_БОТА') {
-        return { ok: false, error: '❌ Токен бота не настроен!' };
-    }
-    if (!TELEGRAM_CHAT_ID || TELEGRAM_CHAT_ID === 'ВАШ_CHAT_ID') {
-        return { ok: false, error: '❌ Chat ID не настроен!' };
-    }
-
-    const text = `📝 **НОВАЯ ЗАЯВКА НА HERICRAFT!**
-
-🆔 **Номер:** #${data.id}
-🎮 **Ник в Minecraft:** ${data.nickname}
-💭 **Причина:** ${data.reason}
-🕐 **Время:** ${data.time}
-
----
-✅ Заявка ожидает рассмотрения.`;
-
-    try {
-        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: TELEGRAM_CHAT_ID,
-                text: text,
-                parse_mode: 'Markdown'
-            })
-        });
-
-        const result = await response.json();
-        return { ok: result.ok, error: result.description };
-    } catch (error) {
-        return { ok: false, error: '❌ Нет подключения к интернету или Telegram заблокирован' };
-    }
-}
-
-// =============================================
-// 6. ДИАЛОГ ЗАЯВКИ
+// 4. ДИАЛОГ ЗАЯВКИ (ЧЕРЕЗ EMAIL)
 // =============================================
 const dialogContainer = document.getElementById('dialogContainer');
 const dialogMessage = document.getElementById('dialogMessage');
@@ -145,6 +99,7 @@ const dialogButtons = document.getElementById('dialogButtons');
 const applyStatus = document.getElementById('applyStatus');
 
 let dialogState = { step: 0, data: {} };
+const ADMIN_EMAIL = 'setertop911@gmail.com'; // ЗАМЕНИТЕ НА СВОЙ EMAIL!
 
 function generateId() {
     return Date.now().toString(36).substring(2, 8).toUpperCase();
@@ -228,12 +183,19 @@ function renderDialogStep(step) {
     }
 }
 
-async function submitApplication() {
+function submitApplication() {
     const reason = dialogState.data.reason || 'Не указана';
 
     if (!currentUser) {
         applyStatus.className = 'message error';
         applyStatus.textContent = '❌ Сначала войдите на сайт!';
+        applyStatus.style.display = 'block';
+        return;
+    }
+
+    if (!ADMIN_EMAIL || ADMIN_EMAIL === 'admin@gmail.com') {
+        applyStatus.className = 'message error';
+        applyStatus.textContent = '❌ Настройте email администратора в script.js!';
         applyStatus.style.display = 'block';
         return;
     }
@@ -252,77 +214,73 @@ async function submitApplication() {
         reason: reason
     };
 
-    dialogMessage.innerHTML = '⏳ Отправка заявки...';
+    dialogMessage.innerHTML = '⏳ Открытие почты...';
     dialogInputArea.innerHTML = '';
     dialogButtons.innerHTML = '';
     applyStatus.style.display = 'block';
 
-    const result = await sendToTelegram(appData);
+    // Формируем письмо
+    const subject = encodeURIComponent(`📝 Новая заявка #${appData.id} на HeriCraft!`);
+    const body = encodeURIComponent(
+        `📝 НОВАЯ ЗАЯВКА НА HERICRAFT!\n\n` +
+        `🆔 Номер: #${appData.id}\n` +
+        `🎮 Ник в Minecraft: ${appData.nickname}\n` +
+        `💭 Причина: ${appData.reason}\n` +
+        `🕐 Время: ${appData.time}\n\n` +
+        `---\n` +
+        `✅ Чтобы принять заявку, ответьте на это письмо.\n` +
+        `❌ Чтобы отклонить, также ответьте.\n\n` +
+        `С уважением,\n` +
+        `HeriCraft Team`
+    );
 
-    if (result.ok) {
-        const apps = JSON.parse(localStorage.getItem('applications') || '[]');
-        apps.push(appData);
-        localStorage.setItem('applications', JSON.stringify(apps));
+    // Открываем почтовую программу
+    window.location.href = `mailto:${ADMIN_EMAIL}?subject=${subject}&body=${body}`;
 
-        dialogMessage.innerHTML = `
-            ✅ <span class="highlight">Заявка #${appData.id} успешно отправлена!</span><br><br>
-            Администратор рассмотрит её в ближайшее время.<br><br>
-            Спасибо, что участвуете в нашем проекте! 🙌
-        `;
+    // Сохраняем в localStorage
+    const apps = JSON.parse(localStorage.getItem('applications') || '[]');
+    apps.push(appData);
+    localStorage.setItem('applications', JSON.stringify(apps));
 
-        applyStatus.className = 'message success';
-        applyStatus.textContent = `✅ Заявка #${appData.id} отправлена!`;
-        applyStatus.style.display = 'block';
+    dialogMessage.innerHTML = `
+        ✅ <span class="highlight">Заявка #${appData.id} готова к отправке!</span><br><br>
+        Откроется почтовая программа. Просто нажмите "Отправить".<br><br>
+        Спасибо, что участвуете в нашем проекте! 🙌
+    `;
 
-        const homeBtn = document.createElement('button');
-        homeBtn.className = 'dialog-btn danger';
-        homeBtn.textContent = '🏠 На главную';
-        homeBtn.addEventListener('click', function() {
-            switchPage('home');
-            applyStatus.style.display = 'none';
-        });
-        dialogButtons.appendChild(homeBtn);
+    applyStatus.className = 'message success';
+    applyStatus.textContent = `✅ Письмо открыто! Отправьте его вручную.`;
+    applyStatus.style.display = 'block';
 
-    } else {
-        dialogMessage.innerHTML = `
-            ❌ <span class="highlight">Ошибка отправки заявки!</span><br><br>
-            ${result.error || 'Попробуйте позже.'}
-        `;
-
-        applyStatus.className = 'message error';
-        applyStatus.textContent = `❌ ${result.error || 'Неизвестная ошибка'}`;
-        applyStatus.style.display = 'block';
-
-        const retryBtn = document.createElement('button');
-        retryBtn.className = 'dialog-btn primary';
-        retryBtn.textContent = '🔄 Попробовать снова';
-        retryBtn.addEventListener('click', function() {
-            applyStatus.style.display = 'none';
-            initDialog();
-        });
-        dialogButtons.appendChild(retryBtn);
-    }
+    const homeBtn = document.createElement('button');
+    homeBtn.className = 'dialog-btn danger';
+    homeBtn.textContent = '🏠 На главную';
+    homeBtn.addEventListener('click', function() {
+        switchPage('home');
+        applyStatus.style.display = 'none';
+    });
+    dialogButtons.appendChild(homeBtn);
 
     dialogContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // =============================================
-// 7. ИНИЦИАЛИЗАЦИЯ
+// 5. ИНИЦИАЛИЗАЦИЯ
 // =============================================
 console.log('📝 HeriCraft загружен!');
+console.log('📧 Email администратора:', ADMIN_EMAIL);
+console.log('📌 Заявки отправляются через почту');
 
-// Проверяем настройки Telegram
-if (TELEGRAM_BOT_TOKEN === 'ВАШ_ТОКЕН_БОТА' || TELEGRAM_CHAT_ID === 'ВАШ_CHAT_ID') {
-    console.warn('⚠️ Настройки Telegram не заполнены! Заявки не будут отправляться.');
+if (ADMIN_EMAIL === 'admin@gmail.com') {
+    console.warn('⚠️ Настройте email администратора в script.js!');
     document.querySelector('.content').insertAdjacentHTML('afterbegin', `
         <div class="message error" style="display:block;margin-bottom:20px;">
-            ⚠️ Настройки Telegram не заполнены! Заявки не будут отправляться.
-            <br><small>Откройте script.js и вставьте TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID</small>
+            ⚠️ Настройте email администратора в script.js!
+            <br><small>Замените ADMIN_EMAIL на свой email</small>
         </div>
     `);
 }
 
-// Если страница заявок активна — запускаем диалог
 if (document.getElementById('apply').classList.contains('active')) {
     initDialog();
 }
