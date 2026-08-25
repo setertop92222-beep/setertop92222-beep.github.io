@@ -6,29 +6,15 @@
     <title>HERICRAFT</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <style>
-        /* ===== ОСНОВНЫЕ СТИЛИ ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Press Start 2P', cursive;
             background: #2d2d2d;
             color: #fff;
             min-height: 100vh;
-            overflow-x: hidden;
-            background-image:
-                repeating-linear-gradient(45deg, #3a3a3a 0px, #3a3a3a 2px, #4a4a4a 2px, #4a4a4a 4px);
+            background-image: repeating-linear-gradient(45deg, #3a3a3a 0px, #3a3a3a 2px, #4a4a4a 2px, #4a4a4a 4px);
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
         .logo {
             text-align: center;
@@ -51,7 +37,6 @@
             box-shadow: inset 0 -6px 0 #4a3520, 0 10px 20px rgba(0,0,0,0.6);
             transform: rotate(-2deg);
         }
-
         @keyframes flyUp {
             0% { transform: translateY(120px); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
@@ -60,10 +45,8 @@
         /* ===== ЭКРАН ВВОДА НИКА ===== */
         .nickname-screen {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.95);
             z-index: 9999;
             display: flex;
@@ -71,16 +54,11 @@
             align-items: center;
             animation: fadeIn 0.5s ease-out;
         }
-
-        .nickname-screen.hidden {
-            display: none;
-        }
-
+        .nickname-screen.hidden { display: none; }
         @keyframes fadeIn {
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
-
         .nickname-box {
             background: #3a3a3a;
             padding: 40px;
@@ -91,25 +69,12 @@
             text-align: center;
             animation: scaleIn 0.5s ease-out;
         }
-
         @keyframes scaleIn {
             0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-
-        .nickname-box h2 {
-            color: #f0d040;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-
-        .nickname-box p {
-            color: #aaa;
-            font-size: 0.6rem;
-            margin-bottom: 25px;
-            line-height: 1.8;
-        }
-
+        .nickname-box h2 { color: #f0d040; font-size: 1.2rem; margin-bottom: 10px; }
+        .nickname-box p { color: #aaa; font-size: 0.6rem; margin-bottom: 25px; line-height: 1.8; }
         .nickname-box input {
             width: 100%;
             padding: 15px;
@@ -122,12 +87,7 @@
             margin-bottom: 20px;
             text-align: center;
         }
-
-        .nickname-box input:focus {
-            outline: none;
-            border-color: #f0d040;
-        }
-
+        .nickname-box input:focus { outline: none; border-color: #f0d040; }
         .nickname-box .submit-btn {
             width: 100%;
             padding: 16px;
@@ -141,527 +101,9 @@
             transition: all 0.05s linear;
             text-transform: uppercase;
         }
-
-        .nickname-box .submit-btn:hover {
-            background: #4a9a4a;
-            transform: translate(2px, 2px);
-        }
-
-        .nickname-box .error-msg {
-            color: #f88;
-            font-size: 0.6rem;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .nickname-box .error-msg.show {
-            display: block;
-        }
-
-        /* ===== КРУЖОК ===== */
-        .user-menu {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #6b4c2a;
-            border: 4px solid #8b6b4a;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .user-avatar:hover {
-            transform: scale(1.1);
-            border-color: #f0d040;
-        }
-
-        .user-avatar .status-dot {
-            position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            border: 2px solid #2d2d2d;
-        }
-
-        .user-avatar .status-dot.online {
-            background: #3a8a3a;
-        }
-
-        .user-avatar .status-dot.offline {
-            background: #8a3a3a;
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 60px;
-            right: 0;
-            background: #4a4a4a;
-            border: 4px solid #6b4c2a;
-            box-shadow: inset 0 -4px 0 #2a2a2a, 8px 8px 0 rgba(0,0,0,0.5);
-            min-width: 200px;
-            display: none;
-            padding: 10px 0;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        .dropdown-menu.active {
-            display: block;
-        }
-
-        @keyframes slideDown {
-            0% { opacity: 0; transform: translateY(-10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .dropdown-menu .user-info {
-            padding: 10px 20px;
-            border-bottom: 2px solid #5a5a5a;
-            margin-bottom: 10px;
-        }
-
-        .dropdown-menu .user-info .username {
-            color: #f0d040;
-            font-size: 0.7rem;
-        }
-
-        .dropdown-menu .user-info .user-role {
-            color: #888;
-            font-size: 0.5rem;
-            margin-top: 3px;
-        }
-
-        .dropdown-menu .menu-item {
-            padding: 12px 20px;
-            font-size: 0.6rem;
-            color: #ddd;
-            cursor: pointer;
-            transition: all 0.1s ease;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-family: 'Press Start 2P', cursive;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .dropdown-menu .menu-item:hover {
-            background: #5a5a5a;
-            color: #fff;
-        }
-
-        .dropdown-menu .menu-item .item-icon {
-            margin-right: 10px;
-        }
-
-        .dropdown-menu .menu-item.danger {
-            color: #f88;
-        }
-
-        .dropdown-menu .menu-item.danger:hover {
-            background: #6a2a2a;
-        }
-
-        /* ===== МОДАЛЬНОЕ ОКНО ПАРОЛЯ ===== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: #3a3a3a;
-            padding: 30px;
-            border: 6px solid #6b4c2a;
-            box-shadow: inset 0 -6px 0 #2a2a2a, 12px 12px 0 rgba(0,0,0,0.5);
-            max-width: 400px;
-            width: 100%;
-            animation: scaleIn 0.3s ease-out;
-        }
-
-        .modal-content h2 {
-            color: #f0d040;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            border-bottom: 4px solid #6b4c2a;
-            padding-bottom: 12px;
-            text-align: center;
-        }
-
-        .modal-content label {
-            display: block;
-            font-size: 0.7rem;
-            margin-bottom: 8px;
-            color: #ddd;
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            background: #2a2a2a;
-            border: 4px solid #5a5a5a;
-            color: #fff;
-            box-shadow: inset 0 -4px 0 #1a1a1a;
-        }
-
-        .modal-content input:focus {
-            outline: none;
-            border-color: #f0d040;
-        }
-
-        .modal-content .submit-btn {
-            width: 100%;
-            padding: 14px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.8rem;
-            color: #fff;
-            background: #3a8a3a;
-            border: 4px solid #2a6a2a;
-            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.4);
-            cursor: pointer;
-            transition: all 0.05s linear;
-            text-transform: uppercase;
-        }
-
-        .modal-content .submit-btn:hover {
-            background: #4a9a4a;
-            transform: translate(2px, 2px);
-        }
-
-        .modal-content .modal-message {
-            margin-top: 15px;
-            padding: 10px;
-            font-size: 0.6rem;
-            display: none;
-        }
-
-        .modal-content .modal-message.success {
-            display: block;
-            background: #1a4a1a;
-            border: 2px solid #3a8a3a;
-            color: #8f8;
-        }
-
-        .modal-content .modal-message.error {
-            display: block;
-            background: #4a1a1a;
-            border: 2px solid #8a3a3a;
-            color: #f88;
-        }
-
-        /* ===== АДМИН ПАНЕЛЬ ===== */
-        .admin-panel {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            min-height: 500px;
-        }
-
-        .admin-sidebar {
-            flex: 0 0 280px;
-            background: #4a4a4a;
-            padding: 20px;
-            border: 6px solid #6b4c2a;
-            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        .admin-sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-        .admin-sidebar::-webkit-scrollbar-track {
-            background: #2a2a2a;
-        }
-        .admin-sidebar::-webkit-scrollbar-thumb {
-            background: #6b4c2a;
-            border: 2px solid #4a3520;
-        }
-
-        .admin-sidebar h3 {
-            color: #f0d040;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            border-bottom: 4px solid #6b4c2a;
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .admin-sidebar .app-item {
-            padding: 12px 15px;
-            background: #3a3a3a;
-            border: 4px solid #5a5a5a;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.6rem;
-        }
-
-        .admin-sidebar .app-item:hover {
-            border-color: #f0d040;
-            background: #4a4a4a;
-        }
-
-        .admin-sidebar .app-item.active {
-            border-color: #f0d040;
-            background: #4a4a4a;
-            box-shadow: 0 0 20px rgba(240, 208, 64, 0.2);
-        }
-
-        .admin-sidebar .app-item .app-nick {
-            color: #f0d040;
-            font-size: 0.7rem;
-        }
-
-        .admin-sidebar .app-item .app-time {
-            color: #888;
-            font-size: 0.5rem;
-            margin-top: 5px;
-        }
-
-        .admin-sidebar .app-item .app-status {
-            display: inline-block;
-            padding: 2px 10px;
-            font-size: 0.4rem;
-            margin-top: 5px;
-            border: 2px solid;
-        }
-
-        .app-status.pending {
-            background: #6a5a2a;
-            border-color: #8a7a3a;
-            color: #ff8;
-        }
-
-        .app-status.accepted {
-            background: #2a6a2a;
-            border-color: #3a8a3a;
-            color: #8f8;
-        }
-
-        .app-status.denied {
-            background: #6a2a2a;
-            border-color: #8a3a3a;
-            color: #f88;
-        }
-
-        .admin-main {
-            flex: 1;
-            background: #4a4a4a;
-            padding: 25px;
-            border: 6px solid #6b4c2a;
-            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
-            min-height: 400px;
-        }
-
-        .admin-main .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 300px;
-            color: #888;
-            font-size: 0.8rem;
-            text-align: center;
-        }
-
-        .admin-main .empty-state .big-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
-
-        .admin-main .app-detail .detail-nick {
-            color: #f0d040;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-
-        .admin-main .app-detail .detail-time {
-            color: #888;
-            font-size: 0.6rem;
-            margin-bottom: 15px;
-        }
-
-        .admin-main .app-detail .detail-reason {
-            background: #3a3a3a;
-            padding: 15px;
-            border: 4px solid #5a5a5a;
-            font-size: 0.7rem;
-            line-height: 2;
-            margin-bottom: 20px;
-        }
-
-        .admin-main .app-detail .detail-actions {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .admin-main .app-detail .detail-actions .action-btn {
-            padding: 14px 30px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            color: #fff;
-            border: 4px solid;
-            cursor: pointer;
-            transition: all 0.05s linear;
-            text-transform: uppercase;
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .admin-main .app-detail .detail-actions .action-btn.accept {
-            background: #3a8a3a;
-            border-color: #2a6a2a;
-            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.4);
-        }
-
-        .admin-main .app-detail .detail-actions .action-btn.accept:hover {
-            background: #4a9a4a;
-            transform: translate(2px, 2px);
-        }
-
-        .admin-main .app-detail .detail-actions .action-btn.deny {
-            background: #8a3a3a;
-            border-color: #6a2a2a;
-            box-shadow: inset 0 -6px 0 #4a1a1a, 4px 4px 0 rgba(0,0,0,0.4);
-        }
-
-        .admin-main .app-detail .detail-actions .action-btn.deny:hover {
-            background: #9a4a4a;
-            transform: translate(2px, 2px);
-        }
-
-        .admin-main .app-detail .detail-actions .action-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        /* ===== ДИАЛОГ ЗАЯВКИ ===== */
-        .dialog-container {
-            background: #4a4a4a;
-            padding: 30px;
-            border: 6px solid #6b4c2a;
-            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
-            margin-top: 20px;
-            min-height: 250px;
-            position: relative;
-        }
-
-        .dialog-message {
-            font-size: 0.9rem;
-            line-height: 2.5;
-            color: #fff;
-            margin-bottom: 30px;
-            animation: typeIn 0.5s ease-out;
-        }
-
-        @keyframes typeIn {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .dialog-message .highlight {
-            color: #f0d040;
-        }
-
-        .dialog-input {
-            width: 100%;
-            padding: 15px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.8rem;
-            background: #3a3a3a;
-            border: 4px solid #5a5a5a;
-            color: #fff;
-            box-shadow: inset 0 -4px 0 #2a2a2a;
-            margin-bottom: 15px;
-            transition: all 0.2s;
-        }
-
-        .dialog-input:focus {
-            outline: none;
-            border-color: #f0d040;
-            box-shadow: inset 0 -4px 0 #f0d040, 0 0 20px rgba(240, 208, 64, 0.2);
-        }
-
-        .dialog-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .dialog-btn {
-            padding: 14px 30px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            color: #fff;
-            background: #7a5a3a;
-            border: 4px solid #5a3a2a;
-            box-shadow: inset 0 -6px 0 #3a2a1a, 4px 4px 0 rgba(0,0,0,0.4);
-            cursor: pointer;
-            transition: all 0.05s linear;
-            text-transform: uppercase;
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .dialog-btn:hover {
-            background: #9a7a5a;
-            transform: translate(2px, 2px);
-            box-shadow: inset 0 -4px 0 #3a2a1a, 2px 2px 0 rgba(0,0,0,0.4);
-        }
-
-        .dialog-btn.primary {
-            background: #3a8a3a;
-            border-color: #2a6a2a;
-            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.4);
-        }
-
-        .dialog-btn.primary:hover {
-            background: #4a9a4a;
-        }
-
-        .dialog-btn.danger {
-            background: #8a3a3a;
-            border-color: #6a2a2a;
-            box-shadow: inset 0 -6px 0 #4a1a1a, 4px 4px 0 rgba(0,0,0,0.4);
-        }
-
-        .dialog-btn.danger:hover {
-            background: #9a4a4a;
-        }
+        .nickname-box .submit-btn:hover { background: #4a9a4a; transform: translate(2px, 2px); }
+        .nickname-box .error-msg { color: #f88; font-size: 0.6rem; margin-top: 10px; display: none; }
+        .nickname-box .error-msg.show { display: block; }
 
         /* ===== МЕНЮ ===== */
         .menu-wrapper {
@@ -671,7 +113,6 @@
             margin-top: 20px;
             flex-wrap: wrap;
         }
-
         .side-menu {
             flex: 0 0 220px;
             background: #8b6b4a;
@@ -684,20 +125,12 @@
             animation-delay: 0.5s;
             height: fit-content;
         }
-
         @keyframes slideLeft {
             0% { transform: translateX(-100px); opacity: 0; }
             100% { transform: translateX(0); opacity: 1; }
         }
-
-        .side-menu ul {
-            list-style: none;
-        }
-
-        .side-menu li {
-            margin-bottom: 18px;
-        }
-
+        .side-menu ul { list-style: none; }
+        .side-menu li { margin-bottom: 18px; }
         .minecraft-btn {
             display: block;
             width: 100%;
@@ -715,24 +148,9 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
-        .minecraft-btn:hover {
-            background: #9a7a5a;
-            transform: translate(2px, 2px);
-            box-shadow: inset 0 -4px 0 #3a2a1a, 2px 2px 0 rgba(0,0,0,0.4);
-        }
-
-        .minecraft-btn:active {
-            transform: translate(4px, 4px);
-            box-shadow: inset 0 -2px 0 #3a2a1a, 0px 0px 0 rgba(0,0,0,0.4);
-        }
-
-        .btn-icon {
-            display: inline-block;
-            margin-right: 10px;
-            font-size: 1.2rem;
-            filter: drop-shadow(2px 2px 0 #2a1a0a);
-        }
+        .minecraft-btn:hover { background: #9a7a5a; transform: translate(2px, 2px); box-shadow: inset 0 -4px 0 #3a2a1a, 2px 2px 0 rgba(0,0,0,0.4); }
+        .minecraft-btn:active { transform: translate(4px, 4px); box-shadow: inset 0 -2px 0 #3a2a1a, 0px 0px 0 rgba(0,0,0,0.4); }
+        .btn-icon { display: inline-block; margin-right: 10px; font-size: 1.2rem; filter: drop-shadow(2px 2px 0 #2a1a0a); }
 
         .content {
             flex: 1;
@@ -747,12 +165,10 @@
             animation-delay: 0.7s;
             min-height: 400px;
         }
-
         @keyframes scaleIn {
             0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-
         .content h2 {
             font-size: 1.5rem;
             color: #f0d040;
@@ -761,14 +177,7 @@
             border-bottom: 4px solid #6b4c2a;
             padding-bottom: 12px;
         }
-
-        .content p {
-            line-height: 2;
-            font-size: 0.8rem;
-            margin-bottom: 20px;
-            color: #ddd;
-        }
-
+        .content p { line-height: 2; font-size: 0.8rem; margin-bottom: 20px; color: #ddd; }
         .content .info-block {
             background: #4a4a4a;
             padding: 20px;
@@ -777,13 +186,92 @@
             box-shadow: inset 0 -4px 0 #2a2a2a;
         }
 
+        /* ===== ДИАЛОГ ЗАЯВКИ ===== */
+        .dialog-container {
+            background: #4a4a4a;
+            padding: 30px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
+            margin-top: 20px;
+            min-height: 250px;
+            position: relative;
+        }
+        .dialog-message {
+            font-size: 0.9rem;
+            line-height: 2.5;
+            color: #fff;
+            margin-bottom: 30px;
+            animation: typeIn 0.5s ease-out;
+        }
+        @keyframes typeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .dialog-message .highlight { color: #f0d040; }
+        .dialog-input {
+            width: 100%;
+            padding: 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            background: #3a3a3a;
+            border: 4px solid #5a5a5a;
+            color: #fff;
+            box-shadow: inset 0 -4px 0 #2a2a2a;
+            margin-bottom: 15px;
+            transition: all 0.2s;
+        }
+        .dialog-input:focus { outline: none; border-color: #f0d040; box-shadow: inset 0 -4px 0 #f0d040, 0 0 20px rgba(240, 208, 64, 0.2); }
+        .dialog-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .dialog-btn {
+            padding: 14px 30px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: #fff;
+            background: #7a5a3a;
+            border: 4px solid #5a3a2a;
+            box-shadow: inset 0 -6px 0 #3a2a1a, 4px 4px 0 rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: all 0.05s linear;
+            text-transform: uppercase;
+            flex: 1;
+            min-width: 120px;
+        }
+        .dialog-btn:hover { background: #9a7a5a; transform: translate(2px, 2px); box-shadow: inset 0 -4px 0 #3a2a1a, 2px 2px 0 rgba(0,0,0,0.4); }
+        .dialog-btn.primary { background: #3a8a3a; border-color: #2a6a2a; box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.4); }
+        .dialog-btn.primary:hover { background: #4a9a4a; }
+        .dialog-btn.danger { background: #8a3a3a; border-color: #6a2a2a; box-shadow: inset 0 -6px 0 #4a1a1a, 4px 4px 0 rgba(0,0,0,0.4); }
+        .dialog-btn.danger:hover { background: #9a4a4a; }
+
+        /* ===== ПРАВИЛА ===== */
+        .rules-container {
+            background: #4a4a4a;
+            padding: 25px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
+            margin-top: 20px;
+        }
+        .rules-container .rules-list { list-style: none; padding: 0; }
+        .rules-container .rules-list li {
+            padding: 12px 0;
+            border-bottom: 2px solid #5a5a5a;
+            font-size: 0.7rem;
+            line-height: 2;
+            color: #ddd;
+        }
+        .rules-container .rules-list li::before { content: "▸ "; color: #f0d040; }
+        .rules-container .rules-list li:last-child { border-bottom: none; }
+
+        /* ===== СБОРКИ ===== */
         .builds-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
-
         .build-card {
             background: #4a4a4a;
             padding: 25px;
@@ -792,31 +280,10 @@
             text-align: center;
             transition: 0.2s ease;
         }
-
-        .build-card:hover {
-            transform: translateY(-5px);
-            border-color: #f0d040;
-        }
-
-        .build-card .build-icon {
-            font-size: 3rem;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .build-card h3 {
-            color: #f0d040;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .build-card p {
-            font-size: 0.6rem;
-            line-height: 1.8;
-            color: #bbb;
-            margin-bottom: 15px;
-        }
-
+        .build-card:hover { transform: translateY(-5px); border-color: #f0d040; }
+        .build-card .build-icon { font-size: 3rem; display: block; margin-bottom: 10px; }
+        .build-card h3 { color: #f0d040; font-size: 0.9rem; margin-bottom: 10px; }
+        .build-card p { font-size: 0.6rem; line-height: 1.8; color: #bbb; margin-bottom: 15px; }
         .build-card .build-version {
             display: inline-block;
             padding: 5px 15px;
@@ -826,7 +293,6 @@
             color: #8f8;
             margin-bottom: 15px;
         }
-
         .download-btn {
             display: inline-block;
             padding: 12px 25px;
@@ -841,12 +307,9 @@
             text-decoration: none;
             text-transform: uppercase;
         }
+        .download-btn:hover { background: #4a9a4a; transform: translate(2px, 2px); }
 
-        .download-btn:hover {
-            background: #4a9a4a;
-            transform: translate(2px, 2px);
-        }
-
+        /* ===== РЕСУРС-ПАК ===== */
         .resource-pack-card {
             background: #4a4a4a;
             padding: 25px;
@@ -859,37 +322,18 @@
             gap: 30px;
             flex-wrap: wrap;
         }
+        .resource-pack-card .pack-info { flex: 2; min-width: 200px; }
+        .resource-pack-card .pack-info h3 { color: #f0d040; font-size: 1rem; margin-bottom: 10px; }
+        .resource-pack-card .pack-info p { font-size: 0.7rem; line-height: 1.8; margin-bottom: 10px; }
+        .resource-pack-card .pack-download { flex: 1; min-width: 150px; text-align: center; }
 
-        .resource-pack-card .pack-info {
-            flex: 2;
-            min-width: 200px;
-        }
-
-        .resource-pack-card .pack-info h3 {
-            color: #f0d040;
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .resource-pack-card .pack-info p {
-            font-size: 0.7rem;
-            line-height: 1.8;
-            margin-bottom: 10px;
-        }
-
-        .resource-pack-card .pack-download {
-            flex: 1;
-            min-width: 150px;
-            text-align: center;
-        }
-
+        /* ===== СОЦСЕТИ ===== */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
-
         .social-item {
             background: #4a4a4a;
             padding: 20px 15px;
@@ -900,17 +344,8 @@
             font-size: 0.7rem;
             cursor: pointer;
         }
-
-        .social-item:hover {
-            transform: scale(1.05);
-            background: #5a5a5a;
-        }
-
-        .social-item .social-icon {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 10px;
-        }
+        .social-item:hover { transform: scale(1.05); background: #5a5a5a; }
+        .social-item .social-icon { font-size: 2rem; display: block; margin-bottom: 10px; }
 
         .message {
             padding: 15px;
@@ -920,27 +355,87 @@
             font-size: 0.7rem;
             animation: scaleIn 0.5s ease-out;
         }
+        .message.success { display: block; background: #2a6a2a; border-color: #3a8a3a; color: #8f8; }
+        .message.error { display: block; background: #6a2a2a; border-color: #8a3a3a; color: #f88; }
+        .message.info { display: block; background: #2a4a6a; border-color: #3a6a8a; color: #8cf; }
 
-        .message.success {
-            display: block;
-            background: #2a6a2a;
-            border-color: #3a8a3a;
-            color: #8f8;
+        /* ===== КРУЖОК ===== */
+        .user-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
         }
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #6b4c2a;
+            border: 4px solid #8b6b4a;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .user-avatar:hover { transform: scale(1.1); border-color: #f0d040; }
+        .user-avatar .status-dot {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid #2d2d2d;
+        }
+        .user-avatar .status-dot.online { background: #3a8a3a; }
+        .user-avatar .status-dot.offline { background: #8a3a3a; }
 
-        .message.error {
-            display: block;
-            background: #6a2a2a;
-            border-color: #8a3a3a;
-            color: #f88;
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: #4a4a4a;
+            border: 4px solid #6b4c2a;
+            box-shadow: inset 0 -4px 0 #2a2a2a, 8px 8px 0 rgba(0,0,0,0.5);
+            min-width: 200px;
+            display: none;
+            padding: 10px 0;
+            animation: slideDown 0.3s ease-out;
         }
-
-        .message.info {
-            display: block;
-            background: #2a4a6a;
-            border-color: #3a6a8a;
-            color: #8cf;
+        .dropdown-menu.active { display: block; }
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
+        .dropdown-menu .user-info {
+            padding: 10px 20px;
+            border-bottom: 2px solid #5a5a5a;
+            margin-bottom: 10px;
+        }
+        .dropdown-menu .user-info .username { color: #f0d040; font-size: 0.7rem; }
+        .dropdown-menu .user-info .user-role { color: #888; font-size: 0.5rem; margin-top: 3px; }
+        .dropdown-menu .menu-item {
+            padding: 12px 20px;
+            font-size: 0.6rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .dropdown-menu .menu-item:hover { background: #5a5a5a; color: #fff; }
+        .dropdown-menu .menu-item .item-icon { margin-right: 10px; }
+        .dropdown-menu .menu-item.danger { color: #f88; }
+        .dropdown-menu .menu-item.danger:hover { background: #6a2a2a; }
 
         .footer-info {
             margin-top: 50px;
@@ -953,91 +448,26 @@
             animation: flyUp 1s ease-out forwards;
             animation-delay: 1.2s;
         }
+        .footer-info h3 { color: #f0d040; font-size: 1.2rem; margin-bottom: 15px; }
+        .footer-info p { font-size: 0.7rem; line-height: 1.8; color: #bbb; }
 
-        .footer-info h3 {
-            color: #f0d040;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
+        .page-section { display: none; }
+        .page-section.active { display: block; animation: scaleIn 0.5s ease-out; }
 
-        .footer-info p {
-            font-size: 0.7rem;
-            line-height: 1.8;
-            color: #bbb;
-        }
-
-        .page-section {
-            display: none;
-        }
-        .page-section.active {
-            display: block;
-            animation: scaleIn 0.5s ease-out;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .admin-mode .site-content {
-            display: none;
-        }
-
-        .admin-content {
-            display: none;
-        }
-
-        .admin-mode .admin-content {
-            display: block;
-        }
+        .site-content { display: block; }
+        .hidden { display: none !important; }
 
         @media (max-width: 700px) {
-            .menu-wrapper {
-                flex-direction: column;
-            }
-            .side-menu {
-                flex: 1;
-                transform: translateY(-30px);
-                animation: slideLeft 0.9s ease-out forwards;
-            }
-            .logo {
-                font-size: 2rem;
-            }
-            .logo span {
-                font-size: 1.2rem;
-            }
-            .content h2 {
-                font-size: 1.2rem;
-            }
-            .minecraft-btn {
-                font-size: 0.55rem;
-                padding: 10px 6px;
-            }
-            .user-avatar {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-            .dropdown-menu {
-                min-width: 150px;
-                right: -10px;
-            }
-            .admin-panel {
-                flex-direction: column;
-            }
-            .admin-sidebar {
-                flex: none;
-                max-height: 300px;
-            }
-            .nickname-box {
-                margin: 20px;
-                padding: 25px;
-            }
-            .dialog-buttons {
-                flex-direction: column;
-            }
-            .dialog-btn {
-                flex: none;
-            }
+            .menu-wrapper { flex-direction: column; }
+            .side-menu { flex: 1; transform: translateY(-30px); animation: slideLeft 0.9s ease-out forwards; }
+            .logo { font-size: 2rem; }
+            .logo span { font-size: 1.2rem; }
+            .content h2 { font-size: 1.2rem; }
+            .minecraft-btn { font-size: 0.55rem; padding: 10px 6px; }
+            .user-avatar { width: 40px; height: 40px; font-size: 1.2rem; }
+            .dropdown-menu { min-width: 150px; right: -10px; }
+            .dialog-buttons { flex-direction: column; }
+            .dialog-btn { flex: none; }
         }
     </style>
 </head>
@@ -1065,41 +495,9 @@
             <div class="username" id="dropdownUsername">Игрок</div>
             <div class="user-role" id="dropdownRole">Игрок</div>
         </div>
-        <button class="menu-item" id="settingsBtn">
-            <span class="item-icon">⚙️</span> Настройки
-        </button>
         <button class="menu-item danger" id="logoutBtn">
             <span class="item-icon">🚪</span> Выйти
         </button>
-    </div>
-</div>
-
-<!-- ===== МОДАЛЬНОЕ ОКНО НАСТРОЕК ===== -->
-<div class="modal-overlay" id="settingsModal">
-    <div class="modal-content">
-        <h2>⚙️ Настройки</h2>
-        <label>🎨 Цвет сайта</label>
-        <div class="color-options" id="colorOptions" style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin:15px 0;">
-            <div class="color-btn" style="background:#f0d040;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#f0d040"></div>
-            <div class="color-btn" style="background:#ff6b6b;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#ff6b6b"></div>
-            <div class="color-btn" style="background:#ffa94d;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#ffa94d"></div>
-            <div class="color-btn" style="background:#69db7c;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#69db7c"></div>
-            <div class="color-btn" style="background:#4dabf7;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#4dabf7"></div>
-            <div class="color-btn" style="background:#9775fa;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#9775fa"></div>
-            <div class="color-btn" style="background:#ff6b9d;border:4px solid #5a5a5a;border-radius:8px;cursor:pointer;aspect-ratio:1;" data-color="#ff6b9d"></div>
-        </div>
-        <button class="submit-btn" id="settingsCloseBtn">Закрыть</button>
-    </div>
-</div>
-
-<!-- ===== МОДАЛЬНОЕ ОКНО ПАРОЛЯ ===== -->
-<div class="modal-overlay" id="passwordModal">
-    <div class="modal-content">
-        <h2>🔑 Вход в админку</h2>
-        <label for="adminPassword">🔒 Введите пароль администратора</label>
-        <input type="password" id="adminPassword" placeholder="Пароль..." />
-        <button class="submit-btn" id="passwordSubmitBtn">Войти</button>
-        <div class="modal-message" id="passwordMessage"></div>
     </div>
 </div>
 
@@ -1165,7 +563,8 @@
                 <!-- ЗАЯВКИ -->
                 <div id="apply" class="page-section">
                     <h2>📝 Подать заявку</h2>
-                    <p>Пройди диалог, чтобы стать частью нашего сообщества!</p>
+                    <p>Заполни форму, чтобы стать частью нашего сообщества!</p>
+                    <div id="applyStatus" class="message" style="display:none;"></div>
                     <div class="dialog-container" id="dialogContainer">
                         <div id="dialogMessage" class="dialog-message"></div>
                         <div id="dialogInputArea"></div>
@@ -1177,18 +576,18 @@
                 <div id="rules" class="page-section">
                     <h2>📋 Правила сервера</h2>
                     <p>Ознакомься с правилами перед подачей заявки!</p>
-                    <div style="background:#4a4a4a;padding:25px;border:6px solid #6b4c2a;box-shadow:inset 0 -6px 0 #2a2a2a,6px 6px 0 rgba(0,0,0,0.5);margin-top:20px;">
-                        <ul style="list-style:none;padding:0;">
-                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>1.</strong> Уважай всех игроков и администраторов.</li>
-                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>2.</strong> Запрещены читы, баги и любые виды гриферства.</li>
-                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>3.</strong> Не используй нецензурную лексику в чате.</li>
-                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>4.</strong> Не создавай конфликтных ситуаций.</li>
-                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>5.</strong> Соблюдай правила PvP — только по согласию.</li>
-                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>6.</strong> Не строй постройки рядом с чужими домами.</li>
-                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>7.</strong> Помогай новым игрокам.</li>
-                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>8.</strong> Нарушение правил = бан или кик.</li>
-                            <li style="padding:12px 0;border-bottom:2px solid #5a5a5a;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>9.</strong> На сервере запрещены спам и реклама.</li>
-                            <li style="padding:12px 0;font-size:0.7rem;line-height:2;color:#ddd;">▸ <strong>10.</strong> Приятной игры! ❤️</li>
+                    <div class="rules-container">
+                        <ul class="rules-list">
+                            <li><strong>1.</strong> Уважай всех игроков и администраторов.</li>
+                            <li><strong>2.</strong> Запрещены читы, баги и любые виды гриферства.</li>
+                            <li><strong>3.</strong> Не используй нецензурную лексику в чате.</li>
+                            <li><strong>4.</strong> Не создавай конфликтных ситуаций.</li>
+                            <li><strong>5.</strong> Соблюдай правила PvP — только по согласию.</li>
+                            <li><strong>6.</strong> Не строй постройки рядом с чужими домами.</li>
+                            <li><strong>7.</strong> Помогай новым игрокам.</li>
+                            <li><strong>8.</strong> Нарушение правил = бан или кик.</li>
+                            <li><strong>9.</strong> На сервере запрещены спам и реклама.</li>
+                            <li><strong>10.</strong> Приятной игры! ❤️</li>
                         </ul>
                     </div>
                 </div>
@@ -1271,689 +670,10 @@
         </div>
     </div>
 
-    <!-- ===== АДМИН ПАНЕЛЬ ===== -->
-    <div class="admin-content" id="adminContent">
-        <div class="admin-panel">
-            <div class="admin-sidebar" id="adminSidebar">
-                <h3>📋 Заявки <span id="badgeCount" style="font-size:0.6rem;color:#ff8;"></span></h3>
-                <div id="applicationsList"></div>
-            </div>
-            <div class="admin-main" id="adminMain">
-                <div class="empty-state" id="emptyState">
-                    <div class="big-icon">📭</div>
-                    <p>Выберите заявку слева</p>
-                </div>
-                <div class="app-detail" id="appDetail" style="display:none;">
-                    <div class="detail-nick" id="detailNick">🎮 Player123</div>
-                    <div class="detail-time" id="detailTime">🕐 24.08.2024 15:30:00</div>
-                    <div class="detail-reason" id="detailReason">💭 Хочу играть на сервере!</div>
-                    <div class="detail-actions" id="detailActions">
-                        <button class="action-btn accept" id="acceptBtn">✅ Принять</button>
-                        <button class="action-btn deny" id="denyBtn">❌ Отказать</button>
-                    </div>
-                    <div id="detailMessage" class="message" style="display:none;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
-<script>
-    // =============================================
-    // 1. НАСТРОЙКИ GITHUB
-    // =============================================
-    const GITHUB_TOKEN = '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';  // Создать в Settings → Developer settings
-    const REPO_OWNER = 'setertop911-alt';
-    const REPO_NAME = 'applications';
-    const FILE_PATH = 'applications.json';
-
-    // =============================================
-    // 2. АККАУНТЫ
-    // =============================================
-    const ADMIN_PASSWORD = '2480089009333003';
-
-    let currentUser = null;
-    let isAdmin = false;
-    let selectedAppId = null;
-    let dialogState = { step: 0, data: {} };
-
-    // =============================================
-    // 3. РАБОТА С ЗАЯВКАМИ (GitHub API + localStorage)
-    // =============================================
-    let cachedApps = [];
-
-    async function loadApplicationsFromGitHub() {
-        try {
-            const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
-            const response = await fetch(url, {
-                headers: {
-                    'Authorization': `token ${GITHUB_TOKEN}`,
-                    'Accept': 'application/vnd.github.v3+json'
-                }
-            });
-
-            if (response.status === 404) {
-                cachedApps = [];
-                saveToLocalStorage(cachedApps);
-                return cachedApps;
-            }
-
-            const data = await response.json();
-            const content = atob(data.content);
-            cachedApps = JSON.parse(content);
-            saveToLocalStorage(cachedApps);
-            return cachedApps;
-        } catch (error) {
-            console.error('Ошибка загрузки из GitHub:', error);
-            // Пробуем загрузить из localStorage
-            const local = loadFromLocalStorage();
-            if (local.length > 0) {
-                cachedApps = local;
-                return local;
-            }
-            cachedApps = [];
-            return [];
-        }
-    }
-
-    async function saveApplicationsToGitHub(apps) {
-        try {
-            const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
-            const content = btoa(JSON.stringify(apps, null, 2));
-
-            // Получаем SHA файла
-            let sha = null;
-            try {
-                const response = await fetch(url, {
-                    headers: {
-                        'Authorization': `token ${GITHUB_TOKEN}`,
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    sha = data.sha;
-                }
-            } catch (e) {}
-
-            const body = {
-                message: `Обновление заявок ${new Date().toLocaleString()}`,
-                content: content,
-                sha: sha || undefined
-            };
-
-            const response = await fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${GITHUB_TOKEN}`,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/vnd.github.v3+json'
-                },
-                body: JSON.stringify(body)
-            });
-
-            if (response.ok) {
-                cachedApps = apps;
-                saveToLocalStorage(apps);
-                return true;
-            } else {
-                console.error('Ошибка сохранения в GitHub:', await response.text());
-                return false;
-            }
-        } catch (error) {
-            console.error('Ошибка сохранения в GitHub:', error);
-            // Сохраняем локально как резерв
-            saveToLocalStorage(apps);
-            cachedApps = apps;
-            return false;
-        }
-    }
-
-    function loadFromLocalStorage() {
-        const data = localStorage.getItem('applications');
-        return data ? JSON.parse(data) : [];
-    }
-
-    function saveToLocalStorage(apps) {
-        localStorage.setItem('applications', JSON.stringify(apps));
-    }
-
-    function getApplications() {
-        return cachedApps.length > 0 ? cachedApps : loadFromLocalStorage();
-    }
-
-    function getNextId() {
-        const apps = getApplications();
-        if (apps.length === 0) return 1;
-        return Math.max(...apps.map(a => a.id)) + 1;
-    }
-
-    async function addApplication(nickname, reason) {
-        const apps = getApplications();
-        const newApp = {
-            id: getNextId(),
-            time: new Date().toLocaleString('ru-RU', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            }),
-            nickname: nickname,
-            reason: reason,
-            status: 'pending'
-        };
-        apps.push(newApp);
-        await saveApplicationsToGitHub(apps);
-        return newApp;
-    }
-
-    async function updateApplicationStatus(id, status) {
-        const apps = getApplications();
-        const app = apps.find(a => a.id === id);
-        if (app) {
-            app.status = status;
-            await saveApplicationsToGitHub(apps);
-            return true;
-        }
-        return false;
-    }
-
-    function getApplicationById(id) {
-        const apps = getApplications();
-        return apps.find(a => a.id === id);
-    }
-
-    // =============================================
-    // 4. ЭКРАН ВВОДА НИКА
-    // =============================================
-    const nicknameScreen = document.getElementById('nicknameScreen');
-    const nicknameInput = document.getElementById('nicknameInput');
-    const nicknameSubmitBtn = document.getElementById('nicknameSubmitBtn');
-    const nicknameError = document.getElementById('nicknameError');
-    const userMenu = document.getElementById('userMenu');
-
-    const savedNickname = localStorage.getItem('playerNickname');
-    if (savedNickname) {
-        nicknameScreen.classList.add('hidden');
-        userMenu.style.display = 'block';
-        currentUser = savedNickname;
-        updateUserUI();
-    }
-
-    nicknameSubmitBtn.addEventListener('click', function() {
-        const nickname = nicknameInput.value.trim();
-        if (!nickname) {
-            nicknameError.classList.add('show');
-            return;
-        }
-        nicknameError.classList.remove('show');
-        localStorage.setItem('playerNickname', nickname);
-        currentUser = nickname;
-        nicknameScreen.classList.add('hidden');
-        userMenu.style.display = 'block';
-        updateUserUI();
-    });
-
-    nicknameInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') nicknameSubmitBtn.click();
-    });
-
-    // =============================================
-    // 5. ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
-    // =============================================
-    const buttons = document.querySelectorAll('.minecraft-btn');
-    const sections = document.querySelectorAll('.page-section');
-
-    function switchPage(pageId) {
-        sections.forEach(sec => sec.classList.remove('active'));
-        const target = document.getElementById(pageId);
-        if (target) {
-            target.classList.add('active');
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    }
-
-    buttons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            const page = this.dataset.page;
-            if (page) {
-                switchPage(page);
-                if (page === 'apply') initDialog();
-            }
-        });
-    });
-
-    // =============================================
-    // 6. ПОЛЬЗОВАТЕЛЬСКОЕ МЕНЮ
-    // =============================================
-    const userAvatar = document.getElementById('userAvatar');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-    const statusDot = document.getElementById('statusDot');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const dropdownUsername = document.getElementById('dropdownUsername');
-    const dropdownRole = document.getElementById('dropdownRole');
-
-    userAvatar.addEventListener('click', function(e) {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('active');
-    });
-
-    document.addEventListener('click', function() {
-        dropdownMenu.classList.remove('active');
-    });
-
-    function updateUserUI() {
-        if (currentUser) {
-            dropdownUsername.textContent = '🎮 ' + currentUser;
-            if (isAdmin) {
-                dropdownRole.textContent = '👑 Администратор';
-                statusDot.className = 'status-dot online';
-                userAvatar.textContent = '👑';
-            } else {
-                dropdownRole.textContent = 'Игрок';
-                statusDot.className = 'status-dot online';
-                userAvatar.textContent = '👤';
-            }
-        } else {
-            dropdownRole.textContent = 'Не авторизован';
-            statusDot.className = 'status-dot offline';
-            userAvatar.textContent = '👤';
-        }
-    }
-
-    // =============================================
-    // 7. ВХОД В АДМИНКУ
-    // =============================================
-    const passwordModal = document.getElementById('passwordModal');
-    const adminPassword = document.getElementById('adminPassword');
-    const passwordSubmitBtn = document.getElementById('passwordSubmitBtn');
-    const passwordMessage = document.getElementById('passwordMessage');
-
-    userAvatar.addEventListener('dblclick', function() {
-        if (currentUser && !isAdmin) {
-            passwordModal.classList.add('active');
-            adminPassword.value = '';
-            passwordMessage.className = 'modal-message';
-            passwordMessage.textContent = '';
-        }
-    });
-
-    passwordSubmitBtn.addEventListener('click', function() {
-        const password = adminPassword.value.trim();
-        if (!password) {
-            passwordMessage.className = 'modal-message error';
-            passwordMessage.textContent = '❌ Введите пароль!';
-            return;
-        }
-        if (password === ADMIN_PASSWORD) {
-            isAdmin = true;
-            passwordMessage.className = 'modal-message success';
-            passwordMessage.textContent = '✅ Вход выполнен!';
-            setTimeout(() => {
-                passwordModal.classList.remove('active');
-                enterAdminMode();
-            }, 500);
-        } else {
-            passwordMessage.className = 'modal-message error';
-            passwordMessage.textContent = '❌ Неверный пароль!';
-        }
-    });
-
-    adminPassword.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') passwordSubmitBtn.click();
-    });
-
-    // =============================================
-    // 8. ВЫХОД
-    // =============================================
-    logoutBtn.addEventListener('click', function() {
-        dropdownMenu.classList.remove('active');
-        localStorage.removeItem('playerNickname');
-        currentUser = null;
-        isAdmin = false;
-        userMenu.style.display = 'none';
-        nicknameScreen.classList.remove('hidden');
-        nicknameInput.value = '';
-        if (document.body.classList.contains('admin-mode')) {
-            exitAdminMode();
-        }
-        updateUserUI();
-    });
-
-    // =============================================
-    // 9. АДМИН РЕЖИМ
-    // =============================================
-    async function enterAdminMode() {
-        document.body.classList.add('admin-mode');
-        updateUserUI();
-        await loadApplicationsFromGitHub();
-        renderApplicationsList();
-    }
-
-    function exitAdminMode() {
-        document.body.classList.remove('admin-mode');
-        isAdmin = false;
-        updateUserUI();
-        selectedAppId = null;
-        document.getElementById('emptyState').style.display = 'block';
-        document.getElementById('appDetail').style.display = 'none';
-    }
-
-    // =============================================
-    // 10. РЕНДЕР ЗАЯВОК В АДМИНКЕ
-    // =============================================
-    function renderApplicationsList() {
-        const apps = getApplications();
-        const list = document.getElementById('applicationsList');
-        const badge = document.getElementById('badgeCount');
-        const pending = apps.filter(a => a.status === 'pending');
-
-        badge.textContent = pending.length > 0 ? `(${pending.length})` : '';
-
-        if (pending.length === 0) {
-            list.innerHTML = `
-                <div style="padding:20px;text-align:center;color:#888;font-size:0.6rem;">
-                    📭 Нет новых заявок
-                </div>
-            `;
-            return;
-        }
-
-        let html = '';
-        pending.forEach(app => {
-            const active = selectedAppId === app.id ? 'active' : '';
-            html += `
-                <div class="app-item ${active}" onclick="selectApplication(${app.id})">
-                    <div class="app-nick">🎮 ${app.nickname}</div>
-                    <div class="app-time">🕐 ${app.time}</div>
-                    <span class="app-status pending">⏳ Ожидает</span>
-                </div>
-            `;
-        });
-
-        list.innerHTML = html;
-    }
-
-    // =============================================
-    // 11. ВЫБОР ЗАЯВКИ
-    // =============================================
-    window.selectApplication = function(id) {
-        if (!isAdmin) return;
-        selectedAppId = id;
-        const app = getApplicationById(id);
-        if (!app) return;
-
-        renderApplicationsList();
-
-        document.getElementById('emptyState').style.display = 'none';
-        document.getElementById('appDetail').style.display = 'block';
-
-        document.getElementById('detailNick').textContent = `🎮 ${app.nickname}`;
-        document.getElementById('detailTime').textContent = `🕐 ${app.time}`;
-        document.getElementById('detailReason').textContent = `💭 ${app.reason}`;
-
-        const detailMessage = document.getElementById('detailMessage');
-        detailMessage.className = 'message';
-        detailMessage.style.display = 'none';
-
-        document.getElementById('acceptBtn').disabled = false;
-        document.getElementById('denyBtn').disabled = false;
-    };
-
-    // =============================================
-    // 12. ПРИНЯТЬ/ОТКАЗАТЬ
-    // =============================================
-    document.getElementById('acceptBtn').addEventListener('click', async function() {
-        if (!selectedAppId || !isAdmin) return;
-        const app = getApplicationById(selectedAppId);
-        if (!app || app.status !== 'pending') return;
-
-        if (await updateApplicationStatus(selectedAppId, 'accepted')) {
-            const detailMessage = document.getElementById('detailMessage');
-            detailMessage.className = 'message success';
-            detailMessage.textContent = `✅ Заявка #${app.id} принята!`;
-            detailMessage.style.display = 'block';
-            this.disabled = true;
-            document.getElementById('denyBtn').disabled = true;
-
-            setTimeout(() => {
-                renderApplicationsList();
-                document.getElementById('emptyState').style.display = 'block';
-                document.getElementById('appDetail').style.display = 'none';
-                selectedAppId = null;
-            }, 1500);
-        }
-    });
-
-    document.getElementById('denyBtn').addEventListener('click', async function() {
-        if (!selectedAppId || !isAdmin) return;
-        const app = getApplicationById(selectedAppId);
-        if (!app || app.status !== 'pending') return;
-
-        if (await updateApplicationStatus(selectedAppId, 'denied')) {
-            const detailMessage = document.getElementById('detailMessage');
-            detailMessage.className = 'message error';
-            detailMessage.textContent = `❌ Заявка #${app.id} отклонена!`;
-            detailMessage.style.display = 'block';
-            this.disabled = true;
-            document.getElementById('acceptBtn').disabled = true;
-
-            setTimeout(() => {
-                renderApplicationsList();
-                document.getElementById('emptyState').style.display = 'block';
-                document.getElementById('appDetail').style.display = 'none';
-                selectedAppId = null;
-            }, 1500);
-        }
-    });
-
-    // =============================================
-    // 13. ДИАЛОГ ЗАЯВКИ
-    // =============================================
-    const dialogContainer = document.getElementById('dialogContainer');
-    const dialogMessage = document.getElementById('dialogMessage');
-    const dialogInputArea = document.getElementById('dialogInputArea');
-    const dialogButtons = document.getElementById('dialogButtons');
-
-    let dialogSteps = [];
-
-    function initDialog() {
-        const apps = getApplications();
-        const existing = apps.find(a => a.nickname === currentUser);
-        if (existing) {
-            if (existing.status === 'accepted') {
-                dialogContainer.innerHTML = `
-                    <div class="dialog-message">✅ Ваша заявка уже принята! Вы можете заходить на сервер.</div>
-                `;
-                return;
-            } else if (existing.status === 'pending') {
-                dialogContainer.innerHTML = `
-                    <div class="dialog-message">⏳ Ваша заявка уже на рассмотрении. Ожидайте ответа.</div>
-                `;
-                return;
-            } else if (existing.status === 'denied') {
-                const newApps = apps.filter(a => a.nickname !== currentUser);
-                saveApplicationsToGitHub(newApps);
-            }
-        }
-
-        dialogSteps = [
-            {
-                message: '📝 Расскажи, <span class="highlight">почему ты хочешь присоединиться к нашему проекту?</span>',
-                buttons: [],
-                input: true,
-                placeholder: 'Напишите причину...',
-                field: 'reason'
-            },
-            {
-                message: '📦 <span class="highlight">Хочешь скачать нашу сборку?</span>\n\nТы можешь найти её в разделе "Сборки".',
-                buttons: [
-                    { text: '➡️ Пропустить', action: 'next' }
-                ],
-                input: false
-            }
-        ];
-
-        dialogState = { step: 0, data: {} };
-        renderDialogStep(0);
-    }
-
-    function renderDialogStep(step) {
-        if (step >= dialogSteps.length || dialogState.finished) {
-            return;
-        }
-
-        const currentStep = dialogSteps[step];
-        dialogMessage.innerHTML = currentStep.message;
-
-        dialogInputArea.innerHTML = '';
-        dialogButtons.innerHTML = '';
-
-        if (currentStep.input) {
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.className = 'dialog-input';
-            input.placeholder = currentStep.placeholder || 'Введите текст...';
-            input.id = 'dialogInput';
-            if (dialogState.data[currentStep.field]) {
-                input.value = dialogState.data[currentStep.field];
-            }
-            dialogInputArea.appendChild(input);
-            setTimeout(() => input.focus(), 100);
-            input.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    const value = this.value.trim();
-                    if (value) {
-                        dialogState.data[currentStep.field] = value;
-                        renderDialogStep(step + 1);
-                    }
-                }
-            });
-            const nextBtn = document.createElement('button');
-            nextBtn.className = 'dialog-btn primary';
-            nextBtn.textContent = '➡️ Далее';
-            nextBtn.addEventListener('click', function() {
-                const input = document.getElementById('dialogInput');
-                const value = input ? input.value.trim() : '';
-                if (value) {
-                    dialogState.data[currentStep.field] = value;
-                    renderDialogStep(step + 1);
-                }
-            });
-            dialogButtons.appendChild(nextBtn);
-        }
-
-        currentStep.buttons.forEach(btn => {
-            const button = document.createElement('button');
-            button.className = 'dialog-btn';
-            if (btn.action === 'home') button.classList.add('danger');
-            if (btn.action === 'next') button.classList.add('primary');
-            button.textContent = btn.text;
-            button.addEventListener('click', function() {
-                handleDialogAction(btn.action, currentStep);
-            });
-            dialogButtons.appendChild(button);
-        });
-
-        dialogContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    async function handleDialogAction(action, currentStep) {
-        const step = dialogState.step;
-
-        switch(action) {
-            case 'next':
-                if (step === 1) {
-                    // Финальный шаг — отправляем заявку
-                    const reason = dialogState.data.reason || 'Не указана';
-                    const newApp = await addApplication(currentUser, reason);
-                    dialogMessage.innerHTML = `
-                        ✅ <span class="highlight">Ваша заявка #${newApp.id} была отправлена администрации!</span><br><br>
-                        Ожидайте ответа в течение дня.<br><br>
-                        Спасибо, что участвуете в нашем проекте! 🙌
-                    `;
-                    dialogInputArea.innerHTML = '';
-                    dialogButtons.innerHTML = '';
-                    const homeBtn = document.createElement('button');
-                    homeBtn.className = 'dialog-btn danger';
-                    homeBtn.textContent = '🏠 На главную';
-                    homeBtn.addEventListener('click', function() {
-                        switchPage('home');
-                    });
-                    dialogButtons.appendChild(homeBtn);
-                    dialogContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    if (isAdmin) renderApplicationsList();
-                    return;
-                }
-                dialogState.step = step + 1;
-                renderDialogStep(step + 1);
-                break;
-            case 'home':
-                switchPage('home');
-                break;
-            default:
-                console.warn('Неизвестное действие:', action);
-        }
-    }
-
-    // =============================================
-    // 14. НАСТРОЙКИ (ЦВЕТ)
-    // =============================================
-    const settingsModal = document.getElementById('settingsModal');
-    const settingsCloseBtn = document.getElementById('settingsCloseBtn');
-    const settingsBtn = document.getElementById('settingsBtn');
-    const colorOptions = document.querySelectorAll('.color-btn');
-
-    settingsBtn.addEventListener('click', function() {
-        dropdownMenu.classList.remove('active');
-        settingsModal.classList.add('active');
-    });
-
-    settingsCloseBtn.addEventListener('click', function() {
-        settingsModal.classList.remove('active');
-    });
-
-    colorOptions.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const color = this.dataset.color;
-            document.body.style.setProperty('--accent-color', color);
-            document.querySelectorAll('.logo span, .content h2, .build-card h3, .resource-pack-card .pack-info h3, .modal-content h2, .footer-info h3, .admin-sidebar h3, .admin-main .app-detail .detail-nick, .nickname-box h2, .dropdown-menu .user-info .username, .dialog-message .highlight').forEach(el => {
-                el.style.color = color;
-            });
-            localStorage.setItem('siteColor', color);
-            colorOptions.forEach(c => c.style.borderColor = '#5a5a5a');
-            this.style.borderColor = '#f0d040';
-        });
-    });
-
-    const savedColor = localStorage.getItem('siteColor');
-    if (savedColor) {
-        document.body.style.setProperty('--accent-color', savedColor);
-        document.querySelectorAll('.logo span, .content h2, .build-card h3, .resource-pack-card .pack-info h3, .modal-content h2, .footer-info h3, .admin-sidebar h3, .admin-main .app-detail .detail-nick, .nickname-box h2, .dropdown-menu .user-info .username, .dialog-message .highlight').forEach(el => {
-            el.style.color = savedColor;
-        });
-        colorOptions.forEach(btn => {
-            if (btn.dataset.color === savedColor) {
-                btn.style.borderColor = '#f0d040';
-            }
-        });
-    }
-
-    // =============================================
-    // 15. ИНИЦИАЛИЗАЦИЯ
-    // =============================================
-    async function init() {
-        await loadApplicationsFromGitHub();
-        console.log('👑 HeriCraft загружен!');
-        console.log('📝 Заявки сохраняются в GitHub');
-        console.log('🔄 Двойной клик по аватарке для входа в админку');
-    }
-
-    init();
-</script>
+<!-- ===== ПОДКЛЮЧАЕМ JAVASCRIPT ===== -->
+<script src="script.js"></script>
 
 </body>
 </html>
