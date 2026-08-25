@@ -42,7 +42,6 @@
             100% { transform: translateY(0); opacity: 1; }
         }
 
-        /* ===== ЭКРАН ВВОДА НИКА ===== */
         .nickname-screen {
             position: fixed;
             top: 0; left: 0;
@@ -105,7 +104,6 @@
         .nickname-box .error-msg { color: #f88; font-size: 0.6rem; margin-top: 10px; display: none; }
         .nickname-box .error-msg.show { display: block; }
 
-        /* ===== МЕНЮ ===== */
         .menu-wrapper {
             display: flex;
             flex-direction: row;
@@ -186,7 +184,6 @@
             box-shadow: inset 0 -4px 0 #2a2a2a;
         }
 
-        /* ===== ДИАЛОГ ЗАЯВКИ ===== */
         .dialog-container {
             background: #4a4a4a;
             padding: 30px;
@@ -245,8 +242,8 @@
         .dialog-btn.primary:hover { background: #4a9a4a; }
         .dialog-btn.danger { background: #8a3a3a; border-color: #6a2a2a; box-shadow: inset 0 -6px 0 #4a1a1a, 4px 4px 0 rgba(0,0,0,0.4); }
         .dialog-btn.danger:hover { background: #9a4a4a; }
+        .dialog-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
 
-        /* ===== ПРАВИЛА ===== */
         .rules-container {
             background: #4a4a4a;
             padding: 25px;
@@ -265,7 +262,6 @@
         .rules-container .rules-list li::before { content: "▸ "; color: #f0d040; }
         .rules-container .rules-list li:last-child { border-bottom: none; }
 
-        /* ===== СБОРКИ ===== */
         .builds-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -309,7 +305,6 @@
         }
         .download-btn:hover { background: #4a9a4a; transform: translate(2px, 2px); }
 
-        /* ===== РЕСУРС-ПАК ===== */
         .resource-pack-card {
             background: #4a4a4a;
             padding: 25px;
@@ -327,7 +322,6 @@
         .resource-pack-card .pack-info p { font-size: 0.7rem; line-height: 1.8; margin-bottom: 10px; }
         .resource-pack-card .pack-download { flex: 1; min-width: 150px; text-align: center; }
 
-        /* ===== СОЦСЕТИ ===== */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -359,7 +353,6 @@
         .message.error { display: block; background: #6a2a2a; border-color: #8a3a3a; color: #f88; }
         .message.info { display: block; background: #2a4a6a; border-color: #3a6a8a; color: #8cf; }
 
-        /* ===== КРУЖОК ===== */
         .user-menu {
             position: fixed;
             top: 20px;
