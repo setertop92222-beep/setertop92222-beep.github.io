@@ -274,7 +274,7 @@
             line-height: 2;
         }
 
-        /* ===== ИНФОРМАЦИЯ / ОБНОВЛЕНИЯ ===== */
+        /* ===== ИНФОРМАЦИЯ ===== */
         .update-box {
             background: #3a3a4a;
             padding: 20px;
@@ -321,6 +321,100 @@
             color: #f0d040;
         }
 
+        /* ===== РЕСУРС-ПАК ===== */
+        .resource-pack-card {
+            background: #3a3a4a;
+            padding: 30px;
+            border: 6px solid #6b4c2a;
+            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .resource-pack-card .pack-icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .resource-pack-card .pack-title {
+            color: #f0d040;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .resource-pack-card .pack-desc {
+            color: #bbb;
+            font-size: 0.6rem;
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        .resource-pack-card .pack-info {
+            background: #2a2a3a;
+            padding: 15px;
+            border: 4px solid #4a4a5a;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .resource-pack-card .pack-info .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 2px solid #3a3a4a;
+            font-size: 0.6rem;
+        }
+
+        .resource-pack-card .pack-info .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .resource-pack-card .pack-info .info-row .info-label {
+            color: #888;
+        }
+
+        .resource-pack-card .pack-info .info-row .info-value {
+            color: #f0d040;
+        }
+
+        .resource-pack-card .download-btn {
+            display: inline-block;
+            padding: 18px 40px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            color: #fff;
+            background: #3a8a3a;
+            border: 6px solid #2a6a2a;
+            box-shadow: inset 0 -8px 0 #1a4a1a, 6px 6px 0 rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: all 0.05s linear;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .resource-pack-card .download-btn:hover {
+            background: #4a9a4a;
+            transform: translate(2px, 2px);
+            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.5);
+        }
+
+        .resource-pack-card .download-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: inset 0 -4px 0 #1a4a1a, 2px 2px 0 rgba(0,0,0,0.5);
+        }
+
+        .resource-pack-card .download-btn .btn-icon {
+            margin-right: 10px;
+        }
+
+        .resource-pack-card .pack-note {
+            font-size: 0.5rem;
+            color: #888;
+            margin-top: 15px;
+            line-height: 2;
+        }
+
         /* ===== ФУТЕР ===== */
         .footer {
             text-align: center;
@@ -357,6 +451,13 @@
             .content h2 {
                 font-size: 0.9rem;
             }
+            .resource-pack-card {
+                padding: 20px;
+            }
+            .resource-pack-card .download-btn {
+                padding: 14px 25px;
+                font-size: 0.6rem;
+            }
         }
     </style>
 </head>
@@ -382,6 +483,7 @@
                 <button class="menu-btn" data-page="rules">📋 Правила</button>
                 <button class="menu-btn" data-page="info">📢 Информация</button>
                 <button class="menu-btn" data-page="mods">✅ Разрешённые моды</button>
+                <button class="menu-btn" data-page="resourcepack">📦 Ресурс-пак</button>
                 <button class="menu-btn" data-page="social">📱 Соцсети</button>
             </nav>
 
@@ -468,7 +570,6 @@
                 <div class="page" id="page-info">
                     <h2>📢 Информация</h2>
 
-                    <!-- ===== ГЛАВНОЕ ОПИСАНИЕ ===== -->
                     <div class="update-box" style="margin-top:20px; border-color:#f0d040;">
                         <div class="update-version" style="font-size:1rem;">🔥 ТЫ НЕ ГОСПОДЬ БОГ, ТЫ ЗДЕСЬ ЖЕРТВА.</div>
                         <div class="update-text" style="font-size:0.7rem;">
@@ -478,7 +579,6 @@
                         </div>
                     </div>
 
-                    <!-- ===== АНАРХИЯ ===== -->
                     <div class="update-box" style="border-color:#8a3a3a;">
                         <div class="update-version" style="color:#f88;">▸ АНАРХИЯ — дикий запад без тормозов</div>
                         <div class="update-text">
@@ -490,7 +590,6 @@
                         </div>
                     </div>
 
-                    <!-- ===== ГРИФЕРСКИЙ ===== -->
                     <div class="update-box" style="border-color:#3a6a8a;">
                         <div class="update-version" style="color:#8cf;">▸ ГРИФЕРСКИЙ — цивилизованный хаос с правилами</div>
                         <div class="update-text">
@@ -507,7 +606,6 @@
                         </div>
                     </div>
 
-                    <!-- ===== ЧТО ПО ПОВЕСТКЕ ===== -->
                     <div class="update-box">
                         <div class="update-version">📋 Что у нас по повестке?</div>
                         <div class="update-text">
@@ -518,7 +616,6 @@
                         </div>
                     </div>
 
-                    <!-- ===== СТАВКИ ===== -->
                     <div class="update-box" style="border-color:#6a3a8a;">
                         <div class="update-version" style="color:#c8f;">🎲 Ставки:</div>
                         <div class="update-text">
@@ -528,12 +625,10 @@
                         </div>
                     </div>
 
-                    <!-- ===== ПРИЗЫВ ===== -->
                     <div class="update-box" style="border-color:#f0d040; text-align:center;">
                         <div class="update-version" style="font-size:0.9rem;">🔥 ЗАЛЕТАЙ, ЗАБИРАЙ СВОЮ ДОЛЮ ХАОСА! 🔥</div>
                     </div>
 
-                    <!-- ===== ИТОГ ===== -->
                     <div class="update-box" style="background:#2a2a3a;">
                         <div class="update-text" style="text-align:center; font-size:0.55rem;">
                             <strong style="color:#f0d040;">Версия:</strong> 1.21.4
@@ -543,10 +638,6 @@
                             <strong style="color:#8cf;">Гриферский:</strong> приват на всё, TNT не работает, чужое нельзя, ПвП — можно
                         </div>
                     </div>
-
-                    <p style="margin-top:15px;font-size:0.5rem;color:#888;">
-                        ✏️ Текст можно изменить в коде (блоки update-box)
-                    </p>
                 </div>
 
                 <!-- РАЗРЕШЁННЫЕ МОДЫ -->
@@ -582,6 +673,52 @@
                     </p>
                 </div>
 
+                <!-- РЕСУРС-ПАК -->
+                <div class="page" id="page-resourcepack">
+                    <h2>📦 Ресурс-пак сервера</h2>
+                    <p>Скачай наш официальный ресурс-пак для полного погружения в игру!</p>
+
+                    <div class="resource-pack-card">
+                        <span class="pack-icon">🎨</span>
+                        <div class="pack-title">HeriCraft Server Pack</div>
+                        <div class="pack-desc">
+                            Официальный ресурс-пак нашего сервера.
+                            Уникальные текстуры, кастомные звуки и интерфейс в стиле HeriCraft.
+                        </div>
+
+                        <div class="pack-info">
+                            <div class="info-row">
+                                <span class="info-label">📌 Версия</span>
+                                <span class="info-value">1.0.0</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">🎮 Совместимость</span>
+                                <span class="info-value">1.21.4</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">📦 Формат</span>
+                                <span class="info-value">ZIP-архив</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">💾 Размер</span>
+                                <span class="info-value">~50 МБ</span>
+                            </div>
+                        </div>
+
+                        <!-- КНОПКА СКАЧИВАНИЯ С ТВОЕЙ ССЫЛКОЙ -->
+                        <a href="https://github.com/setertop92222-beep/setertop92222-beep.github.io/raw/refs/heads/main/Server-pack-HeriCraft.zip" 
+                           class="download-btn" 
+                           download>
+                            <span class="btn-icon">⬇</span> Скачать ресурс-пак
+                        </a>
+
+                        <div class="pack-note">
+                            * После скачивания переместите ZIP-архив в папку <strong>resourcepacks</strong><br>
+                            и активируйте его в настройках игры.
+                        </div>
+                    </div>
+                </div>
+
                 <!-- СОЦСЕТИ -->
                 <div class="page" id="page-social">
                     <h2>📱 Соцсети</h2>
@@ -612,10 +749,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <p style="margin-top:15px;font-size:0.5rem;color:#888;">
-                        ✏️ Ссылки можно изменить в коде (social-item onclick)
-                    </p>
                 </div>
 
             </div>
@@ -635,6 +768,7 @@
             rules: document.getElementById('page-rules'),
             info: document.getElementById('page-info'),
             mods: document.getElementById('page-mods'),
+            resourcepack: document.getElementById('page-resourcepack'),
             social: document.getElementById('page-social')
         };
 
@@ -653,8 +787,8 @@
         });
 
         console.log('⛏️ HeriCraft - Minecraft раздел загружен!');
-        console.log('📌 Вкладки: Главная, Правила, Информация, Разрешённые моды, Соцсети');
+        console.log('📌 Вкладки: Главная, Правила, Информация, Разрешённые моды, Ресурс-пак, Соцсети');
     </script>
 
 </body>
-                            </html>
+</html>
