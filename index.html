@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Minecraft - HeriCraft</title>
+    <title>HCM2_STUDIO</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <style>
         * {
@@ -14,109 +14,519 @@
 
         body {
             font-family: 'Press Start 2P', cursive;
-            background: #1a1a2e;
+            background: #000005;
             color: #fff;
             min-height: 100vh;
-            background-image: repeating-linear-gradient(45deg, #2a2a3e 0px, #2a2a3e 2px, #3a3a4e 2px, #3a3a4e 4px);
+            overflow: hidden;
+        }
+
+        /* =============================================
+           КОСМИЧЕСКИЙ ФОН
+           ============================================= */
+        .space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, #0a0520 0%, #000005 70%);
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.4); }
+        }
+
+        /* =============================================
+           СОЛНЕЧНАЯ СИСТЕМА
+           ============================================= */
+        .solar-system {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1000px;
+            height: 1000px;
+            pointer-events: none;
+            animation: solarZoom 6s ease-in forwards;
+        }
+
+        @keyframes solarZoom {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            85% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(4);
+                opacity: 0;
+            }
+        }
+
+        .sun {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 70px;
+            height: 70px;
+            margin-top: -35px;
+            margin-left: -35px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 40%, #fff8d0, #ffd040 40%, #ff8c00 80%, #ff5500);
+            box-shadow: 
+                0 0 40px 15px rgba(255, 208, 64, 0.9),
+                0 0 80px 30px rgba(255, 208, 64, 0.6),
+                0 0 140px 60px rgba(255, 208, 64, 0.3),
+                0 0 200px 100px rgba(255, 140, 0, 0.2);
+            animation: sunPulse 3s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes sunPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 40px 15px rgba(255, 208, 64, 0.9),
+                    0 0 80px 30px rgba(255, 208, 64, 0.6),
+                    0 0 140px 60px rgba(255, 208, 64, 0.3),
+                    0 0 200px 100px rgba(255, 140, 0, 0.2);
+            }
+            50% {
+                box-shadow: 
+                    0 0 60px 20px rgba(255, 208, 64, 1),
+                    0 0 120px 40px rgba(255, 208, 64, 0.8),
+                    0 0 200px 80px rgba(255, 208, 64, 0.5),
+                    0 0 280px 140px rgba(255, 140, 0, 0.3);
+            }
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 1.5px solid rgba(120, 140, 200, 0.25);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(120, 140, 200, 0.1);
+        }
+
+        .orbit-1 { width: 130px; height: 130px; }
+        .orbit-2 { width: 210px; height: 210px; }
+        .orbit-3 { width: 310px; height: 310px; }
+        .orbit-4 { width: 430px; height: 430px; }
+        .orbit-5 { width: 570px; height: 570px; }
+        .orbit-6 { width: 730px; height: 730px; }
+
+        .planet-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+        }
+
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset -4px -4px 12px rgba(0,0,0,0.7);
+            z-index: 5;
+        }
+
+        .planet-1-wrapper .planet {
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle at 35% 35%, #d0d0c0, #808070);
+            box-shadow: inset -4px -4px 10px rgba(0,0,0,0.7), 0 0 12px rgba(208, 208, 192, 0.6);
+        }
+
+        .planet-2-wrapper .planet {
+            width: 18px;
+            height: 18px;
+            background: radial-gradient(circle at 35% 35%, #ffe080, #c08040);
+            box-shadow: inset -4px -4px 12px rgba(0,0,0,0.7), 0 0 15px rgba(255, 224, 128, 0.6);
+        }
+
+        .planet-3-wrapper .planet {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 35% 35%, #6ab0e8, #2a6090);
+            box-shadow: inset -4px -4px 12px rgba(0,0,0,0.7), 0 0 18px rgba(106, 176, 232, 0.7);
+        }
+
+        .planet-3-wrapper .moon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            animation: moonOrbit 3s linear infinite;
+        }
+
+        .planet-3-wrapper .moon::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 16px;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle at 35% 35%, #e0e0e0, #808080);
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(224, 224, 224, 0.6);
+        }
+
+        @keyframes moonOrbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .planet-4-wrapper .planet {
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(circle at 35% 35%, #ff6a4a, #a03020);
+            box-shadow: inset -4px -4px 12px rgba(0,0,0,0.7), 0 0 18px rgba(255, 106, 74, 0.7);
+        }
+
+        .planet-5-wrapper .planet {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(0deg, 
+                #b08040 0%, #e0b080 15%, #c09050 25%, #e0b080 35%,
+                #b08040 50%, #d0a060 65%, #e0b080 75%, #c09050 85%, #b08040 100%);
+            box-shadow: inset -6px -6px 15px rgba(0,0,0,0.7), 0 0 22px rgba(224, 176, 128, 0.6);
+        }
+
+        .planet-6-wrapper .planet {
+            width: 28px;
+            height: 28px;
+            background: radial-gradient(circle at 35% 35%, #f0d090, #b08040);
+            box-shadow: inset -4px -4px 12px rgba(0,0,0,0.7), 0 0 20px rgba(240, 208, 144, 0.6);
+        }
+
+        .planet-6-wrapper .planet::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 55px;
+            height: 55px;
+            margin-top: -27.5px;
+            margin-left: -27.5px;
+            border: 3px solid rgba(240, 208, 144, 0.7);
+            border-radius: 50%;
+            transform: rotateX(75deg);
+            box-shadow: 0 0 12px rgba(240, 208, 144, 0.4);
+        }
+
+        .system-star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: systemStarTwinkle 2s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        @keyframes systemStarTwinkle {
+            0%, 100% { 
+                opacity: 0.4; 
+                transform: scale(1);
+                box-shadow: 0 0 5px #fff;
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.3);
+                box-shadow: 0 0 10px #fff, 0 0 20px rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        /* =============================================
+           МЕТЕОРИТЫ
+           ============================================= */
+        .meteor {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle at 30% 30%, #fff, #ffa040);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 10px 3px #fff,
+                0 0 20px 6px rgba(255, 200, 100, 0.8),
+                0 0 30px 10px rgba(255, 150, 50, 0.5);
+            opacity: 0;
+            z-index: 3;
+        }
+
+        @keyframes meteorFall {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.5);
+            }
+            10% {
+                opacity: 1;
+                transform: translate(-30px, 30px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-900px, 900px) scale(0.8);
+            }
+        }
+
+        /* =============================================
+           ИНТРО-ЭКРАН
+           ============================================= */
+        .intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            transition: opacity 1.2s ease;
+        }
+
+        .intro-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .final-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            margin-top: -100px;
+            margin-left: -100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                rgba(255, 240, 180, 1) 0%, 
+                rgba(255, 208, 64, 0.8) 20%,
+                rgba(255, 160, 40, 0.5) 40%, 
+                rgba(255, 100, 0, 0.2) 60%,
+                transparent 80%);
+            opacity: 0;
+            animation: finalGlow 3s ease-out 4.5s forwards;
+            z-index: 100;
+        }
+
+        @keyframes finalGlow {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(3);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(5);
+            }
+        }
+
+        .intro-text {
+            position: absolute;
+            bottom: 22%;
+            text-align: center;
+            opacity: 0;
+            animation: textReveal 1.5s ease-out 5.5s forwards;
+            z-index: 200;
+        }
+
+        @keyframes textReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+                filter: blur(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .intro-text .text-creators {
+            font-size: 0.7rem;
+            color: #aaa;
+            letter-spacing: 8px;
+            margin-bottom: 22px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .intro-text .text-studio {
+            font-size: 2.2rem;
+            color: #f0d040;
+            letter-spacing: 10px;
+            text-shadow: 
+                0 0 20px rgba(240, 208, 64, 1),
+                0 0 40px rgba(240, 208, 64, 0.7),
+                0 0 80px rgba(240, 208, 64, 0.4),
+                4px 4px 0 #3a2a0a;
+            animation: studioPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes studioPulse {
+            0%, 100% {
+                text-shadow: 
+                    0 0 20px rgba(240, 208, 64, 1),
+                    0 0 40px rgba(240, 208, 64, 0.7),
+                    0 0 80px rgba(240, 208, 64, 0.4),
+                    4px 4px 0 #3a2a0a;
+            }
+            50% {
+                text-shadow: 
+                    0 0 40px rgba(240, 208, 64, 1),
+                    0 0 80px rgba(240, 208, 64, 1),
+                    0 0 140px rgba(240, 208, 64, 0.7),
+                    4px 4px 0 #3a2a0a;
+            }
+        }
+
+        /* =============================================
+           ОСНОВНОЙ САЙТ
+           ============================================= */
+        .main-site {
+            position: relative;
+            z-index: 10;
+            display: none;
+            min-height: 100vh;
             padding: 20px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-site.active {
+            display: block;
+            animation: siteAppear 1s ease-out;
+        }
+
+        @keyframes siteAppear {
+            0% { opacity: 0; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
-        /* ===== ШАПКА ===== */
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background: rgba(60, 60, 80, 0.5);
-            border: 4px solid #4a4a5a;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+            border-bottom: 4px solid rgba(240, 208, 64, 0.2);
+            background: rgba(0, 0, 10, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
         }
 
         .header .logo {
-            font-size: 1.2rem;
+            font-size: 2rem;
             color: #f0d040;
-            text-shadow: 3px 3px 0 #3a2a0a;
+            text-shadow: 
+                0 0 20px rgba(240, 208, 64, 0.8),
+                4px 4px 0 #3a2a0a;
+            letter-spacing: 6px;
+            animation: logoPulse 3s ease-in-out infinite;
         }
 
-        .header .logo span {
+        @keyframes logoPulse {
+            0%, 100% {
+                text-shadow: 
+                    0 0 20px rgba(240, 208, 64, 0.8),
+                    4px 4px 0 #3a2a0a;
+            }
+            50% {
+                text-shadow: 
+                    0 0 40px rgba(240, 208, 64, 1),
+                    4px 4px 0 #3a2a0a;
+            }
+        }
+
+        .header .subtitle {
             font-size: 0.6rem;
             color: #888;
+            margin-top: 15px;
+            letter-spacing: 3px;
         }
 
-        .header .back-btn {
-            padding: 10px 20px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.6rem;
-            color: #fff;
-            background: #4a4a5a;
-            border: 4px solid #5a5a6a;
-            box-shadow: inset 0 -6px 0 #2a2a3a, 4px 4px 0 rgba(0,0,0,0.4);
-            cursor: pointer;
-            transition: all 0.05s linear;
-            text-transform: uppercase;
-            text-decoration: none;
-        }
-
-        .header .back-btn:hover {
-            background: #5a5a6a;
-            transform: translate(2px, 2px);
-        }
-
-        /* ===== МАКЕТ ===== */
-        .layout {
+        .menu {
             display: flex;
-            gap: 20px;
+            gap: 15px;
+            margin-bottom: 30px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
-        /* ===== БОКОВОЕ МЕНЮ ===== */
-        .side-menu {
-            flex: 0 0 220px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .side-menu .menu-btn {
-            padding: 16px 15px;
+        .menu-btn {
+            padding: 18px 30px;
             font-family: 'Press Start 2P', cursive;
-            font-size: 0.6rem;
+            font-size: 0.7rem;
             color: #fff;
-            background: #3a3a4a;
-            border: 4px solid #4a4a5a;
-            box-shadow: inset 0 -6px 0 #2a2a3a, 4px 4px 0 rgba(0,0,0,0.4);
+            background: rgba(20, 20, 40, 0.6);
+            border: 4px solid rgba(80, 80, 120, 0.5);
+            box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.3), 4px 4px 0 rgba(0,0,0,0.4);
             cursor: pointer;
-            transition: all 0.05s linear;
+            transition: all 0.2s ease;
             text-transform: uppercase;
-            text-align: left;
-        }
-
-        .side-menu .menu-btn:hover {
-            background: #4a4a5a;
-            transform: translate(2px, 2px);
-        }
-
-        .side-menu .menu-btn.active {
-            border-color: #f0d040;
-            background: #4a4a5a;
-            box-shadow: inset 0 -6px 0 #2a2a3a, 0 0 20px rgba(240, 208, 64, 0.2);
-        }
-
-        /* ===== КОНТЕНТ ===== */
-        .content {
             flex: 1;
-            min-width: 300px;
-            background: rgba(60, 60, 80, 0.6);
-            border: 6px solid #4a4a5a;
-            padding: 30px;
-            min-height: 500px;
+            min-width: 150px;
+            backdrop-filter: blur(10px);
+            border-radius: 4px;
+        }
+
+        .menu-btn:hover {
+            background: rgba(40, 40, 70, 0.9);
+            transform: translate(2px, 2px);
+            border-color: #f0d040;
+            box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.3), 0 0 20px rgba(240, 208, 64, 0.4);
+        }
+
+        .menu-btn.active {
+            border-color: #f0d040;
+            background: rgba(40, 40, 70, 0.9);
+            box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.3), 0 0 25px rgba(240, 208, 64, 0.5);
+        }
+
+        .content {
+            background: rgba(10, 10, 25, 0.6);
+            border: 4px solid rgba(240, 208, 64, 0.3);
+            box-shadow: 0 0 40px rgba(240, 208, 64, 0.1), inset 0 0 60px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            min-height: 400px;
+            backdrop-filter: blur(15px);
+            border-radius: 8px;
             animation: fadeIn 0.5s ease-out;
         }
 
@@ -125,670 +535,439 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        .content .page {
-            display: none;
-        }
-
-        .content .page.active {
-            display: block;
-        }
+        .content .page { display: none; }
+        .content .page.active { display: block; }
 
         .content h2 {
             color: #f0d040;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            border-bottom: 4px solid #4a4a5a;
-            padding-bottom: 12px;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            border-bottom: 4px solid rgba(240, 208, 64, 0.2);
+            padding-bottom: 15px;
+            text-shadow: 0 0 15px rgba(240, 208, 64, 0.5);
         }
 
         .content p {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             line-height: 2.5;
             color: #bbb;
         }
 
-        .content .info-block {
-            background: #3a3a4a;
+        .info-block {
+            background: rgba(30, 30, 60, 0.6);
             padding: 20px;
-            border: 4px solid #4a4a5a;
+            border: 4px solid rgba(80, 80, 120, 0.5);
             margin-top: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-radius: 4px;
         }
 
-        .content .info-block .label {
+        .info-block:hover {
+            border-color: #f0d040;
+            box-shadow: 0 0 20px rgba(240, 208, 64, 0.2);
+        }
+
+        .info-block .label {
             color: #888;
             font-size: 0.5rem;
         }
 
-        .content .info-block .value {
+        .info-block .value {
             color: #f0d040;
             font-size: 1rem;
             margin-top: 8px;
+            text-shadow: 0 0 10px rgba(240, 208, 64, 0.5);
         }
 
-        /* ===== СОЦСЕТИ ===== */
-        .social-item {
-            background: #3a3a4a;
-            padding: 20px;
-            border: 4px solid #4a4a5a;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .social-item:hover {
-            border-color: #f0d040;
-            transform: translateX(8px);
-            background: #4a4a5a;
-        }
-
-        .social-item .social-icon {
-            font-size: 2.5rem;
-        }
-
-        .social-item .social-info .social-name {
-            color: #f0d040;
-            font-size: 0.8rem;
-        }
-
-        .social-item .social-info .social-desc {
-            color: #888;
-            font-size: 0.5rem;
-            margin-top: 5px;
-        }
-
-        /* ===== МОДЫ ===== */
-        .mod-item {
-            background: #3a3a4a;
-            padding: 15px 20px;
-            border: 4px solid #4a4a5a;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .mod-item:hover {
-            border-color: #3a8a3a;
-            transform: translateX(5px);
-        }
-
-        .mod-item .mod-icon {
-            font-size: 1.5rem;
-            color: #3a8a3a;
-        }
-
-        .mod-item .mod-text {
-            color: #ddd;
-            font-size: 0.6rem;
-            line-height: 1.8;
-        }
-
-        /* ===== ПРАВИЛА ===== */
-        .rule-item {
-            background: #3a3a4a;
-            padding: 18px 20px;
-            border: 4px solid #4a4a5a;
-            margin-bottom: 12px;
-            display: flex;
-            gap: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .rule-item:hover {
-            border-color: #f0d040;
-            transform: translateX(5px);
-        }
-
-        .rule-item .rule-number {
-            color: #f0d040;
-            font-size: 1rem;
-            min-width: 35px;
-        }
-
-        .rule-item .rule-text {
-            color: #ddd;
-            font-size: 0.6rem;
-            line-height: 2;
-        }
-
-        .warning-box {
-            background: #4a2a2a;
-            padding: 20px;
-            border: 4px solid #8a3a3a;
-            margin-top: 20px;
-        }
-
-        .warning-box .warning-title {
-            color: #f88;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-        }
-
-        .warning-box .warning-text {
-            color: #ddd;
-            font-size: 0.6rem;
-            line-height: 2;
-        }
-
-        /* ===== ИНФОРМАЦИЯ ===== */
-        .update-box {
-            background: #3a3a4a;
-            padding: 20px;
-            border: 4px solid #4a4a5a;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .update-box:hover {
-            transform: translateX(5px);
-        }
-
-        .update-box .update-version {
-            color: #f0d040;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .update-box .update-date {
-            color: #888;
-            font-size: 0.5rem;
-            margin-bottom: 10px;
-        }
-
-        .update-box .update-text {
-            color: #bbb;
-            font-size: 0.6rem;
-            line-height: 2.2;
-        }
-
-        .update-box .update-text ul {
-            list-style: none;
-            padding: 0;
-            margin-top: 10px;
-        }
-
-        .update-box .update-text ul li {
-            padding: 6px 0;
-            color: #ddd;
-        }
-
-        .update-box .update-text ul li::before {
-            content: "▸ ";
-            color: #f0d040;
-        }
-
-        /* ===== РЕСУРС-ПАК ===== */
-        .resource-pack-card {
-            background: #3a3a4a;
+        .build-card {
+            background: rgba(30, 30, 60, 0.6);
             padding: 30px;
-            border: 6px solid #6b4c2a;
-            box-shadow: inset 0 -6px 0 #2a2a2a, 6px 6px 0 rgba(0,0,0,0.5);
+            border: 4px solid rgba(240, 208, 64, 0.3);
+            box-shadow: 0 0 40px rgba(240, 208, 64, 0.1);
             text-align: center;
-            margin-top: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-radius: 8px;
         }
 
-        .resource-pack-card .pack-icon {
+        .build-card:hover {
+            border-color: #f0d040;
+            box-shadow: 0 0 50px rgba(240, 208, 64, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .build-card .build-icon {
             font-size: 4rem;
             display: block;
             margin-bottom: 15px;
+            filter: drop-shadow(0 0 20px rgba(240, 208, 64, 0.6));
         }
 
-        .resource-pack-card .pack-title {
+        .build-card .build-title {
             color: #f0d040;
             font-size: 1.2rem;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(240, 208, 64, 0.5);
         }
 
-        .resource-pack-card .pack-desc {
+        .build-card .build-desc {
             color: #bbb;
             font-size: 0.6rem;
             line-height: 2;
             margin-bottom: 20px;
         }
 
-        .resource-pack-card .pack-info {
-            background: #2a2a3a;
-            padding: 15px;
-            border: 4px solid #4a4a5a;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .resource-pack-card .pack-info .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 2px solid #3a3a4a;
-            font-size: 0.6rem;
-        }
-
-        .resource-pack-card .pack-info .info-row:last-child {
-            border-bottom: none;
-        }
-
-        .resource-pack-card .pack-info .info-row .info-label {
-            color: #888;
-        }
-
-        .resource-pack-card .pack-info .info-row .info-value {
-            color: #f0d040;
-        }
-
-        .resource-pack-card .download-btn {
+        .download-btn {
             display: inline-block;
             padding: 18px 40px;
             font-family: 'Press Start 2P', cursive;
             font-size: 0.8rem;
             color: #fff;
-            background: #3a8a3a;
-            border: 6px solid #2a6a2a;
-            box-shadow: inset 0 -8px 0 #1a4a1a, 6px 6px 0 rgba(0,0,0,0.5);
+            background: linear-gradient(135deg, #3a8a3a, #2a6a2a);
+            border: 4px solid #4a9a4a;
+            box-shadow: inset 0 -6px 0 rgba(0,0,0,0.4), 0 0 30px rgba(58, 138, 58, 0.5);
             cursor: pointer;
             transition: all 0.05s linear;
             text-transform: uppercase;
             text-decoration: none;
+            border-radius: 4px;
         }
 
-        .resource-pack-card .download-btn:hover {
-            background: #4a9a4a;
+        .download-btn:hover {
+            background: linear-gradient(135deg, #4a9a4a, #3a8a3a);
             transform: translate(2px, 2px);
-            box-shadow: inset 0 -6px 0 #1a4a1a, 4px 4px 0 rgba(0,0,0,0.5);
+            box-shadow: inset 0 -6px 0 rgba(0,0,0,0.4), 0 0 50px rgba(58, 138, 58, 0.8);
         }
 
-        .resource-pack-card .download-btn:active {
-            transform: translate(4px, 4px);
-            box-shadow: inset 0 -4px 0 #1a4a1a, 2px 2px 0 rgba(0,0,0,0.5);
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
         }
 
-        .resource-pack-card .download-btn .btn-icon {
-            margin-right: 10px;
+        .social-item {
+            background: rgba(30, 30, 60, 0.6);
+            padding: 25px 20px;
+            border: 4px solid rgba(80, 80, 120, 0.5);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border-radius: 4px;
         }
 
-        .resource-pack-card .pack-note {
-            font-size: 0.5rem;
-            color: #888;
-            margin-top: 15px;
-            line-height: 2;
+        .social-item:hover {
+            border-color: #f0d040;
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(240, 208, 64, 0.3);
         }
 
-        /* ===== ФУТЕР ===== */
+        .social-item .social-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 15px rgba(240, 208, 64, 0.5));
+        }
+
+        .social-item .social-name {
+            color: #f0d040;
+            font-size: 0.7rem;
+            text-shadow: 0 0 10px rgba(240, 208, 64, 0.5);
+        }
+
         .footer {
             text-align: center;
-            padding: 20px;
-            margin-top: 30px;
-            font-size: 0.4rem;
+            padding: 30px 20px;
+            margin-top: 40px;
+            font-size: 0.5rem;
             color: #555;
-            border-top: 2px solid #2a2a3a;
+            border-top: 4px solid rgba(240, 208, 64, 0.2);
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
         }
 
-        /* ===== АДАПТИВ ===== */
+        @media (max-width: 900px) {
+            .solar-system { transform: translate(-50%, -50%) scale(0.7); }
+            @keyframes solarZoom {
+                0% { transform: translate(-50%, -50%) scale(0.7); opacity: 0; }
+                10% { opacity: 1; }
+                85% { transform: translate(-50%, -50%) scale(0.7); opacity: 1; }
+                100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0; }
+            }
+        }
+
         @media (max-width: 700px) {
-            .layout {
-                flex-direction: column;
+            .header .logo { font-size: 1.2rem; letter-spacing: 3px; }
+            .menu-btn { font-size: 0.55rem; padding: 14px 20px; min-width: 100px; }
+            .content { padding: 20px; }
+            .content h2 { font-size: 1rem; }
+            .intro-text .text-studio { font-size: 1.3rem; letter-spacing: 5px; }
+            .intro-text .text-creators { font-size: 0.55rem; letter-spacing: 4px; }
+            .solar-system { transform: translate(-50%, -50%) scale(0.5); }
+            @keyframes solarZoom {
+                0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+                10% { opacity: 1; }
+                85% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+                100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
             }
-            .side-menu {
-                flex: 1;
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-            .side-menu .menu-btn {
-                flex: 1;
-                min-width: 120px;
-                font-size: 0.5rem;
-                text-align: center;
-                padding: 12px 10px;
-            }
-            .header .logo {
-                font-size: 0.9rem;
-            }
-            .content {
-                padding: 20px;
-            }
-            .content h2 {
-                font-size: 0.9rem;
-            }
-            .resource-pack-card {
-                padding: 20px;
-            }
-            .resource-pack-card .download-btn {
-                padding: 14px 25px;
-                font-size: 0.6rem;
+        }
+
+        @media (max-width: 500px) {
+            .solar-system { transform: translate(-50%, -50%) scale(0.35); }
+            @keyframes solarZoom {
+                0% { transform: translate(-50%, -50%) scale(0.35); opacity: 0; }
+                10% { opacity: 1; }
+                85% { transform: translate(-50%, -50%) scale(0.35); opacity: 1; }
+                100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
             }
         }
     </style>
 </head>
 <body>
 
+<div class="space-bg">
+    <div class="stars" id="stars"></div>
+
+    <div class="solar-system" id="solarSystem">
+        <div class="orbit orbit-1"></div>
+        <div class="orbit orbit-2"></div>
+        <div class="orbit orbit-3"></div>
+        <div class="orbit orbit-4"></div>
+        <div class="orbit orbit-5"></div>
+        <div class="orbit orbit-6"></div>
+
+        <div class="sun"></div>
+
+        <div class="planet-wrapper planet-1-wrapper"><div class="planet"></div></div>
+        <div class="planet-wrapper planet-2-wrapper"><div class="planet"></div></div>
+        <div class="planet-wrapper planet-3-wrapper">
+            <div class="planet"><div class="moon"></div></div>
+        </div>
+        <div class="planet-wrapper planet-4-wrapper"><div class="planet"></div></div>
+        <div class="planet-wrapper planet-5-wrapper"><div class="planet"></div></div>
+        <div class="planet-wrapper planet-6-wrapper"><div class="planet"></div></div>
+
+        <div id="systemStars"></div>
+    </div>
+
+    <div id="meteors"></div>
+</div>
+
+<div class="intro-screen" id="introScreen">
+    <div class="final-glow"></div>
+
+    <div class="intro-text">
+        <div class="text-creators">ЭТО СОЗДАТЕЛИ</div>
+        <div class="text-studio">HCM2_STUDIO</div>
+    </div>
+</div>
+
+<div class="main-site" id="mainSite">
+
     <div class="container">
 
-        <!-- ===== ШАПКА ===== -->
         <header class="header">
-            <div class="logo">
-                ⛏️ HeriCraft
-                <span>| Minecraft</span>
-            </div>
-            <a href="index.html" class="back-btn">⬅️ Назад</a>
+            <div class="logo">⛏️ HCM2 STUDIO</div>
+            <div class="subtitle">MINECRAFT SERVER</div>
         </header>
 
-        <!-- ===== МАКЕТ ===== -->
-        <div class="layout">
+        <nav class="menu">
+            <button class="menu-btn active" data-page="main">🏠 Главное</button>
+            <button class="menu-btn" data-page="build">⚡ Сборка</button>
+            <button class="menu-btn" data-page="social">📱 Соцсети</button>
+        </nav>
 
-            <!-- ===== МЕНЮ СЛЕВА ===== -->
-            <nav class="side-menu">
-                <button class="menu-btn active" data-page="main">🏠 Главная</button>
-                <button class="menu-btn" data-page="rules">📋 Правила</button>
-                <button class="menu-btn" data-page="info">📢 Информация</button>
-                <button class="menu-btn" data-page="mods">✅ Разрешённые моды</button>
-                <button class="menu-btn" data-page="resourcepack">📦 Ресурс-пак</button>
-                <button class="menu-btn" data-page="social">📱 Соцсети</button>
-            </nav>
+        <div class="content">
 
-            <!-- ===== КОНТЕНТ СПРАВА ===== -->
-            <div class="content">
-
-                <!-- ГЛАВНАЯ -->
-                <div class="page active" id="page-main">
-                    <h2>🏠 Главная</h2>
-                    <div class="info-block">
-                        <div class="label">⛏️ IP сервера</div>
-                        <div class="value">mc.hericraft.ru</div>
-                    </div>
-                    <div class="info-block">
-                        <div class="label">⚡ Версия</div>
-                        <div class="value">1.21.4</div>
-                    </div>
-                    <p style="margin-top:20px;">
-                        Добро пожаловать на наш сервер! Присоединяйся к нам и становись частью легенды!
-                    </p>
+            <div class="page active" id="page-main">
+                <h2>🏠 Главное</h2>
+                <div class="info-block">
+                    <div class="label">⛏️ IP СЕРВЕРА</div>
+                    <div class="value">mc.hcm2studio.ru</div>
                 </div>
-
-                <!-- ПРАВИЛА -->
-                <div class="page" id="page-rules">
-                    <h2>📋 Правила сервера</h2>
-                    <p>Ознакомься с правилами перед игрой на сервере:</p>
-
-                    <div style="margin-top:20px;">
-                        <div class="rule-item">
-                            <span class="rule-number">1.</span>
-                            <span class="rule-text">Уважай всех игроков и администраторов.</span>
-                        </div>
-                        <div class="rule-item">
-                            <span class="rule-number">2.</span>
-                            <span class="rule-text">Запрещены читы, баги и любые виды гриферства.</span>
-                        </div>
-                        <div class="rule-item">
-                            <span class="rule-number">3.</span>
-                            <span class="rule-text">Не используй нецензурную лексику в чате.</span>
-                        </div>
-                        <div class="rule-item">
-                            <span class="rule-number">4.</span>
-                            <span class="rule-text">Не создавай конфликтных ситуаций между игроками.</span>
-                        </div>
-                        <div class="rule-item">
-                            <span class="rule-number">5.</span>
-                            <span class="rule-text">Соблюдай правила PvP — только по согласию.</span>
-                        </div>
-                        <div class="rule-item">
-                            <span class="rule-number">6.</span>
-                            <span class="rule-text">Не строй постройки рядом с чужими домами без разрешения.</span>
-                        </div>
-                        <div class="rule-item">
-                            <span class="rule-number">7.</span>
-                            <span class="rule-text">Помогай новым игрокам адаптироваться на сервере.</span>
-                        </div>
-                        <div class="rule-item">
-                            <span class="rule-number">8.</span>
-                            <span class="rule-text">На сервере запрещены спам и реклама.</span>
-                        </div>
-                        <div class="rule-item">
-                            <span class="rule-number">9.</span>
-                            <span class="rule-text">Не используй баги сервера — сообщи о них администрации.</span>
-                        </div>
-                        <div class="rule-item">
-                            <span class="rule-number">10.</span>
-                            <span class="rule-text">Приятной игры! ❤️</span>
-                        </div>
-                    </div>
-
-                    <div class="warning-box">
-                        <div class="warning-title">⚠️ Нарушение правил:</div>
-                        <div class="warning-text">
-                            За нарушение правил предусмотрены наказания:
-                            <br>• Предупреждение
-                            <br>• Мут (временный)
-                            <br>• Кик с сервера
-                            <br>• Бан (временный или перманентный)
-                        </div>
-                    </div>
+                <div class="info-block">
+                    <div class="label">⚡ ВЕРСИЯ</div>
+                    <div class="value">1.21.4</div>
                 </div>
-
-                <!-- ИНФОРМАЦИЯ -->
-                <div class="page" id="page-info">
-                    <h2>📢 Информация</h2>
-
-                    <div class="update-box" style="margin-top:20px; border-color:#f0d040;">
-                        <div class="update-version" style="font-size:1rem;">🔥 ТЫ НЕ ГОСПОДЬ БОГ, ТЫ ЗДЕСЬ ЖЕРТВА.</div>
-                        <div class="update-text" style="font-size:0.7rem;">
-                            Приветствую на сервере, где мы наконец-то обновились до <strong style="color:#f0d040;">1.21.4</strong>!!!
-                            <br><br>
-                            У нас <strong>два мира</strong> — выбирай по душе:
-                        </div>
-                    </div>
-
-                    <div class="update-box" style="border-color:#8a3a3a;">
-                        <div class="update-version" style="color:#f88;">▸ АНАРХИЯ — дикий запад без тормозов</div>
-                        <div class="update-text">
-                            Приваты есть, но <strong style="color:#f88;">ТОЛЬКО НА РУДУ</strong>. И да, их можно <strong style="color:#f88;">взрывать TNT</strong>.
-                            <br><br>
-                            Нашёл жилу — приватил, но если кто-то докопался и подложил динамит — твои алмазы уже у него в кармане.
-                            <br><br>
-                            <strong>Кради, разрушай, убивай — здесь всё разрешено.</strong>
-                        </div>
-                    </div>
-
-                    <div class="update-box" style="border-color:#3a6a8a;">
-                        <div class="update-version" style="color:#8cf;">▸ ГРИФЕРСКИЙ — цивилизованный хаос с правилами</div>
-                        <div class="update-text">
-                            Здесь можно <strong style="color:#8cf;">приватить всё</strong>: дом, сундуки, фермы — никто не тронет.
-                            <br><br>
-                            <strong>❌ TNT на приватах НЕ РАБОТАЕТ.</strong>
-                            <br>
-                            <strong>❌ Чужие сундуки открыть нельзя, воровать вещи нельзя.</strong>
-                            <br>
-                            <strong style="color:#8cf;">✅ Но ПвП — можно!</strong>
-                            <br><br>
-                            Дерись с соседями, устраивай засады, проверяй свою броню в деле.
-                            Постройки останутся целыми, а вот твоя голова — нет.
-                        </div>
-                    </div>
-
-                    <div class="update-box">
-                        <div class="update-version">📋 Что у нас по повестке?</div>
-                        <div class="update-text">
-                            <ul>
-                                <li>На <strong>анархии</strong> гриферим всё, что движется (и руду — даже под приватом)</li>
-                                <li>На <strong>гриферском</strong> только ПвП и защищённые постройки — никакого TNT, никаких краж</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="update-box" style="border-color:#6a3a8a;">
-                        <div class="update-version" style="color:#c8f;">🎲 Ставки:</div>
-                        <div class="update-text">
-                            На <strong>анархии</strong> твой дом разнесут за <strong style="color:#f88;">5 минут</strong>.
-                            <br>
-                            На <strong>гриферском</strong> — не разнесут, но <strong style="color:#c8f;">убьют в спину</strong>, пока ты строишь.
-                        </div>
-                    </div>
-
-                    <div class="update-box" style="border-color:#f0d040; text-align:center;">
-                        <div class="update-version" style="font-size:0.9rem;">🔥 ЗАЛЕТАЙ, ЗАБИРАЙ СВОЮ ДОЛЮ ХАОСА! 🔥</div>
-                    </div>
-
-                    <div class="update-box" style="background:#2a2a3a;">
-                        <div class="update-text" style="text-align:center; font-size:0.55rem;">
-                            <strong style="color:#f0d040;">Версия:</strong> 1.21.4
-                            <br><br>
-                            <strong style="color:#f88;">Анархия:</strong> всё можно (приват только на руду + TNT)
-                            <br>
-                            <strong style="color:#8cf;">Гриферский:</strong> приват на всё, TNT не работает, чужое нельзя, ПвП — можно
-                        </div>
-                    </div>
-                </div>
-
-                <!-- РАЗРЕШЁННЫЕ МОДЫ -->
-                <div class="page" id="page-mods">
-                    <h2>✅ Разрешённые моды</h2>
-                    <p>Список модов, разрешённых на сервере:</p>
-
-                    <div style="margin-top:20px;">
-                        <div class="mod-item">
-                            <span class="mod-icon">✅</span>
-                            <span class="mod-text">OptiFine — оптимизация и шейдеры</span>
-                        </div>
-                        <div class="mod-item">
-                            <span class="mod-icon">✅</span>
-                            <span class="mod-text">Sodium — улучшение FPS</span>
-                        </div>
-                        <div class="mod-item">
-                            <span class="mod-icon">✅</span>
-                            <span class="mod-text">Lithium — оптимизация сервера</span>
-                        </div>
-                        <div class="mod-item">
-                            <span class="mod-icon">✅</span>
-                            <span class="mod-text">JourneyMap — миникарта</span>
-                        </div>
-                        <div class="mod-item">
-                            <span class="mod-icon">✅</span>
-                            <span class="mod-text">JEI — просмотр рецептов</span>
-                        </div>
-                    </div>
-
-                    <p style="margin-top:15px;font-size:0.5rem;color:#888;">
-                        ✏️ Список можно изменить в коде (блоки mod-item)
-                    </p>
-                </div>
-
-                <!-- РЕСУРС-ПАК -->
-                <div class="page" id="page-resourcepack">
-                    <h2>📦 Ресурс-пак сервера</h2>
-                    <p>Скачай наш официальный ресурс-пак для полного погружения в игру!</p>
-
-                    <div class="resource-pack-card">
-                        <span class="pack-icon">🎨</span>
-                        <div class="pack-title">HeriCraft Server Pack</div>
-                        <div class="pack-desc">
-                            Официальный ресурс-пак нашего сервера.
-                            Уникальные текстуры, кастомные звуки и интерфейс в стиле HeriCraft.
-                        </div>
-
-                        <div class="pack-info">
-                            <div class="info-row">
-                                <span class="info-label">📌 Версия</span>
-                                <span class="info-value">1.0.0</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">🎮 Совместимость</span>
-                                <span class="info-value">1.21.4</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">📦 Формат</span>
-                                <span class="info-value">ZIP-архив</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">💾 Размер</span>
-                                <span class="info-value">~50 МБ</span>
-                            </div>
-                        </div>
-
-                        <!-- КНОПКА СКАЧИВАНИЯ С ТВОЕЙ ССЫЛКОЙ -->
-                        <a href="https://github.com/setertop92222-beep/setertop92222-beep.github.io/raw/refs/heads/main/Server-pack-HeriCraft.zip" 
-                           class="download-btn" 
-                           download>
-                            <span class="btn-icon">⬇</span> Скачать ресурс-пак
-                        </a>
-
-                        <div class="pack-note">
-                            * После скачивания переместите ZIP-архив в папку <strong>resourcepacks</strong><br>
-                            и активируйте его в настройках игры.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- СОЦСЕТИ -->
-                <div class="page" id="page-social">
-                    <h2>📱 Соцсети</h2>
-                    <p>Подписывайся и будь в курсе всех событий:</p>
-
-                    <div style="margin-top:20px;">
-                        <div class="social-item" onclick="window.open('https://www.youtube.com/@hericraft', '_blank')">
-                            <span class="social-icon">▶️</span>
-                            <div class="social-info">
-                                <div class="social-name">YouTube</div>
-                                <div class="social-desc">Смотри видео о сервере</div>
-                            </div>
-                        </div>
-
-                        <div class="social-item" onclick="window.open('https://www.tiktok.com/@hericraft_minecraft', '_blank')">
-                            <span class="social-icon">📹</span>
-                            <div class="social-info">
-                                <div class="social-name">TikTok</div>
-                                <div class="social-desc">Короткие видео и приколы</div>
-                            </div>
-                        </div>
-
-                        <div class="social-item" onclick="window.open('https://t.me/HeriCraft_groups', '_blank')">
-                            <span class="social-icon">💬</span>
-                            <div class="social-info">
-                                <div class="social-name">Telegram</div>
-                                <div class="social-desc">Новости и общение</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <p style="margin-top:25px;">
+                    Добро пожаловать на сервер от HCM2_STUDIO! 
+                    Присоединяйся к нашему сообществу и стань частью легенды!
+                </p>
             </div>
+
+            <div class="page" id="page-build">
+                <h2>⚡ Сборка сервера</h2>
+                <p>Скачай нашу официальную сборку для комфортной игры!</p>
+
+                <div class="build-card" style="margin-top:25px;">
+                    <span class="build-icon">🎮</span>
+                    <div class="build-title">HCM2 Studio Pack</div>
+                    <div class="build-desc">
+                        Официальная сборка сервера с модами, оптимизацией и уникальными текстурами.
+                    </div>
+                    <a href="#" class="download-btn" download>⬇ Скачать сборку</a>
+                </div>
+            </div>
+
+            <div class="page" id="page-social">
+                <h2>📱 Соцсети</h2>
+                <p>Подписывайся и будь в курсе всех событий:</p>
+
+                <div class="social-grid">
+                    <div class="social-item" onclick="window.open('https://www.youtube.com/', '_blank')">
+                        <span class="social-icon">▶️</span>
+                        <div class="social-name">YOUTUBE</div>
+                    </div>
+                    <div class="social-item" onclick="window.open('https://www.tiktok.com/', '_blank')">
+                        <span class="social-icon">📹</span>
+                        <div class="social-name">TIKTOK</div>
+                    </div>
+                    <div class="social-item" onclick="window.open('https://t.me/', '_blank')">
+                        <span class="social-icon">💬</span>
+                        <div class="social-name">TELEGRAM</div>
+                    </div>
+                    <div class="social-item" onclick="window.open('https://discord.gg/', '_blank')">
+                        <span class="social-icon">🎮</span>
+                        <div class="social-name">DISCORD</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="footer">
-            © 2026 HeriCraft — Minecraft раздел
+            © 2026 HCM2_STUDIO — MINECRAFT SERVER
         </div>
 
     </div>
 
-    <script>
-        // ===== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
-        const menuBtns = document.querySelectorAll('.menu-btn');
-        const pages = {
-            main: document.getElementById('page-main'),
-            rules: document.getElementById('page-rules'),
-            info: document.getElementById('page-info'),
-            mods: document.getElementById('page-mods'),
-            resourcepack: document.getElementById('page-resourcepack'),
-            social: document.getElementById('page-social')
-        };
+</div>
 
-        menuBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                menuBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+<script>
+    // =============================================
+    // 1. ЗВЁЗДЫ НА ФОНЕ
+    // =============================================
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 250; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2 + 0.5;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        starsContainer.appendChild(star);
+    }
 
-                Object.values(pages).forEach(page => page.classList.remove('active'));
+    // =============================================
+    // 2. ЗВЁЗДОЧКИ ВНУТРИ СОЛНЕЧНОЙ СИСТЕМЫ
+    // =============================================
+    const systemStarsContainer = document.getElementById('systemStars');
+    for (let i = 0; i < 40; i++) {
+        const star = document.createElement('div');
+        star.className = 'system-star';
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        const angle = Math.random() * Math.PI * 2;
+        const radius = Math.random() * 450 + 50;
+        const x = 500 + Math.cos(angle) * radius;
+        const y = 500 + Math.sin(angle) * radius;
+        star.style.left = x + 'px';
+        star.style.top = y + 'px';
+        star.style.animationDelay = Math.random() * 2 + 's';
+        star.style.animationDuration = (Math.random() * 1.5 + 1.5) + 's';
+        systemStarsContainer.appendChild(star);
+    }
 
-                const pageId = this.dataset.page;
-                if (pages[pageId]) {
-                    pages[pageId].classList.add('active');
-                }
-            });
+    // =============================================
+    // 3. ПЛАНЕТЫ (анимация по орбитам)
+    // =============================================
+    const orbitRadii = [65, 105, 155, 215, 285, 365];
+    const orbitDurations = [12, 18, 26, 36, 50, 70];
+
+    const style = document.createElement('style');
+    let planetCSS = '';
+    orbitRadii.forEach((radius, i) => {
+        planetCSS += `
+            .planet-${i + 1}-wrapper {
+                animation: orbitRotate${i + 1} ${orbitDurations[i]}s linear infinite;
+            }
+            @keyframes orbitRotate${i + 1} {
+                0% { transform: rotate(0deg) translateX(${radius}px) rotate(0deg); }
+                100% { transform: rotate(360deg) translateX(${radius}px) rotate(-360deg); }
+            }
+        `;
+    });
+    style.textContent = planetCSS;
+    document.head.appendChild(style);
+
+    // =============================================
+    // 4. МЕТЕОРИТЫ
+    // =============================================
+    const meteorsContainer = document.getElementById('meteors');
+
+    function createMeteor() {
+        const meteor = document.createElement('div');
+        meteor.className = 'meteor';
+        const startX = Math.random() * 60 + 40;
+        meteor.style.left = startX + '%';
+        meteor.style.top = '-50px';
+        const duration = Math.random() * 1.5 + 2;
+        meteor.style.animation = `meteorFall ${duration}s linear forwards`;
+        const size = Math.random() * 4 + 5;
+        meteor.style.width = size + 'px';
+        meteor.style.height = size + 'px';
+        meteorsContainer.appendChild(meteor);
+        setTimeout(() => meteor.remove(), duration * 1000);
+    }
+
+    setInterval(() => {
+        if (Math.random() > 0.5) createMeteor();
+    }, 1200);
+
+    setTimeout(createMeteor, 300);
+    setTimeout(createMeteor, 1000);
+    setTimeout(createMeteor, 2000);
+
+    // =============================================
+    // 5. ПЕРЕХОД ОТ ИНТРО К САЙТУ
+    // =============================================
+    const introScreen = document.getElementById('introScreen');
+    const mainSite = document.getElementById('mainSite');
+
+    setTimeout(() => {
+        introScreen.classList.add('hidden');
+        mainSite.classList.add('active');
+    }, 7500);
+
+    // =============================================
+    // 6. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+    // =============================================
+    const menuBtns = document.querySelectorAll('.menu-btn');
+    const pages = {
+        main: document.getElementById('page-main'),
+        build: document.getElementById('page-build'),
+        social: document.getElementById('page-social')
+    };
+
+    menuBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            menuBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            Object.values(pages).forEach(page => page.classList.remove('active'));
+            const pageId = this.dataset.page;
+            if (pages[pageId]) pages[pageId].classList.add('active');
         });
+    });
 
-        console.log('⛏️ HeriCraft - Minecraft раздел загружен!');
-        console.log('📌 Вкладки: Главная, Правила, Информация, Разрешённые моды, Ресурс-пак, Соцсети');
-    </script>
+    console.log('🌌 HCM2_STUDIO загружен!');
+</script>
 
 </body>
 </html>
